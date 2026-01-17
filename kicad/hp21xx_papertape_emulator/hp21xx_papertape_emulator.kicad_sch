@@ -5964,6 +5964,12 @@
 		(uuid "7e5d5e3e-de81-433c-8db8-36851d4e5288")
 	)
 	(junction
+		(at 175.895 97.155)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "96d978cc-549f-4eaf-bce7-d7f31a325225")
+	)
+	(junction
 		(at 25.4 48.26)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6698,6 +6704,16 @@
 			(type default)
 		)
 		(uuid "30381667-3389-491b-bf38-fed3f8ffa993")
+	)
+	(wire
+		(pts
+			(xy 175.895 97.155) (xy 160.655 97.155)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "31667e10-e245-46b8-bf4f-bdd87a4b138d")
 	)
 	(wire
 		(pts
@@ -8171,6 +8187,16 @@
 	)
 	(wire
 		(pts
+			(xy 175.895 97.155) (xy 175.895 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "be264f6b-12b6-4e16-9962-6ab36db9a7e4")
+	)
+	(wire
+		(pts
 			(xy 110.49 53.34) (xy 138.43 53.34)
 		)
 		(stroke
@@ -8201,7 +8227,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.895 96.52) (xy 175.895 97.79)
+			(xy 175.895 96.52) (xy 175.895 97.155)
 		)
 		(stroke
 			(width 0)
@@ -8798,6 +8824,16 @@
 			(type default)
 		)
 		(uuid "f5381f46-cedb-4864-bf3f-687ad13bf5f2")
+	)
+	(wire
+		(pts
+			(xy 160.655 97.155) (xy 160.655 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f548e9e6-defa-4e78-8c5b-716da8503d5f")
 	)
 	(wire
 		(pts
@@ -9730,6 +9766,112 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C_Small")
+		(at 160.655 100.33 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "04457b03-1302-4847-a6d2-e805588e0835")
+		(property "Reference" "C11"
+			(at 163.195 99.0662 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 163.195 101.6062 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 160.655 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 160.655 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 160.655 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C1525"
+			(at 160.655 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 160.655 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 160.655 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 160.655 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "6ce5bd33-8907-4ee2-a3c5-856ef021e124")
+		)
+		(pin "1"
+			(uuid "c89b39c4-c960-4a32-ac53-abf301b5fe88")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "C11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 15.24 45.72 0)
 		(unit 1)
@@ -10090,7 +10232,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "820"
+		(property "Value" "1k"
 			(at 250.825 33.02 0)
 			(effects
 				(font
@@ -10126,7 +10268,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C3015788"
+		(property "LCSC" "C11702"
 			(at 249.555 31.75 0)
 			(effects
 				(font
@@ -10433,7 +10575,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "820"
+		(property "Value" "1k"
 			(at 238.125 33.02 0)
 			(effects
 				(font
@@ -10469,7 +10611,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C3015788"
+		(property "LCSC" "C11702"
 			(at 236.855 31.75 0)
 			(effects
 				(font
@@ -10836,7 +10978,7 @@
 		(at 143.51 53.34 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -11293,7 +11435,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "820"
+		(property "Value" "1k"
 			(at 263.525 33.02 0)
 			(effects
 				(font
@@ -11329,7 +11471,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C3015788"
+		(property "LCSC" "C11702"
 			(at 262.255 31.75 0)
 			(effects
 				(font
@@ -12369,6 +12511,71 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 160.655 102.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "32c74ba0-c885-4fd6-bfa3-775bb3742ff7")
+		(property "Reference" "#PWR068"
+			(at 160.655 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 164.465 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 160.655 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 160.655 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 160.655 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4802cee9-4efc-41ef-b787-ddddea500b0e")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "#PWR068")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 20.955 157.48 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -12713,7 +12920,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "820"
+		(property "Value" "1k"
 			(at 224.79 33.02 0)
 			(effects
 				(font
@@ -12749,7 +12956,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C3015788"
+		(property "LCSC" "C11702"
 			(at 223.52 31.75 0)
 			(effects
 				(font
@@ -13253,7 +13460,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "820"
+		(property "Value" "1k"
 			(at 269.875 33.02 0)
 			(effects
 				(font
@@ -13289,7 +13496,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C3015788"
+		(property "LCSC" "C11702"
 			(at 268.605 31.75 0)
 			(effects
 				(font
@@ -13792,11 +13999,11 @@
 		(at 28.575 72.39 270)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "516b7460-a431-4bb7-a937-90aec94d161e")
-		(property "Reference" "Brd1"
+		(property "Reference" "OLED1"
 			(at 20.955 73.6601 90)
 			(effects
 				(font
@@ -13883,7 +14090,7 @@
 		(instances
 			(project ""
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "Brd1")
+					(reference "OLED1")
 					(unit 1)
 				)
 			)
@@ -15477,7 +15684,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "820"
+		(property "Value" "1k"
 			(at 257.175 33.02 0)
 			(effects
 				(font
@@ -15513,7 +15720,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C3015788"
+		(property "LCSC" "C11702"
 			(at 255.905 31.75 0)
 			(effects
 				(font
@@ -15569,7 +15776,7 @@
 		(at 132.715 63.5 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -16485,7 +16692,7 @@
 		(at 60.96 62.865 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "8adfc3b7-d676-4cc5-9b79-5aa3d5c8da64")
@@ -17755,7 +17962,7 @@
 		(at 59.055 147.32 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "a6dfb3d0-aed7-4d87-b59c-f73419a9fcb9")
@@ -18367,6 +18574,15 @@
 			)
 		)
 		(property "Sim.Type" ""
+			(at 207.645 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C114218 "
 			(at 207.645 143.51 0)
 			(effects
 				(font
@@ -19150,7 +19366,7 @@
 		(at 60.96 58.42 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "c50c181f-0583-4bf3-9e10-8a1d90ebc45b")
@@ -19945,7 +20161,7 @@
 		(at 54.61 83.82 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "d7bb227d-829c-4fc4-82a0-d8d8e6d927a2")
@@ -20052,7 +20268,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "820"
+		(property "Value" "1k"
 			(at 231.775 33.02 0)
 			(effects
 				(font
@@ -20088,7 +20304,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C3015788"
+		(property "LCSC" "C11702"
 			(at 230.505 31.75 0)
 			(effects
 				(font
@@ -20157,7 +20373,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "820"
+		(property "Value" "1k"
 			(at 217.805 33.02 0)
 			(effects
 				(font
@@ -20193,7 +20409,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C3015788"
+		(property "LCSC" "C11702"
 			(at 216.535 31.75 0)
 			(effects
 				(font
@@ -20262,7 +20478,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "820"
+		(property "Value" "1k"
 			(at 244.475 33.02 0)
 			(effects
 				(font
@@ -20298,7 +20514,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C3015788"
+		(property "LCSC" "C11702"
 			(at 243.205 31.75 0)
 			(effects
 				(font
@@ -22027,7 +22243,7 @@
 		(at 44.45 57.15 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "fa7f90a6-887c-4a76-8eff-a8f6bab71b74")
@@ -22541,7 +22757,7 @@
 		(at 224.79 71.755 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "fe6ea8fa-ab67-4b3d-9e1a-44228f782544")
