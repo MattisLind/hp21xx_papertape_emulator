@@ -179,6 +179,179 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "74xGxx:74LVC1G125"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -10.16 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "74LVC1G125"
+				(at 2.54 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74lvc1g125.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Single Buffer Gate Tri-State, Low-Voltage CMOS"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Single Gate Buff Tri-State LVC CMOS"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "SOT?23* Texas?R-PDSO-G5?DCK* Texas?R-PDSO-N5?DRL* Texas?X2SON*0.8x0.8mm*P0.48mm*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "74LVC1G125_0_1"
+				(polyline
+					(pts
+						(xy -7.62 6.35) (xy -7.62 -6.35) (xy 5.08 0) (xy -7.62 6.35)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "74LVC1G125_1_1"
+				(pin input line
+					(at -15.24 0 0)
+					(length 7.62)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -5.08 10.16 270)
+					(length 5.08)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -5.08 -10.16 90)
+					(length 5.08)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input inverted
+					(at 0 10.16 270)
+					(length 7.62)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin tri_state line
+					(at 12.7 0 180)
+					(length 7.62)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "74xGxx:74LVC1GU04"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -5964,6 +6137,12 @@
 		(uuid "7e5d5e3e-de81-433c-8db8-36851d4e5288")
 	)
 	(junction
+		(at 159.385 86.995)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "89c8e97d-e980-4389-9c4a-9643aa4e388f")
+	)
+	(junction
 		(at 175.895 97.155)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6029,6 +6208,12 @@
 		(color 0 0 0 0)
 		(uuid "edb3f46c-61d0-4a64-97a8-bc698b92ef91")
 	)
+	(junction
+		(at 201.93 74.295)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f1d313af-8b52-482c-97c3-612aace70dbf")
+	)
 	(no_connect
 		(at 153.035 168.275)
 		(uuid "38b83d09-bf40-41b5-bf4f-75d231ca66f1")
@@ -6036,10 +6221,6 @@
 	(no_connect
 		(at 230.505 156.21)
 		(uuid "5b3ad168-626e-4daf-82ef-754bf54be4b2")
-	)
-	(no_connect
-		(at 74.93 50.8)
-		(uuid "651907f5-cf16-4de4-97de-4197fc19e8af")
 	)
 	(no_connect
 		(at 74.93 53.34)
@@ -6167,6 +6348,16 @@
 	)
 	(wire
 		(pts
+			(xy 182.245 17.145) (xy 182.245 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "088fbf7f-42d0-459f-b6e0-eaf000773f0c")
+	)
+	(wire
+		(pts
 			(xy 95.25 19.05) (xy 97.79 19.05)
 		)
 		(stroke
@@ -6234,6 +6425,16 @@
 			(type default)
 		)
 		(uuid "1150cd3a-08d4-4339-9fe4-5b54400f9f4a")
+	)
+	(wire
+		(pts
+			(xy 201.93 74.295) (xy 219.71 74.295)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "115eae5b-8b22-4106-840e-a80765af25be")
 	)
 	(wire
 		(pts
@@ -6514,6 +6715,16 @@
 			(type default)
 		)
 		(uuid "2405225b-c4eb-471b-a9fc-4d340511f7dc")
+	)
+	(wire
+		(pts
+			(xy 158.115 31.75) (xy 167.005 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "243b0421-d5f9-4d4d-9560-e683f8c989e1")
 	)
 	(wire
 		(pts
@@ -7197,7 +7408,7 @@
 	)
 	(wire
 		(pts
-			(xy 200.025 74.295) (xy 219.71 74.295)
+			(xy 200.025 74.295) (xy 201.93 74.295)
 		)
 		(stroke
 			(width 0)
@@ -7294,6 +7505,16 @@
 			(type default)
 		)
 		(uuid "69001582-85ed-4c3b-a6e8-dd1c1c7a4ee5")
+	)
+	(wire
+		(pts
+			(xy 65.405 50.8) (xy 74.93 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6971fe0e-9f34-45d4-9379-a81e0862ac6a")
 	)
 	(wire
 		(pts
@@ -7667,6 +7888,16 @@
 	)
 	(wire
 		(pts
+			(xy 159.385 86.995) (xy 156.21 86.995)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "880bf0a9-b481-4987-9c1d-430eb06f1809")
+	)
+	(wire
+		(pts
 			(xy 202.565 107.95) (xy 202.565 81.915)
 		)
 		(stroke
@@ -7967,6 +8198,16 @@
 	)
 	(wire
 		(pts
+			(xy 201.93 74.295) (xy 201.93 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a5f81ba6-26e6-4b24-90d5-9a110a91d38c")
+	)
+	(wire
+		(pts
 			(xy 128.27 19.05) (xy 116.84 19.05)
 		)
 		(stroke
@@ -8074,6 +8315,16 @@
 			(type default)
 		)
 		(uuid "b749ce22-32a0-4d56-a391-1488332209f6")
+	)
+	(wire
+		(pts
+			(xy 201.93 31.75) (xy 194.945 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b790ebd7-e285-4fcf-b0f0-a5032888ef83")
 	)
 	(wire
 		(pts
@@ -9015,6 +9266,16 @@
 		)
 		(uuid "22212a55-81b9-47ca-b3bf-ae6a91d50945")
 	)
+	(label "PAPEROUT"
+		(at 65.405 50.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2330f99a-5370-445a-8eb4-ae0a971d4e8b")
+	)
 	(label "RDREN"
 		(at 167.64 86.995 0)
 		(effects
@@ -9024,6 +9285,16 @@
 			(justify left bottom)
 		)
 		(uuid "233f2444-0e35-48cf-82a4-a97c097c7b1b")
+	)
+	(label "PUNEN"
+		(at 182.245 18.415 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2799044c-8d33-4e78-bf53-e825eca9004d")
 	)
 	(label "D2"
 		(at 279.4 66.675 0)
@@ -9174,6 +9445,16 @@
 			(justify left bottom)
 		)
 		(uuid "657b2e47-a2bf-45af-9dea-f1e242ee2256")
+	)
+	(label "PAPEROUT"
+		(at 158.75 31.75 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6ac0cea3-3ce2-4e43-adab-55db5b2d1819")
 	)
 	(label "D0"
 		(at 170.815 61.595 0)
@@ -9932,6 +10213,72 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "#PWR01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 177.165 21.59 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "047bed15-8583-4378-a4f7-4fd40e854eb6")
+		(property "Reference" "#PWR070"
+			(at 177.165 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 177.165 16.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 177.165 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 177.165 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 177.165 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2c9ecb88-28e6-43f0-8ea2-c309e7a26172")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "#PWR070")
 					(unit 1)
 				)
 			)
@@ -12897,6 +13244,92 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "74xGxx:74LVC1G125")
+		(at 182.245 31.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "38b513bf-f5d6-4430-9114-6f19992806b2")
+		(property "Reference" "U8"
+			(at 194.31 25.3298 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "74AHCT1G125"
+			(at 194.31 27.8698 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
+			(at 182.245 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/cn/lit/ds/symlink/sn74ahct1g125.pdf?ts=1768785721156&ref_url=https%253A%252F%252Fso.szlcsc.com%252F"
+			(at 182.245 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single Buffer Gate Tri-State, Low-Voltage CMOS"
+			(at 182.245 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C7484"
+			(at 182.245 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "18abafd4-e3ee-4ab0-930b-939bbe8c8db4")
+		)
+		(pin "4"
+			(uuid "f45edd5a-395c-41ed-84cd-597b44df0d7f")
+		)
+		(pin "2"
+			(uuid "877584c3-a5c9-48f1-b821-2f25c69a6a65")
+		)
+		(pin "5"
+			(uuid "c9ed6105-0532-4854-a55a-363065abdb19")
+		)
+		(pin "3"
+			(uuid "37218c25-3b78-46f0-8341-51b4084c500d")
+		)
+		(instances
+			(project ""
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "U8")
 					(unit 1)
 				)
 			)
@@ -17788,6 +18221,71 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 177.165 41.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a25d9207-4d48-469a-b15e-da99914ea051")
+		(property "Reference" "#PWR069"
+			(at 177.165 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 180.975 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 177.165 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 177.165 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 177.165 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e30921c5-28e5-4af9-ace3-3108e8cb9bfe")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "#PWR069")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 184.785 158.75 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -18080,7 +18578,7 @@
 				)
 			)
 		)
-		(property "Value" "74AHC1GU04"
+		(property "Value" "74AHCT1G04SE-7"
 			(at 193.675 104.0698 0)
 			(effects
 				(font
@@ -18097,7 +18595,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT1G00_Q100.pdf"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8588936485047713792"
 			(at 180.975 107.95 0)
 			(effects
 				(font
@@ -18115,7 +18613,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C460485"
+		(property "LCSC" "C460498"
 			(at 180.975 107.95 0)
 			(effects
 				(font
