@@ -2801,176 +2801,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Device:D_Small"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "D"
-				(at -1.27 2.032 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "D_Small"
-				(at -3.81 -2.032 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Diode, small symbol"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Sim.Device" "D"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Sim.Pins" "1=K 2=A"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "diode"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "D_Small_0_1"
-				(polyline
-					(pts
-						(xy -0.762 0) (xy 0.762 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.762 -1.016) (xy -0.762 1.016)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 -1.016) (xy -0.762 0) (xy 0.762 1.016) (xy 0.762 -1.016)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "D_Small_1_1"
-				(pin passive line
-					(at -2.54 0 0)
-					(length 1.778)
-					(name "K"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 0 180)
-					(length 1.778)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Device:LED_Small_Filled"
 			(pin_numbers
 				(hide yes)
@@ -7726,12 +7556,6 @@
 		(uuid "0254ce9a-4576-4093-88b4-d4e940587735")
 	)
 	(junction
-		(at 337.82 37.465)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "03570ac3-25d4-4597-b6ce-599794b38541")
-	)
-	(junction
 		(at 25.4 38.1)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7760,12 +7584,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "14893fab-36be-41af-b305-af11a0f04db3")
-	)
-	(junction
-		(at 382.27 75.565)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "162fd7ed-a74a-43da-801d-518a22bd82bf")
 	)
 	(junction
 		(at 372.745 119.38)
@@ -7820,12 +7638,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2c085628-9483-4684-a45b-4a6efd07566d")
-	)
-	(junction
-		(at 303.53 37.465)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "32fae3bb-8019-4460-bcdb-ec5a4f470494")
 	)
 	(junction
 		(at 273.05 186.69)
@@ -8032,12 +7844,6 @@
 		(uuid "a1ee3502-a0b1-492d-b2f1-5e6fe1d977cc")
 	)
 	(junction
-		(at 374.65 38.1)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a4f74bfa-e792-4389-99fd-d46980809d0a")
-	)
-	(junction
 		(at 21.59 99.06)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -8098,18 +7904,6 @@
 		(uuid "c169e9fb-84a0-44ac-b733-5b0e992939eb")
 	)
 	(junction
-		(at 383.54 143.51)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c7f1a4aa-9d1a-4fe5-8b50-953c54977c2e")
-	)
-	(junction
-		(at 344.17 73.025)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d145670d-bef8-4a86-a41c-47e69e2db764")
-	)
-	(junction
 		(at 70.485 131.445)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -8120,12 +7914,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d478b303-99a7-4ba8-a4fb-b4238e7a910f")
-	)
-	(junction
-		(at 306.07 72.39)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d7b54097-0348-4112-bf7e-5daca96b5652")
 	)
 	(junction
 		(at 337.82 34.925)
@@ -8174,12 +7962,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "edb3f46c-61d0-4a64-97a8-bc698b92ef91")
-	)
-	(junction
-		(at 304.8 130.81)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f0bd088c-f0e3-4bc6-8714-a156f53a5959")
 	)
 	(junction
 		(at 328.295 99.695)
@@ -8244,16 +8026,6 @@
 	(no_connect
 		(at 292.1 264.795)
 		(uuid "fc076876-a114-4818-b7bd-183e97e89289")
-	)
-	(wire
-		(pts
-			(xy 379.73 78.74) (xy 379.73 75.565)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "00a18fb7-3e0a-4886-b6e0-17cda812bb1c")
 	)
 	(wire
 		(pts
@@ -8697,16 +8469,6 @@
 	)
 	(wire
 		(pts
-			(xy 298.45 40.64) (xy 300.355 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1af6fecc-d8ff-4311-aeb6-0282798e8749")
-	)
-	(wire
-		(pts
 			(xy 295.91 69.85) (xy 300.355 69.85)
 		)
 		(stroke
@@ -8837,16 +8599,6 @@
 	)
 	(wire
 		(pts
-			(xy 298.45 133.985) (xy 300.355 133.985)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2059b43a-843a-41da-b962-45b81a1a5cde")
-	)
-	(wire
-		(pts
 			(xy 110.49 60.96) (xy 117.475 60.96)
 		)
 		(stroke
@@ -8957,16 +8709,6 @@
 	)
 	(wire
 		(pts
-			(xy 383.54 140.97) (xy 383.54 143.51)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "24f9c166-5db5-4fe8-952b-be07a40fd3c3")
-	)
-	(wire
-		(pts
 			(xy 343.535 55.245) (xy 343.535 58.42)
 		)
 		(stroke
@@ -9004,16 +8746,6 @@
 			(type default)
 		)
 		(uuid "27cc01a3-3ecd-4f96-874b-7687aaa91ec3")
-	)
-	(wire
-		(pts
-			(xy 306.07 72.39) (xy 306.07 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "27eeda50-8479-400c-a72a-74f8ce025274")
 	)
 	(wire
 		(pts
@@ -9077,16 +8809,6 @@
 	)
 	(wire
 		(pts
-			(xy 334.645 40.64) (xy 335.915 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2a00d6d4-bdd1-4e15-ab6b-51c9d096afa7")
-	)
-	(wire
-		(pts
 			(xy 31.75 44.45) (xy 40.64 44.45)
 		)
 		(stroke
@@ -9104,16 +8826,6 @@
 			(type default)
 		)
 		(uuid "2ad40431-afcb-4398-89bc-dce8ea6897d6")
-	)
-	(wire
-		(pts
-			(xy 381 143.51) (xy 383.54 143.51)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2ae6eb9d-6ac6-4443-b06a-56c062937179")
 	)
 	(wire
 		(pts
@@ -9497,16 +9209,6 @@
 	)
 	(wire
 		(pts
-			(xy 372.11 38.1) (xy 374.65 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3e16bc57-e04d-478e-9a14-b94307d09b3f")
-	)
-	(wire
-		(pts
 			(xy 36.83 35.56) (xy 74.93 35.56)
 		)
 		(stroke
@@ -9657,16 +9359,6 @@
 	)
 	(wire
 		(pts
-			(xy 284.48 40.64) (xy 293.37 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4539576f-c403-4534-845e-d30c1cb6a65f")
-	)
-	(wire
-		(pts
 			(xy 364.49 35.56) (xy 368.935 35.56)
 		)
 		(stroke
@@ -9707,16 +9399,6 @@
 	)
 	(wire
 		(pts
-			(xy 370.84 41.275) (xy 372.11 41.275)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4857fd43-152b-4c32-b4e2-9854a377999e")
-	)
-	(wire
-		(pts
 			(xy 95.25 249.555) (xy 95.25 248.285)
 		)
 		(stroke
@@ -9747,7 +9429,7 @@
 	)
 	(wire
 		(pts
-			(xy 304.8 130.81) (xy 304.8 132.715)
+			(xy 304.8 128.905) (xy 304.8 132.715)
 		)
 		(stroke
 			(width 0)
@@ -9784,26 +9466,6 @@
 			(type default)
 		)
 		(uuid "4c474dd3-cdf1-4fb4-ac4c-521f94ded9b8")
-	)
-	(wire
-		(pts
-			(xy 379.73 75.565) (xy 382.27 75.565)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4c531907-654e-40b8-8082-68742d3da461")
-	)
-	(wire
-		(pts
-			(xy 300.355 133.985) (xy 300.355 130.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4cbe0b7b-262c-42c8-8cbe-9117ab211080")
 	)
 	(wire
 		(pts
@@ -9844,16 +9506,6 @@
 			(type default)
 		)
 		(uuid "4d707273-d499-4ca2-aeba-665531739d25")
-	)
-	(wire
-		(pts
-			(xy 300.355 37.465) (xy 303.53 37.465)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4d889d0c-457a-4947-91ed-fbea5a5f5001")
 	)
 	(wire
 		(pts
@@ -9947,16 +9599,6 @@
 	)
 	(wire
 		(pts
-			(xy 303.53 37.465) (xy 303.53 38.735)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "552fa8b2-8c98-4626-b004-cb4621239359")
-	)
-	(wire
-		(pts
 			(xy 249.555 17.78) (xy 249.555 19.685)
 		)
 		(stroke
@@ -10014,16 +9656,6 @@
 			(type default)
 		)
 		(uuid "57f22ee2-54b3-45f0-8364-90f480811eec")
-	)
-	(wire
-		(pts
-			(xy 304.8 128.905) (xy 304.8 130.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "58b1b93e-a12d-4eaf-90c8-4ffa82c65e54")
 	)
 	(wire
 		(pts
@@ -10107,7 +9739,7 @@
 	)
 	(wire
 		(pts
-			(xy 337.82 34.925) (xy 337.82 37.465)
+			(xy 337.82 34.925) (xy 337.82 38.735)
 		)
 		(stroke
 			(width 0)
@@ -10154,16 +9786,6 @@
 			(type default)
 		)
 		(uuid "5e7d2f7d-9927-4b7b-81a3-4fb2c5c6d637")
-	)
-	(wire
-		(pts
-			(xy 381 146.685) (xy 381 143.51)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5e847fb8-7175-4b11-9609-c1a806eccf69")
 	)
 	(wire
 		(pts
@@ -10264,26 +9886,6 @@
 			(type default)
 		)
 		(uuid "626b04dc-c412-444a-9520-c066d63ba175")
-	)
-	(wire
-		(pts
-			(xy 365.125 146.685) (xy 374.015 146.685)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "627744d8-5a5a-4658-9c0e-e7fe1b3c8c68")
-	)
-	(wire
-		(pts
-			(xy 325.12 76.2) (xy 334.01 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "62d39730-bbcc-410c-b89d-ad7e023e3ebf")
 	)
 	(wire
 		(pts
@@ -10527,16 +10129,6 @@
 	)
 	(wire
 		(pts
-			(xy 303.53 72.39) (xy 306.07 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6e87fc1d-a23f-4891-8a9e-7d2df21951c0")
-	)
-	(wire
-		(pts
 			(xy 262.255 17.78) (xy 268.605 17.78)
 		)
 		(stroke
@@ -10634,16 +10226,6 @@
 			(type default)
 		)
 		(uuid "71d03f4e-823b-49f9-83f5-d9def0dac2b5")
-	)
-	(wire
-		(pts
-			(xy 335.915 37.465) (xy 337.82 37.465)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "71ea89ce-e504-48dd-af07-f77c7094cd7f")
 	)
 	(wire
 		(pts
@@ -11087,16 +10669,6 @@
 	)
 	(wire
 		(pts
-			(xy 320.675 40.64) (xy 329.565 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8243cfd5-f736-4f65-9c0d-56dcf00494e2")
-	)
-	(wire
-		(pts
 			(xy 352.425 75.565) (xy 352.425 76.835)
 		)
 		(stroke
@@ -11157,16 +10729,6 @@
 	)
 	(wire
 		(pts
-			(xy 379.095 146.685) (xy 381 146.685)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "855cf9dd-d42b-4aa9-9500-760a68f9abad")
-	)
-	(wire
-		(pts
 			(xy 352.425 64.77) (xy 360.68 64.77)
 		)
 		(stroke
@@ -11187,16 +10749,6 @@
 	)
 	(wire
 		(pts
-			(xy 301.625 75.565) (xy 303.53 75.565)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "86e816d5-ec34-4c6b-bbc0-dd7e222cd223")
-	)
-	(wire
-		(pts
 			(xy 164.465 247.015) (xy 171.45 247.015)
 		)
 		(stroke
@@ -11207,7 +10759,7 @@
 	)
 	(wire
 		(pts
-			(xy 344.17 70.485) (xy 344.17 73.025)
+			(xy 344.17 70.485) (xy 344.17 74.295)
 		)
 		(stroke
 			(width 0)
@@ -11267,7 +10819,7 @@
 	)
 	(wire
 		(pts
-			(xy 306.07 69.85) (xy 306.07 72.39)
+			(xy 306.07 69.85) (xy 306.07 73.66)
 		)
 		(stroke
 			(width 0)
@@ -11397,16 +10949,6 @@
 	)
 	(wire
 		(pts
-			(xy 364.49 78.74) (xy 373.38 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "92030f0e-a056-4264-8c17-dc60e6792af7")
-	)
-	(wire
-		(pts
 			(xy 274.955 17.78) (xy 274.955 19.685)
 		)
 		(stroke
@@ -11444,16 +10986,6 @@
 			(type default)
 		)
 		(uuid "945d09ec-a55f-459c-bbc0-117fc05611be")
-	)
-	(wire
-		(pts
-			(xy 300.355 130.81) (xy 304.8 130.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "947f5a8f-b253-4173-b7a2-f4981a55f69b")
 	)
 	(wire
 		(pts
@@ -11647,16 +11179,6 @@
 	)
 	(wire
 		(pts
-			(xy 287.655 75.565) (xy 296.545 75.565)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9e528d3d-f6a3-46a0-b142-2bcbbd0f83b4")
-	)
-	(wire
-		(pts
 			(xy 278.765 64.135) (xy 283.21 64.135)
 		)
 		(stroke
@@ -11717,16 +11239,6 @@
 	)
 	(wire
 		(pts
-			(xy 372.11 41.275) (xy 372.11 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a13faff5-17fc-43a4-ac93-debf11293da7")
-	)
-	(wire
-		(pts
 			(xy 306.07 69.85) (xy 306.705 69.85)
 		)
 		(stroke
@@ -11757,7 +11269,7 @@
 	)
 	(wire
 		(pts
-			(xy 383.54 143.51) (xy 383.54 144.78)
+			(xy 383.54 140.97) (xy 383.54 144.78)
 		)
 		(stroke
 			(width 0)
@@ -11784,16 +11296,6 @@
 			(type default)
 		)
 		(uuid "a4ce581a-53cb-4291-bd83-fa7d9fcb1667")
-	)
-	(wire
-		(pts
-			(xy 340.995 73.025) (xy 344.17 73.025)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a4db94ea-7513-408f-a652-9330e5edd68a")
 	)
 	(wire
 		(pts
@@ -11837,16 +11339,6 @@
 	)
 	(wire
 		(pts
-			(xy 344.17 73.025) (xy 344.17 74.295)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a96632e5-e5b6-4d0d-bc7b-3daa6797e46c")
-	)
-	(wire
-		(pts
 			(xy 49.53 127) (xy 49.53 131.445)
 		)
 		(stroke
@@ -11854,16 +11346,6 @@
 			(type default)
 		)
 		(uuid "a9cdb99b-075a-45f1-8d90-3cc36d5a4ea7")
-	)
-	(wire
-		(pts
-			(xy 374.65 38.1) (xy 374.65 39.37)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "aa1f362f-bef2-40fa-bd69-f00f1105a503")
 	)
 	(wire
 		(pts
@@ -11927,7 +11409,7 @@
 	)
 	(wire
 		(pts
-			(xy 303.53 34.925) (xy 303.53 37.465)
+			(xy 303.53 34.925) (xy 303.53 38.735)
 		)
 		(stroke
 			(width 0)
@@ -11944,16 +11426,6 @@
 			(type default)
 		)
 		(uuid "b26b5347-1aa8-4825-93b0-b5135941c8d4")
-	)
-	(wire
-		(pts
-			(xy 335.915 40.64) (xy 335.915 37.465)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b3914b97-c1a0-4688-b26b-5015486a1414")
 	)
 	(wire
 		(pts
@@ -12234,26 +11706,6 @@
 			(type default)
 		)
 		(uuid "be2d5a49-766b-4a90-af63-6a89a6ff358e")
-	)
-	(wire
-		(pts
-			(xy 303.53 75.565) (xy 303.53 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "be415f7e-15ae-4a5f-a1f9-5c8754769ce2")
-	)
-	(wire
-		(pts
-			(xy 339.09 76.2) (xy 340.995 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "be6b6202-1d18-4f13-b6bb-d4b8e8e3fdd5")
 	)
 	(wire
 		(pts
@@ -12597,7 +12049,7 @@
 	)
 	(wire
 		(pts
-			(xy 374.65 35.56) (xy 374.65 38.1)
+			(xy 374.65 35.56) (xy 374.65 39.37)
 		)
 		(stroke
 			(width 0)
@@ -12614,16 +12066,6 @@
 			(type default)
 		)
 		(uuid "ce080c82-2742-4cd0-ad4c-af4f988c4813")
-	)
-	(wire
-		(pts
-			(xy 382.27 75.565) (xy 382.27 76.835)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ce434d77-6816-45e1-a85e-927305d7724b")
 	)
 	(wire
 		(pts
@@ -12654,16 +12096,6 @@
 			(type default)
 		)
 		(uuid "cf88ff8d-abce-4b47-8985-688295667b1b")
-	)
-	(wire
-		(pts
-			(xy 340.995 76.2) (xy 340.995 73.025)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d08808f1-7bde-4893-bf40-efe840a15971")
 	)
 	(wire
 		(pts
@@ -12717,16 +12149,6 @@
 	)
 	(wire
 		(pts
-			(xy 378.46 78.74) (xy 379.73 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d4871059-34fd-4925-8a8e-4dae84d6d48b")
-	)
-	(wire
-		(pts
 			(xy 259.715 179.705) (xy 248.285 179.705)
 		)
 		(stroke
@@ -12754,16 +12176,6 @@
 			(type default)
 		)
 		(uuid "d59e844b-8434-4ab7-8f14-a1bdb816de0e")
-	)
-	(wire
-		(pts
-			(xy 284.48 133.985) (xy 293.37 133.985)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d5ea40a9-5fcb-4c2a-945f-fc794c617cd0")
 	)
 	(wire
 		(pts
@@ -12927,16 +12339,6 @@
 	)
 	(wire
 		(pts
-			(xy 337.82 37.465) (xy 337.82 38.735)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ddf92337-5ecb-4e72-a2b9-76aed6e78928")
-	)
-	(wire
-		(pts
 			(xy 373.38 140.97) (xy 377.825 140.97)
 		)
 		(stroke
@@ -12964,16 +12366,6 @@
 			(type default)
 		)
 		(uuid "de9e485f-fc64-4ea7-b3de-bf98c91a96ad")
-	)
-	(wire
-		(pts
-			(xy 356.87 41.275) (xy 365.76 41.275)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dea84ff2-3334-4203-9952-65f53e0487b4")
 	)
 	(wire
 		(pts
@@ -13187,7 +12579,7 @@
 	)
 	(wire
 		(pts
-			(xy 382.27 73.025) (xy 382.27 75.565)
+			(xy 382.27 73.025) (xy 382.27 76.835)
 		)
 		(stroke
 			(width 0)
@@ -13604,16 +12996,6 @@
 			(type default)
 		)
 		(uuid "fcad83ac-a260-4752-b592-a088ca89389b")
-	)
-	(wire
-		(pts
-			(xy 300.355 40.64) (xy 300.355 37.465)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fd76414e-92f7-47d3-a2db-47d393c052c6")
 	)
 	(wire
 		(pts
@@ -14045,16 +13427,6 @@
 		)
 		(uuid "5be778b5-6705-4dad-b0ce-d3bb044773fd")
 	)
-	(label "RDREN"
-		(at 325.755 76.2 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5c0c9167-60e7-4bd1-af9f-0fd2bb3324a6")
-	)
 	(label "PUSEL"
 		(at 67.31 63.5 0)
 		(effects
@@ -14375,16 +13747,6 @@
 		)
 		(uuid "9a905362-a784-4bc2-a059-4fd650b70d90")
 	)
-	(label "RDREN"
-		(at 321.31 40.64 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "9aa3eee5-89e9-4748-a804-a6ce257f3980")
-	)
 	(label "D1"
 		(at 374.015 140.97 0)
 		(effects
@@ -14575,16 +13937,6 @@
 		)
 		(uuid "c158692d-58c4-47e8-adeb-4ebf0024030a")
 	)
-	(label "RDREN"
-		(at 357.505 41.275 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "c2fe5e9e-41b6-4008-aa78-7eceaacdfdb5")
-	)
 	(label "PU5V"
 		(at 304.8 20.955 0)
 		(effects
@@ -14715,16 +14067,6 @@
 		)
 		(uuid "cf6b7897-3eee-4f41-8876-3453ac90d7a2")
 	)
-	(label "RDREN"
-		(at 285.115 40.64 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "cf6dce44-6a16-4e75-82a1-5590be5f31ab")
-	)
 	(label "D3"
 		(at 328.93 34.925 0)
 		(effects
@@ -14734,16 +14076,6 @@
 			(justify left bottom)
 		)
 		(uuid "cff07e3e-8890-4ce8-a597-78828a0bd0de")
-	)
-	(label "RDREN"
-		(at 365.76 146.685 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "d4259102-ad37-4611-b3fa-41490652e448")
 	)
 	(label "D5"
 		(at 279.4 74.295 0)
@@ -14875,16 +14207,6 @@
 		)
 		(uuid "ee198072-09fd-4f2f-b0e8-0da1f0e8562c")
 	)
-	(label "RDREN"
-		(at 285.115 133.985 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "ef856e6f-1df1-4f23-a098-2736c85f9750")
-	)
 	(label "FLAG_PTP"
 		(at 66.04 53.34 0)
 		(effects
@@ -14894,16 +14216,6 @@
 			(justify left bottom)
 		)
 		(uuid "f05fb6c8-28c6-47da-9dfd-8dfee9f7919e")
-	)
-	(label "RDREN"
-		(at 288.29 75.565 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "f065405a-8876-4424-832c-89979dd73470")
 	)
 	(label "PU5V"
 		(at 300.355 180.975 0)
@@ -15054,16 +14366,6 @@
 			(justify left bottom)
 		)
 		(uuid "fe86e13e-898c-4b8c-90bd-70651b1fedab")
-	)
-	(label "RDREN"
-		(at 365.125 78.74 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "fee802bc-ebd3-41bc-8eab-85bc7fa0ec4c")
 	)
 	(label "PU12V"
 		(at 311.785 20.955 0)
@@ -16436,100 +15738,6 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "Q8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:D_Small")
-		(at 295.91 40.64 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "0a0c26d1-5aa7-43d7-b663-0721336d50a8")
-		(property "Reference" "D13"
-			(at 297.815 42.545 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1N4148"
-			(at 296.545 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 295.91 40.64 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8579707645122699264"
-			(at 295.91 40.64 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Diode, small symbol"
-			(at 295.91 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "D"
-			(at 295.91 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 295.91 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C2128"
-			(at 295.91 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "58b1b341-0078-43ad-8922-26d3c5f2ff13")
-		)
-		(pin "2"
-			(uuid "e95acf6e-538b-4be3-bfc9-ab68b163bf47")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "D13")
 					(unit 1)
 				)
 			)
@@ -23794,100 +23002,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D_Small")
-		(at 295.91 133.985 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "5b6299eb-ff1f-42ce-ac1b-bec6b1a3064b")
-		(property "Reference" "D8"
-			(at 297.815 135.89 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1N4148"
-			(at 296.545 131.445 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 295.91 133.985 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8579707645122699264"
-			(at 295.91 133.985 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Diode, small symbol"
-			(at 295.91 133.985 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "D"
-			(at 295.91 133.985 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 295.91 133.985 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C2128"
-			(at 295.91 133.985 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "cb833faa-b967-48ec-82cf-e6a9a2b4e763")
-		)
-		(pin "2"
-			(uuid "f88a2e19-670a-47a7-9c7c-898adc3b6851")
-		)
-		(instances
-			(project ""
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "D8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R_Small")
 		(at 304.165 119.38 0)
 		(unit 1)
@@ -25743,100 +24857,6 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "R34")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:D_Small")
-		(at 375.92 78.74 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "727e01ff-5dbc-476b-bfaf-bdca84ab3a7b")
-		(property "Reference" "D10"
-			(at 377.825 80.645 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1N4148"
-			(at 376.555 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 375.92 78.74 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8579707645122699264"
-			(at 375.92 78.74 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Diode, small symbol"
-			(at 375.92 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "D"
-			(at 375.92 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 375.92 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C2128"
-			(at 375.92 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "21537e7f-4b77-4c46-a7c7-a90543b2c5c2")
-		)
-		(pin "2"
-			(uuid "8b41a04c-221d-4368-bd31-7ec357b14a48")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "D10")
 					(unit 1)
 				)
 			)
@@ -29149,100 +28169,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D_Small")
-		(at 336.55 76.2 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "92336fcd-a8cf-40b9-93bb-5c93fc360b51")
-		(property "Reference" "D11"
-			(at 338.455 78.105 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1N4148"
-			(at 337.185 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 336.55 76.2 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8579707645122699264"
-			(at 336.55 76.2 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Diode, small symbol"
-			(at 336.55 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "D"
-			(at 336.55 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 336.55 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C2128"
-			(at 336.55 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "00de0c9e-029f-44c2-ba51-51200a310cb5")
-		)
-		(pin "2"
-			(uuid "99e7fda8-8899-45f0-8a4a-c58438103b35")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "D11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Mechanical:MountingHole")
 		(at 28.575 180.975 180)
 		(unit 1)
@@ -31489,100 +30415,6 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "R82")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:D_Small")
-		(at 368.3 41.275 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "abdbeed5-d1ab-40bc-9bc1-0a3cfb9e86e3")
-		(property "Reference" "D15"
-			(at 370.205 43.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1N4148"
-			(at 368.935 38.735 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 368.3 41.275 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8579707645122699264"
-			(at 368.3 41.275 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Diode, small symbol"
-			(at 368.3 41.275 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "D"
-			(at 368.3 41.275 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 368.3 41.275 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C2128"
-			(at 368.3 41.275 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ea3010e6-0970-4f9b-9424-52fd72c4e8be")
-		)
-		(pin "2"
-			(uuid "4f8fae39-b841-4d5a-a145-76112c9b4922")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "D15")
 					(unit 1)
 				)
 			)
@@ -35718,100 +34550,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:D_Small")
-		(at 299.085 75.565 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "ce059996-757d-48f4-98c2-06c8665b9e52")
-		(property "Reference" "D12"
-			(at 300.99 77.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1N4148"
-			(at 299.72 73.025 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 299.085 75.565 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8579707645122699264"
-			(at 299.085 75.565 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Diode, small symbol"
-			(at 299.085 75.565 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "D"
-			(at 299.085 75.565 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 299.085 75.565 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C2128"
-			(at 299.085 75.565 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ef175dbc-ce59-442f-8dad-ab6226b0d45d")
-		)
-		(pin "2"
-			(uuid "bae49b0e-de90-4a04-ad0a-6f7dcc4e00a0")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "D12")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 383.54 151.13 0)
 		(unit 1)
@@ -37065,100 +35803,6 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "R12")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:D_Small")
-		(at 332.105 40.64 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "dac5df4d-c25a-49bc-a9b2-c436d592c8f1")
-		(property "Reference" "D14"
-			(at 334.01 42.545 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1N4148"
-			(at 332.74 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 332.105 40.64 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8579707645122699264"
-			(at 332.105 40.64 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Diode, small symbol"
-			(at 332.105 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "D"
-			(at 332.105 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 332.105 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C2128"
-			(at 332.105 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "2c6f157b-97d7-418c-bacf-0a404e6db74b")
-		)
-		(pin "2"
-			(uuid "90ab2595-2616-43c3-9779-e322adf77034")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "D14")
 					(unit 1)
 				)
 			)
@@ -40386,100 +39030,6 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "#PWR085")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:D_Small")
-		(at 376.555 146.685 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f680b37f-eae8-46fa-bec1-b839cabd67c8")
-		(property "Reference" "D9"
-			(at 378.46 148.59 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "1N4148"
-			(at 377.19 144.145 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 376.555 146.685 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8579707645122699264"
-			(at 376.555 146.685 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Diode, small symbol"
-			(at 376.555 146.685 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "D"
-			(at 376.555 146.685 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 376.555 146.685 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C2128"
-			(at 376.555 146.685 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "3480ad01-3389-4510-b09f-5dbd9068e1ac")
-		)
-		(pin "2"
-			(uuid "ae42635c-d630-41cd-a2a4-825f7b5f434d")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "D9")
 					(unit 1)
 				)
 			)
