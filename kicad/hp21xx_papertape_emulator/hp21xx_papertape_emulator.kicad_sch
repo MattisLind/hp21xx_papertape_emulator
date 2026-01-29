@@ -8004,6 +8004,10 @@
 		(uuid "cc804140-9382-4a03-84ca-99ad0be0b7f0")
 	)
 	(no_connect
+		(at 74.93 81.28)
+		(uuid "e0da5d39-e76c-4f2c-afda-a04c5186b0ac")
+	)
+	(no_connect
 		(at 72.39 133.985)
 		(uuid "e9fd820d-8cd1-4b87-90c1-7a6ed62b2eda")
 	)
@@ -8789,16 +8793,6 @@
 	)
 	(wire
 		(pts
-			(xy 86.995 239.395) (xy 92.71 239.395)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "293622c6-5907-40d3-b706-4f4044ecfbd5")
-	)
-	(wire
-		(pts
 			(xy 236.855 17.78) (xy 236.855 19.685)
 		)
 		(stroke
@@ -9339,13 +9333,13 @@
 	)
 	(wire
 		(pts
-			(xy 50.8 241.935) (xy 59.69 241.935)
+			(xy 384.81 135.255) (xy 384.81 133.985)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "44b45af4-f9f2-4c27-bccf-0af493298950")
+		(uuid "44a4f78a-8b33-4be7-8a45-67c5ee876ced")
 	)
 	(wire
 		(pts
@@ -10109,16 +10103,6 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 239.395) (xy 59.69 239.395)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6d611343-5187-4056-b795-1ef87b9b573a")
-	)
-	(wire
-		(pts
 			(xy 328.295 108.585) (xy 328.295 109.855)
 		)
 		(stroke
@@ -10226,16 +10210,6 @@
 			(type default)
 		)
 		(uuid "71d03f4e-823b-49f9-83f5-d9def0dac2b5")
-	)
-	(wire
-		(pts
-			(xy 58.42 244.475) (xy 59.69 244.475)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "72e3a90c-689e-4fe5-a0a5-7bf17d44ee36")
 	)
 	(wire
 		(pts
@@ -10686,6 +10660,16 @@
 			(type default)
 		)
 		(uuid "82b1e03d-965f-4637-9e82-6f8c1ece57ab")
+	)
+	(wire
+		(pts
+			(xy 384.81 124.46) (xy 384.81 128.905)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8397ce3d-c388-4575-99d0-aa62fdd1a48a")
 	)
 	(wire
 		(pts
@@ -11169,7 +11153,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 241.935) (xy 74.93 241.935)
+			(xy 72.39 241.935) (xy 81.915 241.935)
 		)
 		(stroke
 			(width 0)
@@ -11259,16 +11243,6 @@
 	)
 	(wire
 		(pts
-			(xy 67.945 81.28) (xy 74.93 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a3264d57-92f6-45de-96fb-15c87e4db11d")
-	)
-	(wire
-		(pts
 			(xy 383.54 140.97) (xy 383.54 144.78)
 		)
 		(stroke
@@ -11326,16 +11300,6 @@
 			(type default)
 		)
 		(uuid "a8d50843-fb40-4b1b-9394-4d46acf97a50")
-	)
-	(wire
-		(pts
-			(xy 86.995 244.475) (xy 92.71 244.475)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a941594d-b194-4d9a-9c75-54b0007e85f9")
 	)
 	(wire
 		(pts
@@ -11489,16 +11453,6 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 241.935) (xy 92.71 241.935)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b5a13f41-eff6-41e7-bc51-adc44a14292c")
-	)
-	(wire
-		(pts
 			(xy 341.63 132.08) (xy 341.63 133.35)
 		)
 		(stroke
@@ -11516,16 +11470,6 @@
 			(type default)
 		)
 		(uuid "b749ce22-32a0-4d56-a391-1488332209f6")
-	)
-	(wire
-		(pts
-			(xy 80.01 247.015) (xy 92.71 247.015)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b7bf0308-fbc0-4a04-84b9-a5bb7d25ddea")
 	)
 	(wire
 		(pts
@@ -11699,7 +11643,7 @@
 	)
 	(wire
 		(pts
-			(xy 37.465 239.395) (xy 53.34 239.395)
+			(xy 50.165 239.395) (xy 59.69 239.395)
 		)
 		(stroke
 			(width 0)
@@ -11709,7 +11653,7 @@
 	)
 	(wire
 		(pts
-			(xy 37.465 244.475) (xy 53.34 244.475)
+			(xy 50.165 244.475) (xy 59.69 244.475)
 		)
 		(stroke
 			(width 0)
@@ -11929,7 +11873,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 247.015) (xy 74.93 247.015)
+			(xy 72.39 247.015) (xy 81.915 247.015)
 		)
 		(stroke
 			(width 0)
@@ -12139,16 +12083,6 @@
 	)
 	(wire
 		(pts
-			(xy 50.8 247.015) (xy 59.69 247.015)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d4342e28-6e79-4aea-8481-c3d94df06564")
-	)
-	(wire
-		(pts
 			(xy 259.715 179.705) (xy 248.285 179.705)
 		)
 		(stroke
@@ -12206,6 +12140,16 @@
 			(type default)
 		)
 		(uuid "d6e7f8b8-9e36-47e4-9f05-46a037e46e18")
+	)
+	(wire
+		(pts
+			(xy 391.795 135.255) (xy 384.81 135.255)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d6f4259c-8df5-4139-84bf-80d8f73528ad")
 	)
 	(wire
 		(pts
@@ -12749,7 +12693,7 @@
 	)
 	(wire
 		(pts
-			(xy 37.465 247.015) (xy 45.72 247.015)
+			(xy 50.165 247.015) (xy 59.69 247.015)
 		)
 		(stroke
 			(width 0)
@@ -12879,7 +12823,7 @@
 	)
 	(wire
 		(pts
-			(xy 37.465 241.935) (xy 45.72 241.935)
+			(xy 50.165 241.935) (xy 59.69 241.935)
 		)
 		(stroke
 			(width 0)
@@ -13098,7 +13042,7 @@
 		(uuid "08e64133-04f2-48b4-943a-b9685678fd73")
 	)
 	(label "OUT2"
-		(at 87.63 244.475 0)
+		(at 76.2 244.475 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13318,7 +13262,7 @@
 		(uuid "396a61c0-ac5a-4572-90f4-87bca375af71")
 	)
 	(label "OUT7"
-		(at 37.465 239.395 0)
+		(at 51.435 239.395 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13366,6 +13310,16 @@
 			(justify left bottom)
 		)
 		(uuid "46760921-3fb7-4694-b6c8-4b5f866e7a82")
+	)
+	(label "PU5V"
+		(at 384.81 126.365 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4827141e-ffe3-44be-9172-77a55ec0d672")
 	)
 	(label "IN5"
 		(at 78.105 226.695 0)
@@ -13728,7 +13682,7 @@
 		(uuid "97b001b3-4148-417f-85d8-db9a8fbdc6cd")
 	)
 	(label "OUT1"
-		(at 37.465 247.015 0)
+		(at 51.435 247.015 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -13766,16 +13720,6 @@
 			(justify left bottom)
 		)
 		(uuid "a00b2980-c9d3-44f6-9df5-d1c8596fc544")
-	)
-	(label "RDREN"
-		(at 67.945 81.28 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "a0a457d4-852b-4a5a-874c-022d1021f404")
 	)
 	(label "PU12V"
 		(at 314.325 55.88 0)
@@ -13858,7 +13802,7 @@
 		(uuid "b732b963-b0aa-4b99-a510-2dea45e94b68")
 	)
 	(label "OUT3"
-		(at 37.465 244.475 0)
+		(at 51.435 244.475 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14028,7 +13972,7 @@
 		(uuid "cbcad42f-e5d4-4ee1-87c9-9e2c6ac65af1")
 	)
 	(label "OUT0"
-		(at 87.63 247.015 0)
+		(at 76.2 247.015 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14108,7 +14052,7 @@
 		(uuid "da38f0db-fec8-4020-97df-0743638cf29f")
 	)
 	(label "OUT5"
-		(at 37.465 241.935 0)
+		(at 51.435 241.935 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14118,7 +14062,7 @@
 		(uuid "de62da4d-a66e-47de-bd21-f27a4dc3927b")
 	)
 	(label "OUT6"
-		(at 87.63 239.395 0)
+		(at 76.2 239.395 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14248,7 +14192,7 @@
 		(uuid "f27c4bce-2417-48ad-aab8-b8b5dfcdc0ac")
 	)
 	(label "OUT4"
-		(at 87.63 241.935 0)
+		(at 76.2 241.935 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14615,120 +14559,6 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "R72")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_Small")
-		(at 84.455 239.395 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "02cd6c8c-9808-4726-b441-325ae7ad9291")
-		(property "Reference" "R46"
-			(at 82.55 240.665 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "22"
-			(at 81.915 238.125 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 84.455 239.395 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 84.455 239.395 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, small symbol"
-			(at 84.455 239.395 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C25092"
-			(at 84.455 239.395 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 84.455 239.395 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 84.455 239.395 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 84.455 239.395 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Comment" ""
-			(at 84.455 239.395 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "7f7e8943-0704-431a-b978-dacbee7cb9b6")
-		)
-		(pin "2"
-			(uuid "7d7d6c70-079c-486b-91c4-d0bd7e39fd6b")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "R46")
 					(unit 1)
 				)
 			)
@@ -18201,120 +18031,6 @@
 	)
 	(symbol
 		(lib_id "Device:R_Small")
-		(at 77.47 247.015 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "23517b1b-a59c-4fa0-88d8-676a5c64ed99")
-		(property "Reference" "R49"
-			(at 75.565 248.285 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "22"
-			(at 74.93 245.745 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 77.47 247.015 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 77.47 247.015 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, small symbol"
-			(at 77.47 247.015 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C25092"
-			(at 77.47 247.015 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 77.47 247.015 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 77.47 247.015 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 77.47 247.015 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Comment" ""
-			(at 77.47 247.015 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5c1caf17-8d50-4b98-9beb-b17af1f750f3")
-		)
-		(pin "2"
-			(uuid "f94653ac-1180-45c6-bf9a-498af221411c")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "R49")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_Small")
 		(at 34.29 24.13 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -21716,120 +21432,6 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "D6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_Small")
-		(at 48.26 241.935 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "4a0103c6-fd91-4483-9dce-17a08d9aa6dd")
-		(property "Reference" "R51"
-			(at 46.355 243.205 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "22"
-			(at 45.72 240.665 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 48.26 241.935 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 48.26 241.935 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, small symbol"
-			(at 48.26 241.935 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C25092"
-			(at 48.26 241.935 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 48.26 241.935 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 48.26 241.935 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 48.26 241.935 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Comment" ""
-			(at 48.26 241.935 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b60ef5c0-45a6-4419-af15-64c9eed4a4d5")
-		)
-		(pin "2"
-			(uuid "a7cc5659-a493-4fb9-8ab7-80f5ef753a83")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "R51")
 					(unit 1)
 				)
 			)
@@ -25541,7 +25143,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 301.625 170.815 0)
 			(effects
 				(font
@@ -26290,7 +25892,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 269.24 170.815 0)
 			(effects
 				(font
@@ -28263,6 +27865,120 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "H8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 384.81 131.445 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "93e0cfea-1bc6-4235-90fa-c343ee180eb3")
+		(property "Reference" "R46"
+			(at 379.73 130.175 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1k"
+			(at 381 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 384.81 131.445 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 384.81 131.445 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 384.81 131.445 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C11702"
+			(at 384.81 131.445 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 384.81 131.445 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 384.81 131.445 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 384.81 131.445 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Comment" ""
+			(at 384.81 131.445 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "05a91b4b-ae6c-4af7-be0c-024c4d2a81bc")
+		)
+		(pin "2"
+			(uuid "674b9cf9-ce51-4150-9cd9-ceae5aa1f04a")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "R46")
 					(unit 1)
 				)
 			)
@@ -31653,120 +31369,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R_Small")
-		(at 77.47 241.935 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "bc6c746b-f27d-4f43-93cb-ea4ca3fb5ac9")
-		(property "Reference" "R47"
-			(at 75.565 243.205 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "22"
-			(at 74.93 240.665 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 77.47 241.935 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 77.47 241.935 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, small symbol"
-			(at 77.47 241.935 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C25092"
-			(at 77.47 241.935 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 77.47 241.935 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 77.47 241.935 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 77.47 241.935 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Comment" ""
-			(at 77.47 241.935 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "89a6fe0f-6fee-46e7-ae48-330a00bb5c5c")
-		)
-		(pin "2"
-			(uuid "0771c091-56ec-4ab3-bfe8-208c56ddb5c8")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "R47")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Simulation_SPICE:NMOS")
 		(at 310.515 128.905 0)
 		(unit 1)
@@ -32887,120 +32489,6 @@
 	)
 	(symbol
 		(lib_id "Device:R_Small")
-		(at 48.26 247.015 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c40c92fe-e9a2-4c7e-9b9a-3eaf16ef179f")
-		(property "Reference" "R53"
-			(at 46.355 248.285 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "22"
-			(at 45.72 245.745 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 48.26 247.015 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 48.26 247.015 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, small symbol"
-			(at 48.26 247.015 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C25092"
-			(at 48.26 247.015 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 48.26 247.015 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 48.26 247.015 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 48.26 247.015 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Comment" ""
-			(at 48.26 247.015 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ffbcc0f5-12ce-4e54-83a9-52de582ab055")
-		)
-		(pin "2"
-			(uuid "24a91b94-a9bc-45e6-9b03-b7a2bb86b928")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "R53")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_Small")
 		(at 328.93 90.17 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -34114,6 +33602,15 @@
 			)
 		)
 		(property "Description" "500mA, Adjustable Step-Up Voltage Regulator, 1.5MHz Frequency, SOT-23-5"
+			(at 190.5 140.335 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C102618"
 			(at 190.5 140.335 0)
 			(effects
 				(font
@@ -36329,234 +35826,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R_Small")
-		(at 55.88 239.395 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "de641dab-fed2-48ca-80c0-df7f12c3b7ff")
-		(property "Reference" "R50"
-			(at 53.975 240.665 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "22"
-			(at 53.34 238.125 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 55.88 239.395 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 55.88 239.395 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, small symbol"
-			(at 55.88 239.395 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C25092"
-			(at 55.88 239.395 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 55.88 239.395 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 55.88 239.395 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 55.88 239.395 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Comment" ""
-			(at 55.88 239.395 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ce80cc94-a7cd-4cc1-a16a-48764f17f04c")
-		)
-		(pin "2"
-			(uuid "766ec245-9ae8-4ca1-954f-ba8a7ed91447")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "R50")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_Small")
-		(at 55.88 244.475 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "df1158e4-ba27-4834-9266-a37d9642c62a")
-		(property "Reference" "R52"
-			(at 53.975 245.745 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "22"
-			(at 53.34 243.205 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 55.88 244.475 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 55.88 244.475 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, small symbol"
-			(at 55.88 244.475 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C25092"
-			(at 55.88 244.475 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 55.88 244.475 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 55.88 244.475 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 55.88 244.475 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Comment" ""
-			(at 55.88 244.475 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "c967ea04-cd39-424e-b0a6-53338a9e93db")
-		)
-		(pin "2"
-			(uuid "900b81c8-5ef9-4145-8ce7-8425b2a472a7")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "R52")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 255.905 36.195 0)
 		(unit 1)
@@ -37337,120 +36606,6 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "R85")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_Small")
-		(at 84.455 244.475 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e5d7e913-937e-4486-b9a7-65089ae714b1")
-		(property "Reference" "R48"
-			(at 82.55 245.745 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "22"
-			(at 81.915 243.205 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 84.455 244.475 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 84.455 244.475 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, small symbol"
-			(at 84.455 244.475 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C25092"
-			(at 84.455 244.475 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 84.455 244.475 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 84.455 244.475 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 84.455 244.475 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Comment" ""
-			(at 84.455 244.475 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ac502836-dacb-4b22-94e1-120afd433edd")
-		)
-		(pin "2"
-			(uuid "d9976611-8dda-4ec7-89d7-eb486e81a2ad")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "R48")
 					(unit 1)
 				)
 			)
