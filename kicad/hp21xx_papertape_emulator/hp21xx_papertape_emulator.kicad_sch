@@ -7580,6 +7580,12 @@
 		(uuid "0c434e78-6980-4bb7-aac8-c34941b58132")
 	)
 	(junction
+		(at 280.67 173.99)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0e0c700c-0c4d-4d9d-8ca4-2473ae18a304")
+	)
+	(junction
 		(at 311.785 29.21)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7614,12 +7620,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2184e081-bac0-4bd1-8c71-74e1245aa159")
-	)
-	(junction
-		(at 248.285 173.355)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "248309e9-a3d8-40c2-8c82-b7a313606252")
 	)
 	(junction
 		(at 50.8 62.865)
@@ -7754,6 +7754,12 @@
 		(uuid "6a0b6bb3-51fe-402b-b104-80eaa924350c")
 	)
 	(junction
+		(at 248.285 171.45)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "73e5bc0f-28c7-48b2-8f25-a66ed4c1f1ab")
+	)
+	(junction
 		(at 226.695 144.78)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7800,12 +7806,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "93d4975d-c7ed-4f3e-8c2a-1976bd40463e")
-	)
-	(junction
-		(at 280.67 173.355)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "93f353b6-dbef-4981-9326-d4596e58cc41")
 	)
 	(junction
 		(at 382.905 29.845)
@@ -8073,6 +8073,16 @@
 	)
 	(wire
 		(pts
+			(xy 256.54 171.45) (xy 259.715 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "043bfbcc-0061-40f2-9cce-8e16392381c2")
+	)
+	(wire
+		(pts
 			(xy 226.695 137.795) (xy 219.075 137.795)
 		)
 		(stroke
@@ -8190,16 +8200,6 @@
 			(type default)
 		)
 		(uuid "0d0a2001-e7bb-4aa7-8d28-c02b8c44b33a")
-	)
-	(wire
-		(pts
-			(xy 280.67 173.355) (xy 280.67 181.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0e409d85-2cbd-4896-b79b-f529327671b5")
 	)
 	(wire
 		(pts
@@ -8613,16 +8613,6 @@
 	)
 	(wire
 		(pts
-			(xy 257.81 173.355) (xy 259.08 173.355)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "21aa2ccf-cd08-4c64-a093-da4d95eb8e88")
-	)
-	(wire
-		(pts
 			(xy 306.705 62.865) (xy 306.705 64.135)
 		)
 		(stroke
@@ -8763,6 +8753,16 @@
 	)
 	(wire
 		(pts
+			(xy 335.915 149.225) (xy 335.915 154.305)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2855aadc-2fb3-4e3f-8bd6-2a18dca31d31")
+	)
+	(wire
+		(pts
 			(xy 293.37 34.925) (xy 297.815 34.925)
 		)
 		(stroke
@@ -8780,16 +8780,6 @@
 			(type default)
 		)
 		(uuid "29043462-c7e4-48a7-9794-fb720ce9abee")
-	)
-	(wire
-		(pts
-			(xy 266.7 166.37) (xy 266.7 168.275)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "29065213-9b86-4230-8c0d-f6e08fc395af")
 	)
 	(wire
 		(pts
@@ -9043,6 +9033,16 @@
 	)
 	(wire
 		(pts
+			(xy 267.335 178.435) (xy 271.145 178.435)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3446cd95-6019-46c6-a933-84c38b1e6055")
+	)
+	(wire
+		(pts
 			(xy 72.39 236.855) (xy 81.915 236.855)
 		)
 		(stroke
@@ -9070,6 +9070,16 @@
 			(type default)
 		)
 		(uuid "3652249b-93a8-4e05-8ed3-f72231857bd9")
+	)
+	(wire
+		(pts
+			(xy 248.285 167.64) (xy 248.285 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "36732141-71e3-449c-b1c2-c1aa452be24b")
 	)
 	(wire
 		(pts
@@ -9110,16 +9120,6 @@
 			(type default)
 		)
 		(uuid "3933c3ba-ae9a-4967-8322-4478458bc835")
-	)
-	(wire
-		(pts
-			(xy 252.73 173.355) (xy 248.285 173.355)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "39a71f14-0b21-4588-9335-5b5e23d28360")
 	)
 	(wire
 		(pts
@@ -9523,6 +9523,16 @@
 	)
 	(wire
 		(pts
+			(xy 351.155 147.955) (xy 351.155 153.035)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "50b4d140-b176-4349-bdcd-076d0056d1cd")
+	)
+	(wire
+		(pts
 			(xy 255.905 17.78) (xy 262.255 17.78)
 		)
 		(stroke
@@ -9600,6 +9610,16 @@
 			(type default)
 		)
 		(uuid "556bdb32-eda8-4dee-925f-0ab0c5865bbc")
+	)
+	(wire
+		(pts
+			(xy 301.625 184.15) (xy 306.07 184.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "557364c3-5b5d-4d42-806b-b53ffe93b3f7")
 	)
 	(wire
 		(pts
@@ -9710,6 +9730,16 @@
 			(type default)
 		)
 		(uuid "5b86a7a7-5962-4074-bb4f-18814fe98740")
+	)
+	(wire
+		(pts
+			(xy 267.335 176.53) (xy 267.335 178.435)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5b954787-700b-4bd1-933c-b4689c94d857")
 	)
 	(wire
 		(pts
@@ -9963,6 +9993,16 @@
 	)
 	(wire
 		(pts
+			(xy 301.625 179.07) (xy 301.625 184.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "64cdb0be-adfa-4520-bf7e-02eabf8f1fd2")
+	)
+	(wire
+		(pts
 			(xy 67.945 66.04) (xy 74.93 66.04)
 		)
 		(stroke
@@ -9970,6 +10010,16 @@
 			(type default)
 		)
 		(uuid "65740f63-caf0-4ba2-be2a-22162e556b96")
+	)
+	(wire
+		(pts
+			(xy 291.465 173.99) (xy 294.005 173.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6589da83-8e20-4675-bca1-514ea0f67e8a")
 	)
 	(wire
 		(pts
@@ -10063,16 +10113,6 @@
 	)
 	(wire
 		(pts
-			(xy 285.115 173.355) (xy 280.67 173.355)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6b671f12-c4a2-432b-beef-7836a9dfd05d")
-	)
-	(wire
-		(pts
 			(xy 72.39 224.155) (xy 81.915 224.155)
 		)
 		(stroke
@@ -10100,6 +10140,16 @@
 			(type default)
 		)
 		(uuid "6cead596-1092-4d4d-9d36-63f2041a521b")
+	)
+	(wire
+		(pts
+			(xy 267.335 163.195) (xy 267.335 166.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d5d1d68-04bd-4d41-a73e-42090faa01fe")
 	)
 	(wire
 		(pts
@@ -10383,6 +10433,16 @@
 	)
 	(wire
 		(pts
+			(xy 248.285 171.45) (xy 248.285 179.705)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7b161523-482f-448b-b0a6-203d5eae2253")
+	)
+	(wire
+		(pts
 			(xy 164.465 231.775) (xy 171.45 231.775)
 		)
 		(stroke
@@ -10653,16 +10713,6 @@
 	)
 	(wire
 		(pts
-			(xy 290.195 173.355) (xy 291.465 173.355)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "82b1e03d-965f-4637-9e82-6f8c1ece57ab")
-	)
-	(wire
-		(pts
 			(xy 384.81 124.46) (xy 384.81 128.905)
 		)
 		(stroke
@@ -10753,13 +10803,13 @@
 	)
 	(wire
 		(pts
-			(xy 300.355 180.975) (xy 299.085 180.975)
+			(xy 351.155 158.115) (xy 351.155 159.385)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "8940b51f-e086-42d6-913b-48bd2c9386e5")
+		(uuid "8916d07c-2169-44d1-9925-ec7dbd0e8a43")
 	)
 	(wire
 		(pts
@@ -10863,7 +10913,7 @@
 	)
 	(wire
 		(pts
-			(xy 280.67 173.355) (xy 280.67 167.64)
+			(xy 280.67 167.64) (xy 280.67 173.99)
 		)
 		(stroke
 			(width 0)
@@ -10910,6 +10960,16 @@
 			(type default)
 		)
 		(uuid "8fbec01b-0d58-4166-92cb-47fe7db704ba")
+	)
+	(wire
+		(pts
+			(xy 335.915 159.385) (xy 335.915 160.655)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "909bdfc3-42fb-4b3a-a875-b5b491854789")
 	)
 	(wire
 		(pts
@@ -11113,16 +11173,6 @@
 	)
 	(wire
 		(pts
-			(xy 270.51 180.34) (xy 266.7 180.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9bbb3c67-9533-46c5-bf0e-924d8e489a4b")
-	)
-	(wire
-		(pts
 			(xy 230.505 34.29) (xy 230.505 36.195)
 		)
 		(stroke
@@ -11180,16 +11230,6 @@
 			(type default)
 		)
 		(uuid "9f6fb4ab-c9f5-421e-adec-79bae0a6a7cd")
-	)
-	(wire
-		(pts
-			(xy 248.285 173.355) (xy 248.285 179.705)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9f9865cb-b435-4cc1-ab1c-0a7e6d3dea2e")
 	)
 	(wire
 		(pts
@@ -11623,16 +11663,6 @@
 	)
 	(wire
 		(pts
-			(xy 248.285 173.355) (xy 248.285 167.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bc6d4a06-183d-46ac-9443-49ef89f07006")
-	)
-	(wire
-		(pts
 			(xy 92.71 19.05) (xy 95.25 19.05)
 		)
 		(stroke
@@ -11783,16 +11813,6 @@
 	)
 	(wire
 		(pts
-			(xy 299.085 180.975) (xy 299.085 178.435)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c39fc988-3db0-49fe-bea9-bcbf3717f048")
-	)
-	(wire
-		(pts
 			(xy 110.49 58.42) (xy 117.475 58.42)
 		)
 		(stroke
@@ -11883,6 +11903,16 @@
 	)
 	(wire
 		(pts
+			(xy 280.67 173.99) (xy 286.385 173.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c8a61131-9c04-45bf-8d6d-116e014b2ebd")
+	)
+	(wire
+		(pts
 			(xy 74.93 48.26) (xy 73.66 48.26)
 		)
 		(stroke
@@ -11893,13 +11923,13 @@
 	)
 	(wire
 		(pts
-			(xy 266.7 178.435) (xy 266.7 180.34)
+			(xy 248.285 171.45) (xy 251.46 171.45)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "c9a5ac68-b842-4e28-8649-f0b7e11160e6")
+		(uuid "c90e5441-9cbe-4539-a926-af0341a1000f")
 	)
 	(wire
 		(pts
@@ -12073,6 +12103,16 @@
 	)
 	(wire
 		(pts
+			(xy 280.67 173.99) (xy 280.67 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d28d49e2-fedd-4bbb-9f12-3717fbae4516")
+	)
+	(wire
+		(pts
 			(xy 230.505 24.765) (xy 230.505 29.21)
 		)
 		(stroke
@@ -12130,16 +12170,6 @@
 			(type default)
 		)
 		(uuid "d69254ea-233f-4952-afa3-603fa7db074f")
-	)
-	(wire
-		(pts
-			(xy 299.085 166.37) (xy 299.085 168.275)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d6e7f8b8-9e36-47e4-9f05-46a037e46e18")
 	)
 	(wire
 		(pts
@@ -12220,6 +12250,16 @@
 			(type default)
 		)
 		(uuid "d9dc596e-57fd-4369-a290-578444bccf25")
+	)
+	(wire
+		(pts
+			(xy 301.625 167.005) (xy 301.625 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "da9bda4a-38a3-4cf0-8a49-2909d8394b28")
 	)
 	(wire
 		(pts
@@ -13131,6 +13171,16 @@
 		)
 		(uuid "1d1be521-daf8-488e-81ec-47c9b5ef2ed8")
 	)
+	(label "PU5V"
+		(at 335.915 151.765 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "209f7d1b-57de-4a77-a3a0-56bab28426a9")
+	)
 	(label "IN1"
 		(at 232.41 64.135 0)
 		(effects
@@ -13170,6 +13220,16 @@
 			(justify left bottom)
 		)
 		(uuid "2938f8bd-b067-467f-929d-524d5b772b40")
+	)
+	(label "PU12V"
+		(at 351.155 150.495 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2978bd8f-00a1-42f2-ba4c-03d0c2417bdd")
 	)
 	(label "IN0"
 		(at 216.535 27.305 0)
@@ -13422,7 +13482,7 @@
 		(uuid "657b2e47-a2bf-45af-9dea-f1e242ee2256")
 	)
 	(label "PU12V"
-		(at 268.605 180.34 0)
+		(at 269.24 178.435 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14162,7 +14222,7 @@
 		(uuid "f05fb6c8-28c6-47da-9dfd-8dfee9f7919e")
 	)
 	(label "PU5V"
-		(at 300.355 180.975 0)
+		(at 303.53 184.15 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14750,7 +14810,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25531"
+		(property "LCSC" "C25744"
 			(at 352.425 60.96 0)
 			(effects
 				(font
@@ -15483,7 +15543,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2N7002"
+		(property "Value" "BSS138"
 			(at 386.08 36.8299 0)
 			(effects
 				(font
@@ -15501,7 +15561,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603392942124527616"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603380459560574976"
 			(at 380.365 48.26 0)
 			(effects
 				(font
@@ -15546,7 +15606,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C22446827"
+		(property "LCSC" "C53113928"
 			(at 380.365 35.56 0)
 			(effects
 				(font
@@ -16321,6 +16381,120 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R_Small")
+		(at 288.925 173.99 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "12ab0d8f-a5fb-4f1e-9709-8ac2f1d72257")
+		(property "Reference" "R48"
+			(at 287.02 175.26 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100"
+			(at 291.465 176.53 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 288.925 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 288.925 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 288.925 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25076"
+			(at 288.925 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 288.925 173.99 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 288.925 173.99 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 288.925 173.99 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Comment" ""
+			(at 288.925 173.99 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "724604ac-79b2-4303-9d78-57c036350c86")
+		)
+		(pin "2"
+			(uuid "ec01122e-c60e-473f-89c3-f0ec105bdd5c")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "R48")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector_Generic:Conn_01x04")
 		(at 143.51 53.34 0)
 		(unit 1)
@@ -16618,7 +16792,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25531"
+		(property "LCSC" "C25744"
 			(at 311.785 25.4 0)
 			(effects
 				(font
@@ -16990,7 +17164,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2N7002"
+		(property "Value" "BSS138"
 			(at 349.25 36.1949 0)
 			(effects
 				(font
@@ -17008,7 +17182,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603392942124527616"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603380459560574976"
 			(at 343.535 47.625 0)
 			(effects
 				(font
@@ -17053,7 +17227,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C22446827"
+		(property "LCSC" "C53113928"
 			(at 343.535 34.925 0)
 			(effects
 				(font
@@ -18031,6 +18205,120 @@
 	)
 	(symbol
 		(lib_id "Device:R_Small")
+		(at 254 171.45 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "209d8941-9e05-43b5-a2cd-b8c7161c6827")
+		(property "Reference" "R47"
+			(at 252.095 172.72 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100"
+			(at 256.54 173.99 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 254 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 254 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 254 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25076"
+			(at 254 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 254 171.45 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 254 171.45 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 254 171.45 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Comment" ""
+			(at 254 171.45 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1801bb2b-0329-4c4d-b427-b2eaceb6bfbb")
+		)
+		(pin "2"
+			(uuid "4090107e-2b19-4828-b8ba-6bcb4f11e5ab")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "R47")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
 		(at 34.29 24.13 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -18614,7 +18902,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25531"
+		(property "LCSC" "C25744"
 			(at 391.795 131.445 0)
 			(effects
 				(font
@@ -20592,7 +20880,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2N7002"
+		(property "Value" "BSS138"
 			(at 339.725 100.9649 0)
 			(effects
 				(font
@@ -20610,7 +20898,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603392942124527616"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603380459560574976"
 			(at 334.01 112.395 0)
 			(effects
 				(font
@@ -20655,7 +20943,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C22446827"
+		(property "LCSC" "C53113928"
 			(at 334.01 99.695 0)
 			(effects
 				(font
@@ -21012,7 +21300,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2N7002"
+		(property "Value" "BSS138"
 			(at 393.7 74.2949 0)
 			(effects
 				(font
@@ -21030,7 +21318,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603392942124527616"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603380459560574976"
 			(at 387.985 85.725 0)
 			(effects
 				(font
@@ -21075,7 +21363,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C22446827"
+		(property "LCSC" "C53113928"
 			(at 387.985 73.025 0)
 			(effects
 				(font
@@ -21121,7 +21409,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2N7002"
+		(property "Value" "BSS138"
 			(at 394.97 142.2399 0)
 			(effects
 				(font
@@ -21139,7 +21427,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603392942124527616"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603380459560574976"
 			(at 389.255 153.67 0)
 			(effects
 				(font
@@ -21184,7 +21472,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C22446827"
+		(property "LCSC" "C53113928"
 			(at 389.255 140.97 0)
 			(effects
 				(font
@@ -21734,31 +22022,31 @@
 			)
 		)
 		(pin "13"
-			(uuid "6c02089f-2912-4af5-8280-4cc32696ed0f")
+			(uuid "6c02089f-2912-4af5-8280-4cc32696ed10")
 		)
 		(pin "9"
-			(uuid "703b6651-48c4-43a1-9ebb-aef6f2d7fa35")
+			(uuid "703b6651-48c4-43a1-9ebb-aef6f2d7fa36")
 		)
 		(pin "6"
-			(uuid "d9bf79fb-e8ca-44d2-a462-c6c9ae709c99")
+			(uuid "d9bf79fb-e8ca-44d2-a462-c6c9ae709c9a")
 		)
 		(pin "11"
-			(uuid "eaa92bee-f895-4190-9c6b-a95528a24847")
+			(uuid "eaa92bee-f895-4190-9c6b-a95528a24848")
 		)
 		(pin "14"
-			(uuid "6a795233-860f-49a5-9763-0cdfce3edf2a")
+			(uuid "6a795233-860f-49a5-9763-0cdfce3edf2b")
 		)
 		(pin "8"
-			(uuid "3c1a3c30-c3ab-41bb-95c8-1f612babb9dc")
+			(uuid "3c1a3c30-c3ab-41bb-95c8-1f612babb9dd")
 		)
 		(pin "7"
-			(uuid "ba239313-cb3b-44d6-9625-c699ec5e622d")
+			(uuid "ba239313-cb3b-44d6-9625-c699ec5e622e")
 		)
 		(pin "5"
-			(uuid "5a4ed54f-3d77-45e6-bc41-8d43a7ccf0e5")
+			(uuid "5a4ed54f-3d77-45e6-bc41-8d43a7ccf0e6")
 		)
 		(pin "12"
-			(uuid "91514291-a0ca-4b2e-aa06-aa7c98dfd0a7")
+			(uuid "91514291-a0ca-4b2e-aa06-aa7c98dfd0a8")
 		)
 		(pin "1"
 			(uuid "9536f9d5-271a-4dcc-b504-c4254f81e342")
@@ -21767,13 +22055,13 @@
 			(uuid "81ab8243-32a2-41a1-8070-c2908a1ffb07")
 		)
 		(pin "3"
-			(uuid "b656bc7b-2d6f-459e-af9b-3dd473cebba0")
+			(uuid "b656bc7b-2d6f-459e-af9b-3dd473cebba1")
 		)
 		(pin "4"
-			(uuid "7179717a-d85e-4390-ad7b-f19fb2bb7cf7")
+			(uuid "7179717a-d85e-4390-ad7b-f19fb2bb7cf8")
 		)
 		(pin "10"
-			(uuid "bf87cb16-0437-4ee0-96bc-57875ed1744f")
+			(uuid "bf87cb16-0437-4ee0-96bc-57875ed17450")
 		)
 		(instances
 			(project "hp21xx_papertape_emulator"
@@ -22167,37 +22455,37 @@
 			)
 		)
 		(pin "13"
-			(uuid "6c02089f-2912-4af5-8280-4cc32696ed0f")
+			(uuid "6c02089f-2912-4af5-8280-4cc32696ed11")
 		)
 		(pin "9"
-			(uuid "703b6651-48c4-43a1-9ebb-aef6f2d7fa35")
+			(uuid "703b6651-48c4-43a1-9ebb-aef6f2d7fa37")
 		)
 		(pin "6"
-			(uuid "d9bf79fb-e8ca-44d2-a462-c6c9ae709c99")
+			(uuid "d9bf79fb-e8ca-44d2-a462-c6c9ae709c9b")
 		)
 		(pin "11"
-			(uuid "eaa92bee-f895-4190-9c6b-a95528a24847")
+			(uuid "eaa92bee-f895-4190-9c6b-a95528a24849")
 		)
 		(pin "14"
-			(uuid "6a795233-860f-49a5-9763-0cdfce3edf2a")
+			(uuid "6a795233-860f-49a5-9763-0cdfce3edf2c")
 		)
 		(pin "8"
-			(uuid "3c1a3c30-c3ab-41bb-95c8-1f612babb9dc")
+			(uuid "3c1a3c30-c3ab-41bb-95c8-1f612babb9de")
 		)
 		(pin "7"
-			(uuid "ba239313-cb3b-44d6-9625-c699ec5e622d")
+			(uuid "ba239313-cb3b-44d6-9625-c699ec5e622f")
 		)
 		(pin "5"
-			(uuid "5a4ed54f-3d77-45e6-bc41-8d43a7ccf0e5")
+			(uuid "5a4ed54f-3d77-45e6-bc41-8d43a7ccf0e7")
 		)
 		(pin "12"
-			(uuid "91514291-a0ca-4b2e-aa06-aa7c98dfd0a7")
+			(uuid "91514291-a0ca-4b2e-aa06-aa7c98dfd0a9")
 		)
 		(pin "1"
-			(uuid "9536f9d5-271a-4dcc-b504-c4254f81e342")
+			(uuid "9536f9d5-271a-4dcc-b504-c4254f81e343")
 		)
 		(pin "2"
-			(uuid "81ab8243-32a2-41a1-8070-c2908a1ffb07")
+			(uuid "81ab8243-32a2-41a1-8070-c2908a1ffb08")
 		)
 		(pin "3"
 			(uuid "76824382-a148-4a61-b2ae-0bc834ccc425")
@@ -22206,7 +22494,7 @@
 			(uuid "66407852-c945-4c61-b75a-76bf3645bef5")
 		)
 		(pin "10"
-			(uuid "bf87cb16-0437-4ee0-96bc-57875ed1744f")
+			(uuid "bf87cb16-0437-4ee0-96bc-57875ed17451")
 		)
 		(instances
 			(project "hp21xx_papertape_emulator"
@@ -23063,72 +23351,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+12V")
-		(at 266.7 166.37 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "5f63ef11-bfe9-4017-b2ad-1ed07fc2c149")
-		(property "Reference" "#PWR083"
-			(at 266.7 170.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+12V"
-			(at 266.7 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 266.7 166.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 266.7 166.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+12V\""
-			(at 266.7 166.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "debb5cca-e244-45ef-8433-435ed12b30b6")
-		)
-		(instances
-			(project ""
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "#PWR083")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 268.605 36.195 0)
 		(unit 1)
@@ -23428,7 +23650,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25531"
+		(property "LCSC" "C25744"
 			(at 372.745 115.57 0)
 			(effects
 				(font
@@ -23901,7 +24123,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25531"
+		(property "LCSC" "C25744"
 			(at 346.075 25.4 0)
 			(effects
 				(font
@@ -24046,7 +24268,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2N7002"
+		(property "Value" "BSS138"
 			(at 314.96 36.1949 0)
 			(effects
 				(font
@@ -24064,7 +24286,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603392942124527616"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603380459560574976"
 			(at 309.245 47.625 0)
 			(effects
 				(font
@@ -24109,7 +24331,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C22446827"
+		(property "LCSC" "C53113928"
 			(at 309.245 34.925 0)
 			(effects
 				(font
@@ -24459,6 +24681,115 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "R34")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Simulation_SPICE:PMOS")
+		(at 299.085 173.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "725502e3-b386-4930-9165-619c2d1ef81b")
+		(property "Reference" "Q15"
+			(at 304.927 172.7199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "PMOS"
+			(at 304.927 175.2599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 304.165 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#cha_MOSFETs"
+			(at 299.085 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "P-MOSFET transistor, drain/source/gate"
+			(at 299.085 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "PMOS"
+			(at 299.085 191.135 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Type" "VDMOS"
+			(at 299.085 193.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=D 2=G 3=S"
+			(at 299.085 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 299.085 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "f53ec6a8-c92f-43a3-8ab6-083d86a558d4")
+		)
+		(pin "1"
+			(uuid "6ce52379-13d5-4832-84e5-bd3c842c8bad")
+		)
+		(pin "3"
+			(uuid "3bec78d2-075d-443a-86be-722645c7a3b9")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "Q15")
 					(unit 1)
 				)
 			)
@@ -25116,115 +25447,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Simulation_SPICE:PMOS")
-		(at 296.545 173.355 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7a765b38-d6c4-4198-a72e-1022ca8252cc")
-		(property "Reference" "Q15"
-			(at 302.26 172.0849 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "BSS84"
-			(at 302.26 174.6249 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 301.625 170.815 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8586176586010013696"
-			(at 296.545 186.055 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "P-MOSFET transistor, drain/source/gate"
-			(at 296.545 173.355 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "PMOS"
-			(at 296.545 190.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Type" "VDMOS"
-			(at 296.545 192.405 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=D 2=G 3=S"
-			(at 296.545 188.595 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C82079"
-			(at 296.545 173.355 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "48d7a9fd-ed81-43ba-8d88-3ca709c923bc")
-		)
-		(pin "1"
-			(uuid "62bfcf98-bbe2-45cc-bbcb-0e114fdb0cfa")
-		)
-		(pin "3"
-			(uuid "0333617e-bcb3-4a42-b4a9-4ba2af84d834")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "Q15")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R_Small")
 		(at 241.3 76.835 90)
 		(unit 1)
@@ -25865,115 +26087,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Simulation_SPICE:PMOS")
-		(at 264.16 173.355 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "81e72b9a-9bfc-4804-badf-9ced8272d6d0")
-		(property "Reference" "Q12"
-			(at 269.875 172.0849 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "BSS84"
-			(at 269.875 174.6249 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 269.24 170.815 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8586176586010013696"
-			(at 264.16 186.055 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "P-MOSFET transistor, drain/source/gate"
-			(at 264.16 173.355 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" "PMOS"
-			(at 264.16 190.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Type" "VDMOS"
-			(at 264.16 192.405 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" "1=D 2=G 3=S"
-			(at 264.16 188.595 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C82079"
-			(at 264.16 173.355 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "90e67869-096a-4ef5-ba5a-c472d39cd4cc")
-		)
-		(pin "1"
-			(uuid "e5d8852f-a8a1-4b75-948f-fc86ffd2349e")
-		)
-		(pin "3"
-			(uuid "2627f9b8-1f74-473a-87b9-774d959ad4b2")
-		)
-		(instances
-			(project ""
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "Q12")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 226.695 152.4 0)
 		(unit 1)
@@ -26193,7 +26306,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25531"
+		(property "LCSC" "C25744"
 			(at 341.63 117.475 0)
 			(effects
 				(font
@@ -26518,7 +26631,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2N7002"
+		(property "Value" "BSS138"
 			(at 283.845 187.9599 0)
 			(effects
 				(font
@@ -26536,7 +26649,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603392942124527616"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603380459560574976"
 			(at 278.13 199.39 0)
 			(effects
 				(font
@@ -26581,7 +26694,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C22446827"
+		(property "LCSC" "C53113928"
 			(at 278.13 186.69 0)
 			(effects
 				(font
@@ -27363,6 +27476,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+5V")
+		(at 301.625 167.005 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8e637d7c-724c-48bd-928e-22ce28e4ae22")
+		(property "Reference" "#PWR083"
+			(at 301.625 170.815 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 301.625 161.925 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 301.625 167.005 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 301.625 167.005 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 301.625 167.005 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3fa43223-1e35-4fcf-83a5-0935c96606e9")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "#PWR083")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_Small")
 		(at 238.125 273.685 90)
 		(unit 1)
@@ -27710,7 +27889,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25531"
+		(property "LCSC" "C25744"
 			(at 336.55 90.17 0)
 			(effects
 				(font
@@ -28226,72 +28405,6 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "#PWR025")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+5V")
-		(at 299.085 166.37 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "99211d42-7134-4fd1-9ada-e1bcb2303931")
-		(property "Reference" "#PWR080"
-			(at 299.085 170.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 299.085 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 299.085 166.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 299.085 166.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 299.085 166.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "08bc5eaf-9d43-40f6-a466-904c389ffef9")
-		)
-		(instances
-			(project ""
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "#PWR080")
 					(unit 1)
 				)
 			)
@@ -28836,7 +28949,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2N7002"
+		(property "Value" "BSS138"
 			(at 355.6 71.7549 0)
 			(effects
 				(font
@@ -28854,7 +28967,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603392942124527616"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603380459560574976"
 			(at 349.885 83.185 0)
 			(effects
 				(font
@@ -28899,7 +29012,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C22446827"
+		(property "LCSC" "C53113928"
 			(at 349.885 70.485 0)
 			(effects
 				(font
@@ -29385,6 +29498,121 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C_Small")
+		(at 351.155 155.575 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a49ce27a-8948-4f96-b564-e494a7a8912b")
+		(property "Reference" "C12"
+			(at 353.695 154.3112 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "4.7u"
+			(at 353.695 156.8512 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
+			(at 351.155 155.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 351.155 155.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 351.155 155.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C29823"
+			(at 351.155 155.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 351.155 155.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 351.155 155.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 351.155 155.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Comment" ""
+			(at 351.155 155.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9562a6ed-dcfc-4db4-958f-a9165c69754d")
+		)
+		(pin "2"
+			(uuid "8c9d6191-a18c-4cba-9662-29899e2c049c")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "C12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Simulation_SPICE:NMOS")
 		(at 311.785 69.85 0)
 		(unit 1)
@@ -29403,7 +29631,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2N7002"
+		(property "Value" "BSS138"
 			(at 317.5 71.1199 0)
 			(effects
 				(font
@@ -29421,7 +29649,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603392942124527616"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603380459560574976"
 			(at 311.785 82.55 0)
 			(effects
 				(font
@@ -29466,7 +29694,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C22446827"
+		(property "LCSC" "C53113928"
 			(at 311.785 69.85 0)
 			(effects
 				(font
@@ -29793,37 +30021,37 @@
 			)
 		)
 		(pin "13"
-			(uuid "6c02089f-2912-4af5-8280-4cc32696ed0f")
+			(uuid "6c02089f-2912-4af5-8280-4cc32696ed12")
 		)
 		(pin "9"
-			(uuid "703b6651-48c4-43a1-9ebb-aef6f2d7fa35")
+			(uuid "703b6651-48c4-43a1-9ebb-aef6f2d7fa38")
 		)
 		(pin "6"
-			(uuid "d9bf79fb-e8ca-44d2-a462-c6c9ae709c99")
+			(uuid "d9bf79fb-e8ca-44d2-a462-c6c9ae709c9c")
 		)
 		(pin "11"
-			(uuid "eaa92bee-f895-4190-9c6b-a95528a24847")
+			(uuid "eaa92bee-f895-4190-9c6b-a95528a2484a")
 		)
 		(pin "14"
-			(uuid "6a795233-860f-49a5-9763-0cdfce3edf2a")
+			(uuid "6a795233-860f-49a5-9763-0cdfce3edf2d")
 		)
 		(pin "8"
-			(uuid "3c1a3c30-c3ab-41bb-95c8-1f612babb9dc")
+			(uuid "3c1a3c30-c3ab-41bb-95c8-1f612babb9df")
 		)
 		(pin "7"
-			(uuid "ba239313-cb3b-44d6-9625-c699ec5e622d")
+			(uuid "ba239313-cb3b-44d6-9625-c699ec5e6230")
 		)
 		(pin "5"
-			(uuid "5a4ed54f-3d77-45e6-bc41-8d43a7ccf0e5")
+			(uuid "5a4ed54f-3d77-45e6-bc41-8d43a7ccf0e8")
 		)
 		(pin "12"
-			(uuid "91514291-a0ca-4b2e-aa06-aa7c98dfd0a7")
+			(uuid "91514291-a0ca-4b2e-aa06-aa7c98dfd0aa")
 		)
 		(pin "1"
-			(uuid "9536f9d5-271a-4dcc-b504-c4254f81e342")
+			(uuid "9536f9d5-271a-4dcc-b504-c4254f81e344")
 		)
 		(pin "2"
-			(uuid "81ab8243-32a2-41a1-8070-c2908a1ffb07")
+			(uuid "81ab8243-32a2-41a1-8070-c2908a1ffb09")
 		)
 		(pin "3"
 			(uuid "4d764193-f312-4cbb-9804-43538b092aa5")
@@ -29832,7 +30060,7 @@
 			(uuid "7967b39b-b23d-49a2-ba21-1d331870c2c1")
 		)
 		(pin "10"
-			(uuid "bf87cb16-0437-4ee0-96bc-57875ed1744f")
+			(uuid "bf87cb16-0437-4ee0-96bc-57875ed17452")
 		)
 		(instances
 			(project "hp21xx_papertape_emulator"
@@ -30137,6 +30365,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+12V")
+		(at 267.335 163.195 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ab383e93-c4c1-49b4-ae23-3ef9cab7e12f")
+		(property "Reference" "#PWR080"
+			(at 267.335 167.005 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 267.335 158.115 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 267.335 163.195 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 267.335 163.195 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+12V\""
+			(at 267.335 163.195 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f3ffd0a6-43a9-49cb-9730-04961906ee07")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "#PWR080")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 50.8 64.135 0)
 		(unit 1)
@@ -30404,37 +30698,37 @@
 			)
 		)
 		(pin "13"
-			(uuid "6c02089f-2912-4af5-8280-4cc32696ed0f")
+			(uuid "6c02089f-2912-4af5-8280-4cc32696ed13")
 		)
 		(pin "9"
-			(uuid "703b6651-48c4-43a1-9ebb-aef6f2d7fa35")
+			(uuid "703b6651-48c4-43a1-9ebb-aef6f2d7fa39")
 		)
 		(pin "6"
-			(uuid "d9bf79fb-e8ca-44d2-a462-c6c9ae709c99")
+			(uuid "d9bf79fb-e8ca-44d2-a462-c6c9ae709c9d")
 		)
 		(pin "11"
-			(uuid "eaa92bee-f895-4190-9c6b-a95528a24847")
+			(uuid "eaa92bee-f895-4190-9c6b-a95528a2484b")
 		)
 		(pin "14"
-			(uuid "6a795233-860f-49a5-9763-0cdfce3edf2a")
+			(uuid "6a795233-860f-49a5-9763-0cdfce3edf2e")
 		)
 		(pin "8"
-			(uuid "3c1a3c30-c3ab-41bb-95c8-1f612babb9dc")
+			(uuid "3c1a3c30-c3ab-41bb-95c8-1f612babb9e0")
 		)
 		(pin "7"
-			(uuid "ba239313-cb3b-44d6-9625-c699ec5e622d")
+			(uuid "ba239313-cb3b-44d6-9625-c699ec5e6231")
 		)
 		(pin "5"
-			(uuid "5a4ed54f-3d77-45e6-bc41-8d43a7ccf0e5")
+			(uuid "5a4ed54f-3d77-45e6-bc41-8d43a7ccf0e9")
 		)
 		(pin "12"
-			(uuid "91514291-a0ca-4b2e-aa06-aa7c98dfd0a7")
+			(uuid "91514291-a0ca-4b2e-aa06-aa7c98dfd0ab")
 		)
 		(pin "1"
-			(uuid "9536f9d5-271a-4dcc-b504-c4254f81e342")
+			(uuid "9536f9d5-271a-4dcc-b504-c4254f81e345")
 		)
 		(pin "2"
-			(uuid "81ab8243-32a2-41a1-8070-c2908a1ffb07")
+			(uuid "81ab8243-32a2-41a1-8070-c2908a1ffb0a")
 		)
 		(pin "3"
 			(uuid "a953191e-6e50-46ec-95f5-bf5e5211a561")
@@ -30443,7 +30737,7 @@
 			(uuid "479a1ae9-da69-48d4-9be2-54fc132f6318")
 		)
 		(pin "10"
-			(uuid "bf87cb16-0437-4ee0-96bc-57875ed1744f")
+			(uuid "bf87cb16-0437-4ee0-96bc-57875ed17453")
 		)
 		(instances
 			(project "hp21xx_papertape_emulator"
@@ -30574,7 +30868,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25531"
+		(property "LCSC" "C25744"
 			(at 382.905 26.035 0)
 			(effects
 				(font
@@ -30706,37 +31000,37 @@
 			)
 		)
 		(pin "13"
-			(uuid "6c02089f-2912-4af5-8280-4cc32696ed0f")
+			(uuid "6c02089f-2912-4af5-8280-4cc32696ed14")
 		)
 		(pin "9"
-			(uuid "703b6651-48c4-43a1-9ebb-aef6f2d7fa35")
+			(uuid "703b6651-48c4-43a1-9ebb-aef6f2d7fa3a")
 		)
 		(pin "6"
-			(uuid "d9bf79fb-e8ca-44d2-a462-c6c9ae709c99")
+			(uuid "d9bf79fb-e8ca-44d2-a462-c6c9ae709c9e")
 		)
 		(pin "11"
-			(uuid "eaa92bee-f895-4190-9c6b-a95528a24847")
+			(uuid "eaa92bee-f895-4190-9c6b-a95528a2484c")
 		)
 		(pin "14"
-			(uuid "6a795233-860f-49a5-9763-0cdfce3edf2a")
+			(uuid "6a795233-860f-49a5-9763-0cdfce3edf2f")
 		)
 		(pin "8"
-			(uuid "3c1a3c30-c3ab-41bb-95c8-1f612babb9dc")
+			(uuid "3c1a3c30-c3ab-41bb-95c8-1f612babb9e1")
 		)
 		(pin "7"
-			(uuid "ba239313-cb3b-44d6-9625-c699ec5e622d")
+			(uuid "ba239313-cb3b-44d6-9625-c699ec5e6232")
 		)
 		(pin "5"
-			(uuid "5a4ed54f-3d77-45e6-bc41-8d43a7ccf0e5")
+			(uuid "5a4ed54f-3d77-45e6-bc41-8d43a7ccf0ea")
 		)
 		(pin "12"
-			(uuid "91514291-a0ca-4b2e-aa06-aa7c98dfd0a7")
+			(uuid "91514291-a0ca-4b2e-aa06-aa7c98dfd0ac")
 		)
 		(pin "1"
-			(uuid "9536f9d5-271a-4dcc-b504-c4254f81e342")
+			(uuid "9536f9d5-271a-4dcc-b504-c4254f81e346")
 		)
 		(pin "2"
-			(uuid "81ab8243-32a2-41a1-8070-c2908a1ffb07")
+			(uuid "81ab8243-32a2-41a1-8070-c2908a1ffb0b")
 		)
 		(pin "3"
 			(uuid "f3b7e6c6-cd80-4ce4-828f-7561f80ad325")
@@ -30745,7 +31039,7 @@
 			(uuid "a23ccf7b-5a43-483b-ad56-45e320507bf8")
 		)
 		(pin "10"
-			(uuid "bf87cb16-0437-4ee0-96bc-57875ed1744f")
+			(uuid "bf87cb16-0437-4ee0-96bc-57875ed17454")
 		)
 		(instances
 			(project "hp21xx_papertape_emulator"
@@ -31387,7 +31681,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2N7002"
+		(property "Value" "BSS138"
 			(at 316.23 130.1749 0)
 			(effects
 				(font
@@ -31405,7 +31699,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603392942124527616"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603380459560574976"
 			(at 310.515 141.605 0)
 			(effects
 				(font
@@ -31450,7 +31744,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C22446827"
+		(property "LCSC" "C53113928"
 			(at 310.515 128.905 0)
 			(effects
 				(font
@@ -31844,37 +32138,37 @@
 			)
 		)
 		(pin "13"
-			(uuid "6c02089f-2912-4af5-8280-4cc32696ed0f")
+			(uuid "6c02089f-2912-4af5-8280-4cc32696ed15")
 		)
 		(pin "9"
-			(uuid "703b6651-48c4-43a1-9ebb-aef6f2d7fa35")
+			(uuid "703b6651-48c4-43a1-9ebb-aef6f2d7fa3b")
 		)
 		(pin "6"
-			(uuid "d9bf79fb-e8ca-44d2-a462-c6c9ae709c99")
+			(uuid "d9bf79fb-e8ca-44d2-a462-c6c9ae709c9f")
 		)
 		(pin "11"
-			(uuid "eaa92bee-f895-4190-9c6b-a95528a24847")
+			(uuid "eaa92bee-f895-4190-9c6b-a95528a2484d")
 		)
 		(pin "14"
-			(uuid "6a795233-860f-49a5-9763-0cdfce3edf2a")
+			(uuid "6a795233-860f-49a5-9763-0cdfce3edf30")
 		)
 		(pin "8"
-			(uuid "3c1a3c30-c3ab-41bb-95c8-1f612babb9dc")
+			(uuid "3c1a3c30-c3ab-41bb-95c8-1f612babb9e2")
 		)
 		(pin "7"
-			(uuid "ba239313-cb3b-44d6-9625-c699ec5e622d")
+			(uuid "ba239313-cb3b-44d6-9625-c699ec5e6233")
 		)
 		(pin "5"
-			(uuid "5a4ed54f-3d77-45e6-bc41-8d43a7ccf0e5")
+			(uuid "5a4ed54f-3d77-45e6-bc41-8d43a7ccf0eb")
 		)
 		(pin "12"
-			(uuid "91514291-a0ca-4b2e-aa06-aa7c98dfd0a7")
+			(uuid "91514291-a0ca-4b2e-aa06-aa7c98dfd0ad")
 		)
 		(pin "1"
-			(uuid "9536f9d5-271a-4dcc-b504-c4254f81e342")
+			(uuid "9536f9d5-271a-4dcc-b504-c4254f81e347")
 		)
 		(pin "2"
-			(uuid "81ab8243-32a2-41a1-8070-c2908a1ffb07")
+			(uuid "81ab8243-32a2-41a1-8070-c2908a1ffb0c")
 		)
 		(pin "3"
 			(uuid "30a87a56-71af-4df6-9568-34c855cec24f")
@@ -31883,7 +32177,7 @@
 			(uuid "2e2eaba2-d7bd-4ccb-bc08-237d3a1e7927")
 		)
 		(pin "10"
-			(uuid "bf87cb16-0437-4ee0-96bc-57875ed1744f")
+			(uuid "bf87cb16-0437-4ee0-96bc-57875ed17455")
 		)
 		(instances
 			(project "hp21xx_papertape_emulator"
@@ -33003,7 +33297,7 @@
 		(at 64.77 234.315 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
@@ -33215,120 +33509,6 @@
 	)
 	(symbol
 		(lib_id "Device:R_Small")
-		(at 287.655 173.355 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c6d5ef52-83f8-48a8-a863-63e03a77345d")
-		(property "Reference" "R90"
-			(at 285.75 174.625 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100"
-			(at 287.655 170.18 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 287.655 173.355 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 287.655 173.355 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, small symbol"
-			(at 287.655 173.355 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C25076"
-			(at 287.655 173.355 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 287.655 173.355 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 287.655 173.355 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 287.655 173.355 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Comment" ""
-			(at 287.655 173.355 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "1ce0a2b4-1848-4958-86fe-054a2e6e7525")
-		)
-		(pin "2"
-			(uuid "8ebd0a67-a404-413c-8f29-47b9c6964d18")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "R90")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_Small")
 		(at 274.955 22.225 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -33495,7 +33675,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25531"
+		(property "LCSC" "C25744"
 			(at 390.525 63.5 0)
 			(effects
 				(font
@@ -33662,7 +33842,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2N7002"
+		(property "Value" "BSS138"
 			(at 344.805 128.2699 0)
 			(effects
 				(font
@@ -33680,7 +33860,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603392942124527616"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603380459560574976"
 			(at 339.09 139.7 0)
 			(effects
 				(font
@@ -33725,7 +33905,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C22446827"
+		(property "LCSC" "C53113928"
 			(at 339.09 127 0)
 			(effects
 				(font
@@ -33806,7 +33986,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25531"
+		(property "LCSC" "C25744"
 			(at 226.695 148.59 0)
 			(effects
 				(font
@@ -34779,6 +34959,121 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C_Small")
+		(at 335.915 156.845 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d5f4b007-b01a-4bf3-ae77-76787ebc8395")
+		(property "Reference" "C13"
+			(at 338.455 155.5812 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "4.7u"
+			(at 338.455 158.1212 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
+			(at 335.915 156.845 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 335.915 156.845 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 335.915 156.845 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C29823"
+			(at 335.915 156.845 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 335.915 156.845 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 335.915 156.845 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 335.915 156.845 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Comment" ""
+			(at 335.915 156.845 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "77b0dc0d-0abb-4a1f-990b-0a32753d49e0")
+		)
+		(pin "2"
+			(uuid "ff69ba1d-00d6-4ba5-b6c5-4b4a4507073e")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "C13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+5V")
 		(at 203.2 16.51 0)
 		(unit 1)
@@ -35486,6 +35781,115 @@
 		)
 	)
 	(symbol
+		(lib_id "Simulation_SPICE:PMOS")
+		(at 264.795 171.45 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "dc4a22cf-0fb4-43e2-a6da-19a2b3c4a19d")
+		(property "Reference" "Q12"
+			(at 270.637 170.1799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "PMOS"
+			(at 270.637 172.7199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+			(at 269.875 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#cha_MOSFETs"
+			(at 264.795 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "P-MOSFET transistor, drain/source/gate"
+			(at 264.795 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "PMOS"
+			(at 264.795 188.595 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Type" "VDMOS"
+			(at 264.795 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=D 2=G 3=S"
+			(at 264.795 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 264.795 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "be935e12-99d9-464c-aa71-374eb8b3418a")
+		)
+		(pin "1"
+			(uuid "3d22b8c7-3c6f-4f4d-8a3b-803b5b8a04fd")
+		)
+		(pin "3"
+			(uuid "0cf745fa-6da4-4198-9e7a-51fc1e2e249a")
+		)
+		(instances
+			(project ""
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "Q12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_Small")
 		(at 314.325 60.325 0)
 		(unit 1)
@@ -35539,7 +35943,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25531"
+		(property "LCSC" "C25744"
 			(at 314.325 60.325 0)
 			(effects
 				(font
@@ -35827,6 +36231,72 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 351.155 159.385 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "df5c6ac8-c4cb-4c7e-9d1e-e825a8893283")
+		(property "Reference" "#PWR094"
+			(at 351.155 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 351.155 164.465 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 351.155 159.385 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 351.155 159.385 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 351.155 159.385 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c2934bf7-5847-486f-8f60-a10950815ffe")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "#PWR094")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 255.905 36.195 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -35886,6 +36356,72 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "#PWR057")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 335.915 160.655 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "dfa9da30-37b4-4dad-8a35-5b2a14b4c14d")
+		(property "Reference" "#PWR095"
+			(at 335.915 167.005 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 335.915 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 335.915 160.655 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 335.915 160.655 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 335.915 160.655 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1c4a6a8d-6b7d-4158-9106-ea61aa0e267a")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "#PWR095")
 					(unit 1)
 				)
 			)
@@ -37509,7 +38045,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2N7002"
+		(property "Value" "BSS138"
 			(at 375.92 126.3649 0)
 			(effects
 				(font
@@ -37527,7 +38063,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603392942124527616"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603380459560574976"
 			(at 370.205 137.795 0)
 			(effects
 				(font
@@ -37572,7 +38108,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C22446827"
+		(property "LCSC" "C53113928"
 			(at 370.205 125.095 0)
 			(effects
 				(font
@@ -37719,7 +38255,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25531"
+		(property "LCSC" "C25744"
 			(at 313.055 119.38 0)
 			(effects
 				(font
@@ -38191,120 +38727,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R_Small")
-		(at 255.27 173.355 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f8b911b0-78f8-4e1d-b504-c83eec5a6a5e")
-		(property "Reference" "R84"
-			(at 253.365 174.625 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100"
-			(at 255.27 170.18 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 255.27 173.355 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 255.27 173.355 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, small symbol"
-			(at 255.27 173.355 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C25076"
-			(at 255.27 173.355 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 255.27 173.355 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 255.27 173.355 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 255.27 173.355 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Comment" ""
-			(at 255.27 173.355 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "af3afce7-d881-4f6c-9d98-a89d512d78ed")
-		)
-		(pin "2"
-			(uuid "08b73f1e-4a89-4372-8c92-e1165662649f")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "R84")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Simulation_SPICE:NMOS")
 		(at 245.745 186.69 0)
 		(unit 1)
@@ -38323,7 +38745,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2N7002"
+		(property "Value" "BSS138"
 			(at 251.46 187.9599 0)
 			(effects
 				(font
@@ -38341,7 +38763,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603392942124527616"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8603380459560574976"
 			(at 245.745 199.39 0)
 			(effects
 				(font
@@ -38386,7 +38808,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C22446827"
+		(property "LCSC" "C53113928"
 			(at 245.745 186.69 0)
 			(effects
 				(font
