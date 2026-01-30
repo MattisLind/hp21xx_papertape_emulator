@@ -7844,6 +7844,12 @@
 		(uuid "a1ee3502-a0b1-492d-b2f1-5e6fe1d977cc")
 	)
 	(junction
+		(at 259.715 171.45)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a2792c82-b16a-4aa9-8ce2-0636204cdf85")
+	)
+	(junction
 		(at 21.59 99.06)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7926,6 +7932,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d7c08f1c-611d-4228-890c-eb99860bc0eb")
+	)
+	(junction
+		(at 293.37 173.99)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "dc60df21-7553-494d-9949-3b3bc8e505ad")
 	)
 	(junction
 		(at 314.325 64.135)
@@ -8730,6 +8742,16 @@
 			(type default)
 		)
 		(uuid "273d37f2-6008-4853-9ea2-f353eeb4ed57")
+	)
+	(wire
+		(pts
+			(xy 293.37 160.655) (xy 293.37 163.195)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "27c18602-f558-40b4-a653-5fa2078a4e8b")
 	)
 	(wire
 		(pts
@@ -10013,7 +10035,7 @@
 	)
 	(wire
 		(pts
-			(xy 291.465 173.99) (xy 294.005 173.99)
+			(xy 291.465 173.99) (xy 293.37 173.99)
 		)
 		(stroke
 			(width 0)
@@ -10333,6 +10355,16 @@
 	)
 	(wire
 		(pts
+			(xy 293.37 173.99) (xy 294.005 173.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "753da3d9-d6b1-49b4-b901-30daeaa63006")
+	)
+	(wire
+		(pts
 			(xy 305.435 69.85) (xy 306.07 69.85)
 		)
 		(stroke
@@ -10473,6 +10505,16 @@
 	)
 	(wire
 		(pts
+			(xy 259.715 160.655) (xy 259.715 163.195)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7d41bdee-7f4b-408e-9a78-3606eec134df")
+	)
+	(wire
+		(pts
 			(xy 338.455 29.21) (xy 346.075 29.21)
 		)
 		(stroke
@@ -10560,6 +10602,16 @@
 			(type default)
 		)
 		(uuid "7fbe0e95-1366-4ae4-a2dd-e59183acb680")
+	)
+	(wire
+		(pts
+			(xy 259.715 168.275) (xy 259.715 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ff30645-6c32-45d4-bdb7-35c6545c810e")
 	)
 	(wire
 		(pts
@@ -12460,6 +12512,16 @@
 			(type default)
 		)
 		(uuid "e5a47dd0-d241-40c8-a98e-28f56aa3e035")
+	)
+	(wire
+		(pts
+			(xy 293.37 168.275) (xy 293.37 173.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e64b17aa-8218-4a49-bc27-d10524b911a1")
 	)
 	(wire
 		(pts
@@ -18312,6 +18374,72 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "R47")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 259.715 160.655 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2154acb5-b5cd-4a1f-9af8-10c8db535fd4")
+		(property "Reference" "#PWR097"
+			(at 259.715 164.465 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 259.715 155.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 259.715 160.655 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 259.715 160.655 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+12V\""
+			(at 259.715 160.655 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9b16e414-c90b-432c-8c45-297fa9f749df")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "#PWR097")
 					(unit 1)
 				)
 			)
@@ -24705,7 +24833,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "PMOS"
+		(property "Value" "BSS84"
 			(at 304.927 175.2599 0)
 			(effects
 				(font
@@ -24723,7 +24851,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#cha_MOSFETs"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8604425091913052160"
 			(at 299.085 186.69 0)
 			(effects
 				(font
@@ -24768,7 +24896,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C41354933"
 			(at 299.085 173.99 0)
 			(effects
 				(font
@@ -28345,6 +28473,120 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R_Small")
+		(at 293.37 165.735 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "96fd80ff-1cc5-4668-9912-555f09c759ef")
+		(property "Reference" "R49"
+			(at 288.925 163.195 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 287.655 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 293.37 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 293.37 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 293.37 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25744"
+			(at 293.37 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 293.37 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 293.37 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 293.37 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Comment" ""
+			(at 293.37 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "95edf2d4-7258-4344-bce3-8c1a76966ad2")
+		)
+		(pin "2"
+			(uuid "d2a3df0f-8c00-40b9-a141-57039101d633")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "R49")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3.3V")
 		(at 135.89 43.18 0)
 		(unit 1)
@@ -31663,6 +31905,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+5V")
+		(at 293.37 160.655 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bcd681c7-7464-4efe-a2c6-987397ea04d1")
+		(property "Reference" "#PWR096"
+			(at 293.37 164.465 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 293.37 155.575 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 293.37 160.655 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 293.37 160.655 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 293.37 160.655 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0cafd225-fcb9-410a-bfbf-e738d5a2772c")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "#PWR096")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Simulation_SPICE:NMOS")
 		(at 310.515 128.905 0)
 		(unit 1)
@@ -32597,6 +32905,120 @@
 			(project ""
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "U7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 259.715 165.735 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c10d7621-0583-497f-903a-e4cde0b66563")
+		(property "Reference" "R50"
+			(at 255.27 163.195 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 254 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 259.715 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 259.715 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 259.715 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25744"
+			(at 259.715 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 259.715 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 259.715 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 259.715 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Comment" ""
+			(at 259.715 165.735 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "98455db9-1b18-42e0-b701-7e0ec3600f19")
+		)
+		(pin "2"
+			(uuid "13f13122-6177-4081-aa62-e69b8c26871e")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "R50")
 					(unit 1)
 				)
 			)
@@ -35799,7 +36221,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "PMOS"
+		(property "Value" "BSS84"
 			(at 270.637 172.7199 0)
 			(effects
 				(font
@@ -35817,7 +36239,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://ngspice.sourceforge.io/docs/ngspice-html-manual/manual.xhtml#cha_MOSFETs"
+		(property "Datasheet" "https://jlcpcb.com/api/file/downloadByFileSystemAccessId/8604425091913052160"
 			(at 264.795 184.15 0)
 			(effects
 				(font
@@ -35862,7 +36284,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C41354933"
 			(at 264.795 171.45 0)
 			(effects
 				(font
