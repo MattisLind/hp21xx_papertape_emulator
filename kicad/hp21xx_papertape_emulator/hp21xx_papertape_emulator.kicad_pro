@@ -66,18 +66,6 @@
         [
           "silk_edge_clearance|95760640|75000000|4b3c3516-bc64-4354-a36b-120239d0956c|5170b83e-7416-4ce0-99bf-eaf5aab6879c",
           ""
-        ],
-        [
-          "starved_thermal|118014000|115090200|46eec8e2-8b6c-480e-a90c-4c25908ccd0d|e3b4ae85-edba-455e-adc1-52596903f963|B.Cu",
-          ""
-        ],
-        [
-          "starved_thermal|127369000|151079200|46eec8e2-8b6c-480e-a90c-4c25908ccd0d|8160ff9d-e983-4a15-9d6e-d17b6fb447d8|B.Cu",
-          ""
-        ],
-        [
-          "starved_thermal|148786900|92239900|c111a4ae-c198-4395-a22d-4e5b00f2daad|c7f59eee-29b1-4d77-8e78-16ec0aa18876|F.Cu",
-          ""
         ]
       ],
       "meta": {
@@ -464,7 +452,7 @@
       "no_connect_dangling": "warning",
       "pin_not_connected": "error",
       "pin_not_driven": "error",
-      "pin_to_pin": "warning",
+      "pin_to_pin": "error",
       "power_pin_not_driven": "error",
       "same_local_global_label": "warning",
       "similar_label_and_power": "warning",
