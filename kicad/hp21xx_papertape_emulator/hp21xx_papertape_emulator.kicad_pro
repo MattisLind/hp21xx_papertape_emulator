@@ -66,6 +66,14 @@
         [
           "silk_edge_clearance|95760640|75000000|4b3c3516-bc64-4354-a36b-120239d0956c|5170b83e-7416-4ce0-99bf-eaf5aab6879c",
           ""
+        ],
+        [
+          "starved_thermal|136391319|82195879|ed7d6453-9915-49f0-8e4d-4043e113fd44|0a3b004e-b30e-42cb-86cd-e175d7a55459|B.Cu",
+          ""
+        ],
+        [
+          "starved_thermal|147486900|92239900|2835ecec-1324-40f2-b682-542ee0ac5c8f|35e44cac-c00e-4375-88ee-c435abd07c98|F.Cu",
+          ""
         ]
       ],
       "meta": {
