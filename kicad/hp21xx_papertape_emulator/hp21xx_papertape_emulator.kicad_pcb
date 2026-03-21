@@ -6628,6 +6628,7 @@
 		(property "Reference" "H8"
 			(at 0 -3.45 0)
 			(layer "F.SilkS")
+			(hide yes)
 			(uuid "c284b3b9-c8cb-46cc-8f01-553e951ced96")
 			(effects
 				(font
@@ -25323,6 +25324,7 @@
 		(property "Reference" "H6"
 			(at 0 -3.45 0)
 			(layer "F.SilkS")
+			(hide yes)
 			(uuid "01cd802f-3d27-4734-8bf6-c0303444f9f2")
 			(effects
 				(font
