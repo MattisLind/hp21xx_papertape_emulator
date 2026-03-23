@@ -15157,6 +15157,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C51315114"
+			(at 341.63 110.49 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "67c203f7-209f-4f71-8311-6d1fcea4e9ff")
 		)
@@ -16232,6 +16241,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C51315114"
+			(at 392.43 124.46 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "07b43ece-033c-4375-a038-d47b23f0bc61")
 		)
@@ -16879,6 +16897,15 @@
 		)
 		(property "Description" "30V 200mA Schottky diode, SOD-323F"
 			(at 334.01 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C51315114"
+			(at 334.01 110.49 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17593,6 +17620,15 @@
 		)
 		(property "Description" "30V 200mA Schottky diode, SOD-323F"
 			(at 321.31 209.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C51315114"
+			(at 321.31 209.55 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19571,6 +19607,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C51315114"
+			(at 368.3 205.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "a45038ef-a837-43f4-aa6f-fa064bedcf18")
 		)
@@ -20351,6 +20396,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C51315114"
+			(at 312.42 30.48 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9539c185-39de-4c14-872a-f01a8e74b3a8")
 		)
@@ -20773,6 +20827,15 @@
 		)
 		(property "Description" "30V 200mA Schottky diode, SOD-323F"
 			(at 383.54 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C51315114"
+			(at 383.54 30.48 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21840,6 +21903,15 @@
 		)
 		(property "Description" "30V 200mA Schottky diode, SOD-323F"
 			(at 312.42 209.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C51315114"
+			(at 312.42 209.55 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23615,6 +23687,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C51315114"
+			(at 250.19 115.57 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "5b5175c8-2b71-4390-8187-c4cee001a10a")
 		)
@@ -24209,6 +24290,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C51315114"
+			(at 289.56 116.84 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c3b6150d-2ab3-4ad6-965b-3c4afb4a7661")
 		)
@@ -24403,6 +24493,15 @@
 		)
 		(property "Description" "30V 200mA Schottky diode, SOD-323F"
 			(at 381 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C51315114"
+			(at 381 82.55 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31604,6 +31703,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C51315114"
+			(at 309.88 74.93 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "3ec8fb48-15c7-4515-9093-c0f05dddd15e")
 		)
@@ -32469,6 +32577,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C51315114"
+			(at 281.94 116.84 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "7b95e4e6-7012-4744-9e27-548a3c16d281")
 		)
@@ -33133,6 +33250,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C51315114"
+			(at 259.08 115.57 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "b4a09b0f-9174-438d-8998-62cebe667cf9")
 		)
@@ -33326,6 +33452,15 @@
 		)
 		(property "Description" "30V 200mA Schottky diode, SOD-323F"
 			(at 384.81 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C51315114"
+			(at 384.81 124.46 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33539,6 +33674,15 @@
 		)
 		(property "Description" "30V 200mA Schottky diode, SOD-323F"
 			(at 346.71 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C51315114"
+			(at 346.71 30.48 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -37474,6 +37618,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C51315114"
+			(at 360.68 205.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d2ec3861-9ee6-4e37-b21e-80dada262874")
 		)
@@ -39612,6 +39765,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C51315114"
+			(at 339.09 30.48 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "5339a4fb-0368-4584-b239-b71abebf0058")
 		)
@@ -41086,6 +41248,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C51315114"
+			(at 300.99 74.93 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "bdb8e3a4-43a6-4fe1-955b-72510ea89b51")
 		)
@@ -42108,6 +42279,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C51315114"
+			(at 377.19 30.48 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "7a36f1e5-a8fc-4d6f-9ed6-11fd44bfd40c")
 		)
@@ -42170,6 +42350,15 @@
 		)
 		(property "Description" "30V 200mA Schottky diode, SOD-323F"
 			(at 306.07 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C51315114"
+			(at 306.07 30.48 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -42650,6 +42839,15 @@
 		)
 		(property "Description" "30V 200mA Schottky diode, SOD-323F"
 			(at 388.62 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C51315114"
+			(at 388.62 82.55 90)
 			(effects
 				(font
 					(size 1.27 1.27)
