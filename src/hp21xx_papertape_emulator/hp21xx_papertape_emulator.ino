@@ -1,1136 +1,1029 @@
 /*
-  STM32F103C8 Paper Tape Emulator for HP 12566 (5V logic via buffers)
-  Roger Clark Arduino_STM32 core + USBComposite MSC + SdFat + U8g2
+  HP Paper Tape Reader/Punch Emulator
+  Target: STM32F103C8 using Roger Clark / Maple STM32 Arduino core
 
-  Updates in this version (per your request)
-  - PA3 = USB pull-up enable output (controls PMOS that connects 1.5k to 3.3V on D+)
-      * PA3 LOW  => PMOS ON  => USB "attached"
-      * PA3 HIGH => PMOS OFF => USB "detached"
-    (Assumes you also have a 100k gate pull-up to 3.3V to default OFF at reset.)
-
-  - PA2 = SD card detect input (active-low)
-      * PA2 LOW  => SD card inserted
-      * Uses internal pull-up (INPUT_PULLUP)
-
-  Behavior
-  - If SD not inserted: SD init is skipped, MSC not started, UI shows "Insert SD".
-  - If SD inserted: SD initialized, config loaded from /PTRCFG.TXT, file list scanned.
-  - USB MSC is only started when SD is inserted.
-  - USB host detection is still by enumeration (USBComposite becomes "ready").
-    If a host enumerates: emulation stops immediately and MSC becomes active.
-    If only a USB charger: no enumeration => emulation continues.
-
-  Notes
-  - This sketch avoids SD filesystem operations while MSC is active (host mounted).
-  - To run emulation while host is connected, open Settings (hold Select >4s) and choose "Start emulation".
-    That detaches USB (PA3 HIGH + USBComposite.end()) and resumes emulation.
-    Choose "Stop emulation" to re-enable MSC (PA3 LOW + USBComposite.begin()).
-
-  Libraries
-  - U8g2
-  - SdFat
-  - USBComposite (Roger Clark core)
-
-  IMPORTANT hardware (shared DATA pins with two 245 buffers)
-  - Shared node: STM32 GPIO pins connect to BOTH:
-      * 74HCT245 A-side (device->HP)  [5V] DIR fixed A->B
-      * 74LVC245 B-side (HP->device)  [3.3V] DIR fixed A->B
-  - Control BOTH /OE pins:
-      * HCT245 /OE active-low: enable ONLY in Reader mode
-      * LVC245 /OE active-low: enable ONLY in Punch mode
+  Notes:
+  - This is a first complete firmware structure based on the supplied requirements.
+  - USB MSC support is isolated behind usbMscStart()/usbMscStop() because the exact
+    API depends on the chosen USB MSC library for the Roger Clark core.
+  - All timing-critical paper tape handshakes avoid Serial printing and GUI updates.
+  - JTAG is disabled in setup() so PA15, PB3 and PB4 can be used as GPIO.
 */
 
 #include <Arduino.h>
 #include <Wire.h>
-#include <U8g2lib.h>
-#include <SdFat.h>
+#include <SPI.h>
+#include <SD.h>
 #include <USBComposite.h>
+#include <USBMassStorage.h>
+#include <U8g2lib.h>
 
-// ---------------- OLED ----------------
-U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE);
+// -----------------------------------------------------------------------------
+// Pin mapping from requirements
+// -----------------------------------------------------------------------------
 
-// ---------------- SD + MSC ----------------
-SdFat sd;
-SdFile ioFile;
-USBMassStorage MassStorage;
+static const uint8_t PIN_BTN_UP      = PB0;
+static const uint8_t PIN_BTN_DOWN    = PB1;
+static const uint8_t PIN_BTN_SELECT  = PB10;
 
-static uint32_t g_sectorCount = 0;
-static bool usbStarted = false;
-static bool usbHostConfigured = false;
+static const uint8_t PIN_SD_CS       = PA4;
+static const uint8_t PIN_SD_DETECT   = PA2;  // Active low, pull-up required
 
-// ---------------- Pins ----------------
-// Buttons (active-low)
-static const uint8_t PIN_BTN_UP     = PB0;
-static const uint8_t PIN_BTN_DOWN   = PB1;
-static const uint8_t PIN_BTN_SELECT = PB10;
+static const uint8_t PIN_USB_VBUS    = PA1;  // High when USB VBUS is present
+static const uint8_t PIN_USB_PULLUP  = PA3;  // Drive high to connect USB pull-up circuit
 
-// HP handshake
-static const uint8_t PIN_HP_CMD_IN   = PB11;  // CMD after 5V->3.3V conditioning
-static const uint8_t PIN_HP_FLAG_OUT = PA15;  // FLAG output (JTAG pin is OK after disabling JTAG)
+static const uint8_t PIN_ACTIVITY_LED = PC13;
 
-// Shared DATA pins (avoid PA9/10 UART, PA11/12 USB, PA13/14 SWD)
+static const uint8_t PIN_BUS_DIR      = PB8;  // Active low: low enables external host-to-device buffer for punch input
+static const uint8_t PIN_LEVEL_SELECT = PB2;  // High = 12 V interface, Low = 5 V interface
+static const uint8_t PIN_OUT_OF_TAPE  = PC14;
+
+static const uint8_t PIN_READER_CMD   = PB11;
+static const uint8_t PIN_READER_ACK   = PA15;
+
+static const uint8_t PIN_PUNCH_CMD    = PA0;
+static const uint8_t PIN_PUNCH_ACK    = PC15;
+
 static const uint8_t DATA_PINS[8] = {
-  PB12, PB13, PB14, PB15,  // bits 0..3
-  PB3,  PB4,  PB5,  PA8    // bits 4..7
+  PB12, // D0
+  PB13, // D1
+  PB14, // D2
+  PB15, // D3
+  PB3,  // D4, requires JTAG disabled
+  PB4,  // D5, requires JTAG disabled
+  PB5,  // D6
+  PA8   // D7
 };
 
-// /OE pins (active-low)
-static const uint8_t PIN_OE_HCT_OUT = PB9;  // HCT245 /OE
-static const uint8_t PIN_OE_LVC_IN  = PB8;  // LVC245 /OE
+// -----------------------------------------------------------------------------
+// USB MSC
+// -----------------------------------------------------------------------------
 
-// SD SPI1
-static const uint8_t PIN_SD_CS = PA4;
+// USBComposite MSC exposes the SD card as raw 512-byte sectors.
+// Use the classic Sd2Card class bundled with Arduino SD.h for raw block access.
+// This avoids mixing SD.h with the external SdFat 2.x library, which clashes with
+// the older Roger Clark / Maple core.
+Sd2Card rawCard;
+USBMassStorage MassStorage;
+static uint32_t usbMscSectorCount = 0;
+static const uint16_t USB_PRODUCT_ID = 0x29;
 
-// SD card detect (active-low, internal pull-up)
-static const uint8_t PIN_SD_DETECT = PA2;
-
-// USB pull-up enable (controls PMOS switch for 1.5k to 3.3V on D+)
-static const uint8_t PIN_USB_PULLUP_EN = PA3;
-
-// Activity LED
-static const uint8_t PIN_LED = PC13;
-
-// ---------------- Config ----------------
-enum class Mode : uint8_t { Reader = 0, Punch = 1 };
-enum class CmdEdge : uint8_t { Rising = 0, Falling = 1 };
-
-struct Settings {
-  Mode mode;
-  bool invData;
-  bool invCmd;
-  bool invFlag;
-  uint16_t flagPulseUs;
-  CmdEdge cmdEdge;
-  bool ledEnable;
-};
-
-static Settings g = {
-  Mode::Reader,
-  false,
-  false,
-  false,
-  1,
-  CmdEdge::Rising,
-  true
-};
-
-static const char *CFG_PATH = "/PTRCFG.TXT";
-
-// ---------------- States ----------------
-enum class SysState : uint8_t {
-  EMU_RUNNING,
-  USB_MSC_ACTIVE,
-  EMU_FORCED_WHILE_HOST
-};
-
-static SysState sysState = SysState::EMU_RUNNING;
-
-enum class UiState : uint8_t { Main, SettingsMenu };
-static UiState uiState = UiState::Main;
-
-// ---------------- Timing / flags ----------------
-static const uint32_t DEBOUNCE_MS = 140;
-static uint32_t lastUiTickMs = 0;
-
-static bool selWasDown = false;
-static uint32_t selDownAt = 0;
-
-volatile bool cmdSeen = false;
-
-static bool sdOk = false;
-static bool sdInserted = false;
-static bool armed = false;
-
-static uint32_t lastUsbPollMs = 0;
-static uint32_t lastSdPollMs = 0;
-
-// Reader file list
-static const uint16_t MAX_FILES = 128;
-static String files[MAX_FILES];
-static uint16_t fileCount = 0;
-static int16_t selectedIndex = 0;
-static int16_t topIndex = 0;
-
-// Punch capture file
-static uint16_t capIndex = 0;
-static char capName[16] = "CAP0000.BIN";
-static int punchCursor = 0;
-static uint32_t punchBytesSinceSync = 0;
-
-// Settings menu cursor
-static int menuIndex = 0;
-
-// LED state
-static uint32_t ledLastToggleMs = 0;
-static bool ledState = false;
-
-// ---------------- Helpers: Buttons ----------------
-bool btnPressed(uint8_t pin) {
-  return (digitalRead(pin) == LOW);
-}
-
-// ---------------- Helpers: LED ----------------
-void ledSet(bool on) {
-  if (!g.ledEnable) return;
-  // PC13 often active-low (Blue Pill). Flip if your PCB uses active-high.
-  digitalWrite(PIN_LED, on ? LOW : HIGH);
-  ledState = on;
-}
-
-void ledPulseShort() {
-  if (!g.ledEnable) return;
-  ledSet(true);
-  delay(2);
-  ledSet(false);
-}
-
-void ledUpdatePattern() {
-  if (!g.ledEnable) return;
-  uint32_t now = millis();
-
-  uint32_t interval;
-  if (!sdInserted) interval = 1200;                      // SD missing: very slow blink
-  else if (sysState == SysState::USB_MSC_ACTIVE) interval = 250; // USB MSC mode
-  else interval = armed ? 150 : 600;                     // Armed/idle
-
-  if (now - ledLastToggleMs >= interval) {
-    ledLastToggleMs = now;
-    ledSet(!ledState);
-  }
-}
-
-// ---------------- Helpers: Trim / parse ----------------
-String trimStr(const String &s) {
-  int start = 0;
-  int end = (int)s.length() - 1;
-  while (start <= end && isspace((unsigned char)s[start])) start++;
-  while (end >= start && isspace((unsigned char)s[end])) end--;
-  return s.substring(start, end + 1);
-}
-
-bool parseBool01(const String &v, bool fallback) {
-  if (v == "1" || v == "true" || v == "yes" || v == "on") return true;
-  if (v == "0" || v == "false" || v == "no" || v == "off") return false;
-  return fallback;
-}
-
-// ---------------- USB pull-up control (PA3) ----------------
-void usbAttachPullup() {
-  // PMOS ON => attach => GPIO LOW
-  digitalWrite(PIN_USB_PULLUP_EN, LOW);
-}
-
-void usbDetachPullup() {
-  // PMOS OFF => detach => GPIO HIGH
-  digitalWrite(PIN_USB_PULLUP_EN, HIGH);
-}
-
-// ---------------- SD detect (PA2) ----------------
-bool readSdInserted() {
-  // Active-low: LOW means card present
-  return (digitalRead(PIN_SD_DETECT) == LOW);
-}
-
-// ---------------- SD: config file ----------------
-void writeDefaultConfig() {
-  SdFile f;
-  if (!f.open(CFG_PATH, O_CREAT | O_TRUNC | O_WRITE)) return;
-
-  f.print("mode=reader\n");
-  f.print("inv_data=0\n");
-  f.print("inv_cmd=0\n");
-  f.print("inv_flag=0\n");
-  f.print("flag_us=1\n");
-  f.print("cmd_edge=rising\n");
-  f.print("led_enable=1\n");
-  f.close();
-}
-
-void saveConfigToSd() {
-  if (!sdOk) return;
-  SdFile f;
-  if (!f.open(CFG_PATH, O_CREAT | O_TRUNC | O_WRITE)) return;
-
-  f.print("mode=");
-  f.print((g.mode == Mode::Reader) ? "reader\n" : "punch\n");
-
-  f.print("inv_data=");
-  f.print(g.invData ? "1\n" : "0\n");
-
-  f.print("inv_cmd=");
-  f.print(g.invCmd ? "1\n" : "0\n");
-
-  f.print("inv_flag=");
-  f.print(g.invFlag ? "1\n" : "0\n");
-
-  f.print("flag_us=");
-  f.print(g.flagPulseUs);
-  f.print("\n");
-
-  f.print("cmd_edge=");
-  f.print((g.cmdEdge == CmdEdge::Rising) ? "rising\n" : "falling\n");
-
-  f.print("led_enable=");
-  f.print(g.ledEnable ? "1\n" : "0\n");
-
-  f.close();
-}
-
-void loadConfigFromSd() {
-  if (!sdOk) return;
-
-  if (!sd.exists(CFG_PATH)) {
-    writeDefaultConfig();
-    return;
-  }
-
-  SdFile f;
-  if (!f.open(CFG_PATH, O_RDONLY)) return;
-
-  String line;
-  while (f.available()) {
-    char c = (char)f.read();
-    if (c == '\r') continue;
-
-    if (c == '\n') {
-      line = trimStr(line);
-
-      if (line.length() == 0 || line.startsWith("#") || line.startsWith(";")) {
-        line = "";
-        continue;
-      }
-
-      int eq = line.indexOf('=');
-      if (eq > 0) {
-        String key = trimStr(line.substring(0, eq));
-        String val = trimStr(line.substring(eq + 1));
-        key.toLowerCase();
-        val.toLowerCase();
-
-        if (key == "mode") {
-          if (val == "reader") g.mode = Mode::Reader;
-          if (val == "punch")  g.mode = Mode::Punch;
-        } else if (key == "inv_data") {
-          g.invData = parseBool01(val, g.invData);
-        } else if (key == "inv_cmd") {
-          g.invCmd = parseBool01(val, g.invCmd);
-        } else if (key == "inv_flag") {
-          g.invFlag = parseBool01(val, g.invFlag);
-        } else if (key == "flag_us") {
-          int n = val.toInt();
-          if (n >= 1 && n <= 50) g.flagPulseUs = (uint16_t)n;
-        } else if (key == "cmd_edge") {
-          if (val == "rising") g.cmdEdge = CmdEdge::Rising;
-          if (val == "falling") g.cmdEdge = CmdEdge::Falling;
-        } else if (key == "led_enable") {
-          g.ledEnable = parseBool01(val, g.ledEnable);
-        }
-      }
-
-      line = "";
-    } else {
-      if (line.length() < 120) line += c;
+static bool usbMscReadBlocks(uint8_t *readbuff, uint32_t startSector, uint16_t numSectors) {
+  // Read raw sectors from the SD card for the USB host.
+  for (uint16_t i = 0; i < numSectors; i++) {
+    // Sd2Card reads one 512-byte sector at a time.
+    if (!rawCard.readBlock(startSector + i, readbuff + (i * 512UL))) {
+      return false;
     }
   }
-
-  f.close();
-}
-
-// ---------------- JTAG disable (keep SWD) ----------------
-void disableJtagKeepSwd() {
-#if defined(STM32F1xx) || defined(ARDUINO_ARCH_STM32)
-  #ifdef RCC_APB2ENR_AFIOEN
-    RCC->APB2ENR |= RCC_APB2ENR_AFIOEN;
-  #endif
-  AFIO->MAPR &= ~(0x7 << 24);
-  AFIO->MAPR |=  (0x2 << 24);
-#endif
-}
-
-// ---------------- HP bus helpers ----------------
-void setFlag(bool asserted) {
-  bool level = asserted;
-  if (g.invFlag) level = !level;
-  digitalWrite(PIN_HP_FLAG_OUT, level ? HIGH : LOW);
-}
-
-void pulseFlag() {
-  setFlag(true);
-  delayMicroseconds(g.flagPulseUs);
-  setFlag(false);
-}
-
-void setHctEnabled(bool enable) {
-  digitalWrite(PIN_OE_HCT_OUT, enable ? LOW : HIGH); // active-low /OE
-}
-
-void setLvcEnabled(bool enable) {
-  digitalWrite(PIN_OE_LVC_IN, enable ? LOW : HIGH);  // active-low /OE
-}
-
-void writeDataBus(uint8_t b) {
-  if (g.invData) b = ~b;
-  for (int i = 0; i < 8; i++) {
-    digitalWrite(DATA_PINS[i], (b >> i) & 0x01);
-  }
-}
-
-uint8_t readDataBus() {
-  uint8_t b = 0;
-  for (int i = 0; i < 8; i++) {
-    if (digitalRead(DATA_PINS[i]) == HIGH) b |= (1u << i);
-  }
-  if (g.invData) b = ~b;
-  return b;
-}
-
-void applyModeToHardware() {
-  const bool readerMode = (g.mode == Mode::Reader);
-
-  if (readerMode) {
-    setLvcEnabled(false);
-    for (int i = 0; i < 8; i++) {
-      pinMode(DATA_PINS[i], OUTPUT);
-      digitalWrite(DATA_PINS[i], LOW);
-    }
-    setHctEnabled(true);
-  } else {
-    setHctEnabled(false);
-    for (int i = 0; i < 8; i++) {
-      pinMode(DATA_PINS[i], INPUT);
-    }
-    setLvcEnabled(true);
-  }
-
-  setFlag(false);
-}
-
-// ---------------- CMD interrupt ----------------
-void IRAM_ATTR onCmdEdge() {
-  cmdSeen = true;
-}
-
-void attachCmdInterrupt() {
-  detachInterrupt(digitalPinToInterrupt(PIN_HP_CMD_IN));
-  if (g.cmdEdge == CmdEdge::Rising) {
-    attachInterrupt(digitalPinToInterrupt(PIN_HP_CMD_IN), onCmdEdge, RISING);
-  } else {
-    attachInterrupt(digitalPinToInterrupt(PIN_HP_CMD_IN), onCmdEdge, FALLING);
-  }
-}
-
-// ---------------- SD: Reader file scanning ----------------
-void scanRootFiles() {
-  fileCount = 0;
-  SdFile dir;
-  SdFile entry;
-
-  if (!dir.open("/")) return;
-
-  while (entry.openNext(&dir, O_RDONLY)) {
-    if (entry.isFile() && fileCount < MAX_FILES) {
-      char fname[64];
-      entry.getName(fname, sizeof(fname));
-      files[fileCount++] = String(fname);
-    }
-    entry.close();
-  }
-  dir.close();
-
-  if (fileCount == 0) {
-    selectedIndex = 0;
-    topIndex = 0;
-  } else {
-    selectedIndex = constrain(selectedIndex, 0, (int16_t)fileCount - 1);
-  }
-}
-
-// ---------------- SD: Punch capture naming ----------------
-void makeCapName(uint16_t idx) {
-  snprintf(capName, sizeof(capName), "CAP%04u.BIN", (unsigned)idx);
-}
-
-uint16_t findNextFreeCapIndex() {
-  for (uint16_t i = 0; i < 10000; i++) {
-    char path[24];
-    snprintf(path, sizeof(path), "/CAP%04u.BIN", (unsigned)i);
-    if (!sd.exists(path)) return i;
-  }
-  return 9999;
-}
-
-bool openCapFile(uint16_t idx) {
-  if (ioFile.isOpen()) ioFile.close();
-
-  makeCapName(idx);
-  char path[24];
-  snprintf(path, sizeof(path), "/%s", capName);
-
-  return ioFile.open(path, O_CREAT | O_WRITE);
-}
-
-bool startPunchSessionIfNeeded() {
-  if (ioFile.isOpen()) return true;
-  capIndex = findNextFreeCapIndex();
-  punchBytesSinceSync = 0;
-  return openCapFile(capIndex);
-}
-
-bool rotateToNewCapFile() {
-  if (ioFile.isOpen()) {
-    ioFile.sync();
-    ioFile.close();
-  }
-  capIndex = findNextFreeCapIndex();
-  punchBytesSinceSync = 0;
-  return openCapFile(capIndex);
-}
-
-// ---------------- USB MSC callbacks ----------------
-bool mscWrite(const uint8_t *buf, uint32_t startSector, uint16_t numSectors) {
-  return sd.card()->writeBlocks(startSector, buf, numSectors);
-}
-
-bool mscRead(uint8_t *buf, uint32_t startSector, uint16_t numSectors) {
-  return sd.card()->readBlocks(startSector, buf, numSectors);
-}
-
-bool startUsbMsc() {
-  if (!sdOk) return false;
-  if (usbStarted) return true;
-
-  // Attach pull-up before starting USB stack so host sees attach
-  usbAttachPullup();
-
-  g_sectorCount = sd.card()->cardSize();
-  if (g_sectorCount == 0) return false;
-
-  USBComposite.clear();
-  MassStorage.setDriveData(0, g_sectorCount, mscRead, mscWrite);
-  MassStorage.registerComponent();
-
-  if (!USBComposite.begin()) {
-    return false;
-  }
-
-  usbStarted = true;
-  usbHostConfigured = false;
   return true;
 }
 
-void stopUsb() {
-  if (!usbStarted) {
-    // Even if stack isn't started, ensure we are detached
-    usbDetachPullup();
-    return;
+static bool usbMscWriteBlocks(const uint8_t *writebuff, uint32_t startSector, uint16_t numSectors) {
+  // Write raw sectors from the USB host to the SD card.
+  for (uint16_t i = 0; i < numSectors; i++) {
+    // Sd2Card writes one 512-byte sector at a time.
+    if (!rawCard.writeBlock(startSector + i, writebuff + (i * 512UL))) {
+      return false;
+    }
   }
-
-  USBComposite.end();
-  usbStarted = false;
-  usbHostConfigured = false;
-
-  // Physically detach (host sees disconnect)
-  usbDetachPullup();
+  return true;
 }
 
-// ---------------- Safe stop emulation ----------------
-void stopEmulationNow() {
-  armed = false;
-  cmdSeen = false;
+static bool usbMscStatus(void) {
+  // Report whether the SD card is still present.
+  return checkSdPresent();
+}
 
-  if (ioFile.isOpen()) {
-    ioFile.sync();
-    ioFile.close();
-  }
+// -----------------------------------------------------------------------------
+// Display
+// -----------------------------------------------------------------------------
 
-  // Safe HP bus state
-  setHctEnabled(false);
-  setFlag(false);
-  for (int i = 0; i < 8; i++) {
+// SH1106 128x64 over hardware I2C on PB6/PB7 for STM32F103 I2C1.
+U8G2_SH1106_128X64_NONAME_F_HW_I2C display(U8G2_R0, U8X8_PIN_NONE);
+
+// -----------------------------------------------------------------------------
+// Configuration
+// -----------------------------------------------------------------------------
+
+static const char *CONFIG_FILE = "/ptape.cfg";
+static const char *TAPE_DIR    = "/tapes";  // Shared directory for both reader input and punched output
+
+#define MAX_FILES 32
+#define MAX_NAME_LEN 32
+
+struct InterfaceSettings {
+  bool commandActiveHigh;
+  bool ackPulseActiveHigh;
+  bool outOfTapeActiveHigh;
+  bool use12V;
+};
+
+struct AppConfig {
+  InterfaceSettings reader;
+  InterfaceSettings punch;
+  bool use12V;
+  char selectedReader[MAX_NAME_LEN];
+  char selectedPunch[MAX_NAME_LEN];
+};
+
+AppConfig config;
+
+// -----------------------------------------------------------------------------
+// Runtime state
+// -----------------------------------------------------------------------------
+
+enum UiMode {
+  UI_MAIN,
+  UI_SECTION_FILES,
+  UI_CONFIG,
+  UI_USB_MSC
+};
+
+enum Section {
+  SECTION_READER,
+  SECTION_PUNCH
+};
+
+UiMode uiMode = UI_MAIN;
+Section activeSection = SECTION_READER;
+uint8_t mainCursor = 0;
+uint8_t fileCursor = 0;
+uint8_t configCursor = 0;
+
+char readerFiles[MAX_FILES][MAX_NAME_LEN];
+char punchFiles[MAX_FILES][MAX_NAME_LEN];
+uint8_t readerFileCount = 0;
+uint8_t punchFileCount = 0;
+
+File readerFile;
+File punchFile;
+bool sdPresent = false;
+bool emulatorEnabled = false;
+bool usbMscEnabled = false;
+
+unsigned long activityLedOffAtMs = 0;
+
+// -----------------------------------------------------------------------------
+// Button handling
+// -----------------------------------------------------------------------------
+
+struct ButtonState {
+  uint8_t pin;
+  bool stablePressed;
+  bool lastRawPressed;
+  unsigned long lastChangeMs;
+  unsigned long pressedAtMs;
+  bool longReported;
+};
+
+ButtonState buttons[3] = {
+  { PIN_BTN_UP, false, false, 0, 0, false },
+  { PIN_BTN_DOWN, false, false, 0, 0, false },
+  { PIN_BTN_SELECT, false, false, 0, 0, false }
+};
+
+static const unsigned long DEBOUNCE_MS = 30;
+static const unsigned long LONG_PRESS_MS = 4000;
+
+// -----------------------------------------------------------------------------
+// Low-level helpers
+// -----------------------------------------------------------------------------
+
+static bool isActive(bool signalLevel, bool activeHigh) {
+  // Compare the physical input level with the configured active polarity.
+  return activeHigh ? signalLevel : !signalLevel;
+}
+
+static void writeConfiguredLevel(uint8_t pin, bool active, bool activeHigh) {
+  // Convert a logical active/inactive state into the configured physical level.
+  digitalWrite(pin, active == activeHigh ? HIGH : LOW);
+}
+
+static void setDataBusInput(void) {
+  // Put all shared data bus pins in high-impedance input mode.
+  for (uint8_t i = 0; i < 8; i++) {
     pinMode(DATA_PINS[i], INPUT);
   }
 }
 
-// ---------------- OLED screens ----------------
-String modeName() {
-  return (g.mode == Mode::Reader) ? "Reader" : "Punch";
+static void setDataBusOutput(void) {
+  // Put all shared data bus pins in push-pull output mode.
+  for (uint8_t i = 0; i < 8; i++) {
+    pinMode(DATA_PINS[i], OUTPUT);
+  }
 }
 
-void drawUsbScreen(const String &status) {
-  u8g2.clearBuffer();
-  u8g2.setFont(u8g2_font_6x12_tf);
-  u8g2.drawStr(0, 12, "USB Disk Mode (MSC)");
-  u8g2.drawHLine(0, 14, 128);
-  u8g2.drawStr(0, 28, status.c_str());
-  u8g2.drawStr(0, 44, "Host connected");
-  u8g2.drawStr(0, 58, "Hold Sel: settings");
-  u8g2.sendBuffer();
+static void writeDataBus(uint8_t value) {
+  // Write one byte to D0..D7, least significant bit first.
+  for (uint8_t i = 0; i < 8; i++) {
+    digitalWrite(DATA_PINS[i], (value & (1U << i)) ? HIGH : LOW);
+  }
 }
 
-void drawNoSdScreen() {
-  u8g2.clearBuffer();
-  u8g2.setFont(u8g2_font_6x12_tf);
-  u8g2.drawStr(0, 12, "Paper Tape Emulator");
-  u8g2.drawHLine(0, 14, 128);
-  u8g2.drawStr(0, 32, "Insert SD card");
-  u8g2.drawStr(0, 50, "USB MSC disabled");
-  u8g2.sendBuffer();
+static uint8_t readDataBus(void) {
+  // Read one byte from D0..D7, least significant bit first.
+  uint8_t value = 0;
+  for (uint8_t i = 0; i < 8; i++) {
+    if (digitalRead(DATA_PINS[i]) == HIGH) {
+      value |= (1U << i);
+    }
+  }
+  return value;
 }
 
-void drawReaderBrowse(const String &status) {
-  u8g2.clearBuffer();
-  u8g2.setFont(u8g2_font_6x12_tf);
+static void pulseAck(uint8_t pin, bool activeHigh) {
+  // Generate an approximately 1 microsecond acknowledgement pulse.
+  writeConfiguredLevel(pin, true, activeHigh);
+  delayMicroseconds(1);
+  writeConfiguredLevel(pin, false, activeHigh);
+}
 
-  String title = "Mode: " + modeName();
-  u8g2.drawStr(0, 12, title.c_str());
-  u8g2.drawHLine(0, 14, 128);
-  u8g2.drawStr(0, 28, status.c_str());
+static void blinkActivity(void) {
+  // PC13 is often wired as active-low LED on Blue Pill style boards.
+  // If your hardware is active-high, invert these two writes.
+  digitalWrite(PIN_ACTIVITY_LED, HIGH);
+  activityLedOffAtMs = millis() + 20;
+}
 
-  const int listY0 = 44;
-  const int lineH = 12;
-  const int visible = 2;
+static void serviceActivityLed(void) {
+  // Turn the activity LED off after a short visible blink time.
+  if (activityLedOffAtMs != 0 && millis() >= activityLedOffAtMs) {
+    digitalWrite(PIN_ACTIVITY_LED, LOW);
+    activityLedOffAtMs = 0;
+  }
+}
 
-  if (!sdOk) {
-    u8g2.drawStr(0, listY0, "SD init failed");
-  } else if (fileCount == 0) {
-    u8g2.drawStr(0, listY0, "No files on SD");
-  } else {
-    if (selectedIndex < topIndex) topIndex = selectedIndex;
-    if (selectedIndex >= topIndex + visible) topIndex = selectedIndex - visible + 1;
+static void applyLevelSelect(void) {
+  // The spec says high selects 12 V and low selects 5 V.
+  digitalWrite(PIN_LEVEL_SELECT, config.use12V ? HIGH : LOW);
+}
 
-    for (int i = 0; i < visible; i++) {
-      int idx = topIndex + i;
-      if (idx >= (int)fileCount) break;
+static void updateOutOfTapeSignal(void) {
+  // Normally signal paper/tape available. This assumes the pin indicates out-of-tape,
+  // so inactive means paper is available.
+  writeConfiguredLevel(PIN_OUT_OF_TAPE, false, config.reader.outOfTapeActiveHigh);
+}
 
-      int y = listY0 + i * lineH;
-      String line = files[idx];
+// -----------------------------------------------------------------------------
+// SD and configuration
+// -----------------------------------------------------------------------------
 
-      if (idx == selectedIndex) {
-        u8g2.drawBox(0, y - 10, 128, 12);
-        u8g2.setDrawColor(0);
-        u8g2.drawStr(2, y, line.c_str());
-        u8g2.setDrawColor(1);
-      } else {
-        u8g2.drawStr(2, y, line.c_str());
+static bool checkSdPresent(void) {
+  // SD detect is active low and requires pull-up.
+  return digitalRead(PIN_SD_DETECT) == LOW;
+}
+
+static void setDefaultConfig(void) {
+  // Conservative defaults. These can be changed from the configuration menu.
+  config.reader.commandActiveHigh = false;
+  config.reader.ackPulseActiveHigh = false;
+  config.reader.outOfTapeActiveHigh = true;
+  config.reader.use12V = false;
+
+  config.punch.commandActiveHigh = false;
+  config.punch.ackPulseActiveHigh = false;
+  config.punch.outOfTapeActiveHigh = true;
+  config.punch.use12V = false;
+  config.use12V = false;
+
+  config.selectedReader[0] = ' ';
+  config.selectedPunch[0] = '\0';
+}
+
+static void trimLine(char *s) {
+  // Remove trailing CR/LF and spaces from a line read from the config file.
+  size_t len = strlen(s);
+  while (len > 0 && (s[len - 1] == '\r' || s[len - 1] == '\n' || s[len - 1] == ' ')) {
+    s[len - 1] = '\0';
+    len--;
+  }
+}
+
+static bool parseBoolValue(const char *value) {
+  // Accept common true values in the config file.
+  return strcmp(value, "1") == 0 || strcasecmp(value, "true") == 0 || strcasecmp(value, "yes") == 0;
+}
+
+static void applyConfigKeyValue(const char *key, const char *value) {
+  // Apply one key=value pair from the configuration file.
+  if (strcmp(key, "reader.commandActiveHigh") == 0) config.reader.commandActiveHigh = parseBoolValue(value);
+  else if (strcmp(key, "reader.ackPulseActiveHigh") == 0) config.reader.ackPulseActiveHigh = parseBoolValue(value);
+  else if (strcmp(key, "reader.outOfTapeActiveHigh") == 0) config.reader.outOfTapeActiveHigh = parseBoolValue(value);
+  else if (strcmp(key, "reader.use12V") == 0) config.use12V = parseBoolValue(value);  // Backward compatibility with old config files
+  else if (strcmp(key, "device.use12V") == 0) config.use12V = parseBoolValue(value);
+  else if (strcmp(key, "punch.commandActiveHigh") == 0) config.punch.commandActiveHigh = parseBoolValue(value);
+  else if (strcmp(key, "punch.ackPulseActiveHigh") == 0) config.punch.ackPulseActiveHigh = parseBoolValue(value);
+  else if (strcmp(key, "punch.outOfTapeActiveHigh") == 0) config.punch.outOfTapeActiveHigh = parseBoolValue(value);
+  else if (strcmp(key, "punch.use12V") == 0) config.use12V = parseBoolValue(value);  // Backward compatibility with old config files
+  else if (strcmp(key, "selectedReader") == 0) strncpy(config.selectedReader, value, MAX_NAME_LEN - 1);
+  else if (strcmp(key, "selectedPunch") == 0) strncpy(config.selectedPunch, value, MAX_NAME_LEN - 1);
+
+  config.selectedReader[MAX_NAME_LEN - 1] = '\0';
+  config.selectedPunch[MAX_NAME_LEN - 1] = '\0';
+}
+
+static void loadConfig(void) {
+  // Load configuration from SD card, or create defaults if no config exists.
+  setDefaultConfig();
+
+  if (!sdPresent || !SD.exists(CONFIG_FILE)) {
+    return;
+  }
+
+  File f = SD.open(CONFIG_FILE, FILE_READ);
+  if (!f) return;
+
+  char line[96];
+  uint8_t pos = 0;
+
+  while (f.available()) {
+    char c = (char)f.read();
+    if (c == '\n' || pos >= sizeof(line) - 1) {
+      line[pos] = '\0';
+      trimLine(line);
+      char *eq = strchr(line, '=');
+      if (eq != NULL) {
+        *eq = '\0';
+        applyConfigKeyValue(line, eq + 1);
+      }
+      pos = 0;
+    } else {
+      line[pos++] = c;
+    }
+  }
+
+  if (pos > 0) {
+    line[pos] = '\0';
+    trimLine(line);
+    char *eq = strchr(line, '=');
+    if (eq != NULL) {
+      *eq = '\0';
+      applyConfigKeyValue(line, eq + 1);
+    }
+  }
+
+  f.close();
+}
+
+static void saveConfig(void) {
+  // Save configuration to SD card as simple key=value text.
+  if (!sdPresent) return;
+
+  SD.remove(CONFIG_FILE);
+  File f = SD.open(CONFIG_FILE, FILE_WRITE);
+  if (!f) return;
+
+  f.print("reader.commandActiveHigh="); f.println(config.reader.commandActiveHigh ? "1" : "0");
+  f.print("reader.ackPulseActiveHigh="); f.println(config.reader.ackPulseActiveHigh ? "1" : "0");
+  f.print("reader.outOfTapeActiveHigh="); f.println(config.reader.outOfTapeActiveHigh ? "1" : "0");
+  f.print("device.use12V="); f.println(config.use12V ? "1" : "0");
+
+  f.print("punch.commandActiveHigh="); f.println(config.punch.commandActiveHigh ? "1" : "0");
+  f.print("punch.ackPulseActiveHigh="); f.println(config.punch.ackPulseActiveHigh ? "1" : "0");
+  f.print("punch.outOfTapeActiveHigh="); f.println(config.punch.outOfTapeActiveHigh ? "1" : "0");
+
+  f.print("selectedReader="); f.println(config.selectedReader);
+  f.print("selectedPunch="); f.println(config.selectedPunch);
+
+  f.close();
+}
+
+static void ensureDirectory(const char *path) {
+  // Create a directory if the SD library and card support it.
+  if (!SD.exists(path)) {
+    SD.mkdir(path);
+  }
+}
+
+static void scanDirectory(const char *path, char files[][MAX_NAME_LEN], uint8_t &count) {
+  // Read up to MAX_FILES regular file names from one directory.
+  count = 0;
+
+  File dir = SD.open(path);
+  if (!dir) return;
+
+  while (count < MAX_FILES) {
+    File entry = dir.openNextFile();
+    if (!entry) break;
+
+    if (!entry.isDirectory()) {
+      strncpy(files[count], entry.name(), MAX_NAME_LEN - 1);
+      files[count][MAX_NAME_LEN - 1] = '\0';
+      count++;
+    }
+
+    entry.close();
+  }
+
+  dir.close();
+}
+
+static void scanFiles(void) {
+  // Ensure folders exist and refresh reader/punch file lists.
+  if (!sdPresent) {
+    readerFileCount = 0;
+    punchFileCount = 0;
+    return;
+  }
+
+  ensureDirectory(TAPE_DIR);
+  scanDirectory(TAPE_DIR, readerFiles, readerFileCount);
+  scanDirectory(TAPE_DIR, punchFiles, punchFileCount);
+}
+
+static void buildPath(char *out, size_t outSize, const char *dir, const char *name) {
+  // Build a simple /dir/name path.
+  snprintf(out, outSize, "%s/%s", dir, name);
+}
+
+static void closeTapeFiles(void) {
+  // Close open files before changing mode, SD removal, or USB MSC entry.
+  if (readerFile) readerFile.close();
+  if (punchFile) punchFile.close();
+}
+
+static void openSelectedFiles(void) {
+  // Open selected reader and punch files for emulator operation.
+  closeTapeFiles();
+
+  if (!sdPresent) return;
+
+  char path[80];
+
+  if (config.selectedReader[0] != '\0') {
+    buildPath(path, sizeof(path), TAPE_DIR, config.selectedReader);
+    readerFile = SD.open(path, FILE_READ);
+  }
+
+  if (config.selectedPunch[0] != '\0') {
+    buildPath(path, sizeof(path), TAPE_DIR, config.selectedPunch);
+    punchFile = SD.open(path, FILE_WRITE);
+    if (punchFile) {
+      punchFile.seek(punchFile.size());
+    }
+  }
+}
+
+static bool createNewPunchFile(void) {
+  // Create PUNCHnnn.BIN using the first available sequence number.
+  if (!sdPresent) return false;
+
+  char name[MAX_NAME_LEN];
+  char path[80];
+
+  for (uint16_t n = 0; n < 1000; n++) {
+    snprintf(name, sizeof(name), "PUNCH%03u.BIN", n);
+    buildPath(path, sizeof(path), TAPE_DIR, name);
+
+    if (!SD.exists(path)) {
+      File f = SD.open(path, FILE_WRITE);
+      if (!f) return false;
+      f.close();
+
+      strncpy(config.selectedPunch, name, MAX_NAME_LEN - 1);
+      config.selectedPunch[MAX_NAME_LEN - 1] = '\0';
+      saveConfig();
+      scanFiles();
+      openSelectedFiles();
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// -----------------------------------------------------------------------------
+// USB MSC adapter hooks
+// -----------------------------------------------------------------------------
+
+static bool usbMscStart(void) {
+  // Enter USB mass-storage mode. The SD card must no longer be used by the
+  // paper tape emulator while the host computer owns it as a USB disk.
+  if (!sdPresent) return false;
+  if (digitalRead(PIN_USB_VBUS) == LOW) return false;
+
+  closeTapeFiles();
+  emulatorEnabled = false;
+
+  // Initialize raw SD access for USB MSC sector reads/writes.
+  // Sd2Card uses the classic SD library speed constants.
+  if (!rawCard.init(SPI_FULL_SPEED, PIN_SD_CS)) {
+    return false;
+  }
+
+  usbMscSectorCount = rawCard.cardSize();
+  if (usbMscSectorCount == 0) {
+    return false;
+  }
+
+  // Build a simple USB MSC device. Avoid adding USB serial here because the
+  // STM32F1 USB endpoint/buffer space is limited and MSC alone is enough.
+  USBComposite.clear();
+  USBComposite.setProductId(USB_PRODUCT_ID);
+  MassStorage.clearDrives();
+  MassStorage.setDriveData(0, usbMscSectorCount, usbMscReadBlocks, usbMscWriteBlocks, usbMscStatus);
+  MassStorage.registerComponent();
+
+  // Pull up PA3 to enable the external USB connect circuit described in the spec.
+  digitalWrite(PIN_USB_PULLUP, HIGH);
+
+  if (!USBComposite.begin()) {
+    digitalWrite(PIN_USB_PULLUP, LOW);
+    return false;
+  }
+
+  usbMscEnabled = true;
+  uiMode = UI_USB_MSC;
+  return true;
+}
+
+static void usbMscStop(void) {
+  // Stop USB MSC and return control of the SD card to the emulator.
+  MassStorage.end();
+  digitalWrite(PIN_USB_PULLUP, LOW);
+
+  usbMscEnabled = false;
+  usbMscSectorCount = 0;
+  uiMode = UI_MAIN;
+
+  // Re-mount the filesystem view after the host has released the card.
+  if (sdPresent) {
+    SD.begin(PIN_SD_CS);
+  }
+
+  scanFiles();
+  openSelectedFiles();
+  emulatorEnabled = sdPresent;
+}
+
+// -----------------------------------------------------------------------------
+// Paper tape emulator
+// -----------------------------------------------------------------------------
+
+static void prepareReaderBusIdle(void) {
+  // Idle with the external host-to-device buffer disabled to avoid bus contention.
+  digitalWrite(PIN_BUS_DIR, HIGH);
+  setDataBusInput();
+}
+
+static void serviceReader(void) {
+  // Process one reader handshake if the host command is active.
+  bool cmdLevel = digitalRead(PIN_READER_CMD) == HIGH;
+  if (!isActive(cmdLevel, config.reader.commandActiveHigh)) return;
+  if (!readerFile) return;
+
+  // Disable the external host-to-device buffer, then drive data to the host.
+  digitalWrite(PIN_BUS_DIR, HIGH);
+  setDataBusOutput();
+
+  int b = readerFile.read();
+  if (b < 0) {
+    // End of file: signal out of tape/paper if configured as such.
+    writeConfiguredLevel(PIN_OUT_OF_TAPE, true, config.reader.outOfTapeActiveHigh);
+    prepareReaderBusIdle();
+    return;
+  }
+
+  writeDataBus((uint8_t)b);
+  pulseAck(PIN_READER_ACK, config.reader.ackPulseActiveHigh);
+  blinkActivity();
+
+  // Wait until host releases command to prevent repeated reads from one command level.
+  while (isActive(digitalRead(PIN_READER_CMD) == HIGH, config.reader.commandActiveHigh)) {
+    serviceActivityLed();
+  }
+
+  prepareReaderBusIdle();
+}
+
+static void servicePunch(void) {
+  // Process one punch handshake if the host command is active.
+  bool cmdLevel = digitalRead(PIN_PUNCH_CMD) == HIGH;
+  if (!isActive(cmdLevel, config.punch.commandActiveHigh)) return;
+  if (!punchFile) return;
+
+  // Active-low PB8 enables the external host-to-device buffer for punch input.
+  digitalWrite(PIN_BUS_DIR, LOW);
+  setDataBusInput();
+
+  uint8_t b = readDataBus();
+  punchFile.write(b);
+  punchFile.flush();
+
+  pulseAck(PIN_PUNCH_ACK, config.punch.ackPulseActiveHigh);
+  blinkActivity();
+
+  // Wait until host releases command to prevent duplicate punch bytes.
+  while (isActive(digitalRead(PIN_PUNCH_CMD) == HIGH, config.punch.commandActiveHigh)) {
+    serviceActivityLed();
+  }
+}
+
+static void serviceTapeEmulator(void) {
+  // The emulator is disabled while USB MSC owns the SD card.
+  if (!emulatorEnabled || usbMscEnabled || !sdPresent) return;
+
+  serviceReader();
+  servicePunch();
+}
+
+// -----------------------------------------------------------------------------
+// UI helpers
+// -----------------------------------------------------------------------------
+
+static bool pollButtonEvent(uint8_t buttonIndex, bool &shortPress, bool &longPress) {
+  ButtonState &b = buttons[buttonIndex];
+  // Debounce one active-low button and report short/long press events.
+  shortPress = false;
+  longPress = false;
+
+  bool rawPressed = digitalRead(b.pin) == LOW;
+  unsigned long now = millis();
+
+  if (rawPressed != b.lastRawPressed) {
+    b.lastRawPressed = rawPressed;
+    b.lastChangeMs = now;
+  }
+
+  if ((now - b.lastChangeMs) < DEBOUNCE_MS) {
+    return false;
+  }
+
+  if (rawPressed != b.stablePressed) {
+    b.stablePressed = rawPressed;
+
+    if (b.stablePressed) {
+      b.pressedAtMs = now;
+      b.longReported = false;
+    } else {
+      if (!b.longReported && (now - b.pressedAtMs) < LONG_PRESS_MS) {
+        shortPress = true;
       }
     }
   }
 
-  u8g2.sendBuffer();
+  if (b.stablePressed && !b.longReported && (now - b.pressedAtMs) >= LONG_PRESS_MS) {
+    b.longReported = true;
+    longPress = true;
+  }
+
+  return shortPress || longPress;
 }
 
-void drawPunchScreen(const String &status) {
-  u8g2.clearBuffer();
-  u8g2.setFont(u8g2_font_6x12_tf);
+static uint8_t selectedFileCount(void) {
+  // Return current section's number of files.
+  return activeSection == SECTION_READER ? readerFileCount : punchFileCount;
+}
 
-  String title = "Mode: " + modeName();
-  u8g2.drawStr(0, 12, title.c_str());
-  u8g2.drawHLine(0, 14, 128);
-  u8g2.drawStr(0, 28, status.c_str());
+static const char *fileNameAt(uint8_t index) {
+  // Return the file name at index for the current section.
+  return activeSection == SECTION_READER ? readerFiles[index] : punchFiles[index];
+}
 
-  const int y1 = 46;
-  const int y2 = 58;
+static bool isSelectedFile(const char *name) {
+  // Check whether a file name is the currently selected file.
+  return activeSection == SECTION_READER
+    ? strcmp(name, config.selectedReader) == 0
+    : strcmp(name, config.selectedPunch) == 0;
+}
 
-  if (punchCursor == 0) {
-    u8g2.drawBox(0, y1 - 10, 128, 12);
-    u8g2.setDrawColor(0);
-    u8g2.drawStr(2, y1, capName);
-    u8g2.setDrawColor(1);
+static void selectFile(const char *name) {
+  // Store selected file for current section and reopen emulator files.
+  if (activeSection == SECTION_READER) {
+    strncpy(config.selectedReader, name, MAX_NAME_LEN - 1);
+    config.selectedReader[MAX_NAME_LEN - 1] = '\0';
   } else {
-    u8g2.drawStr(2, y1, capName);
+    strncpy(config.selectedPunch, name, MAX_NAME_LEN - 1);
+    config.selectedPunch[MAX_NAME_LEN - 1] = '\0';
   }
 
-  if (punchCursor == 1) {
-    u8g2.drawBox(0, y2 - 10, 128, 12);
-    u8g2.setDrawColor(0);
-    u8g2.drawStr(2, y2, "New file?");
-    u8g2.setDrawColor(1);
-  } else {
-    u8g2.drawStr(2, y2, "New file?");
-  }
-
-  u8g2.sendBuffer();
+  saveConfig();
+  openSelectedFiles();
 }
 
-void redrawMainScreen(const String &status) {
-  if (!sdInserted) {
-    drawNoSdScreen();
-    return;
-  }
-  if (sysState == SysState::USB_MSC_ACTIVE) {
-    drawUsbScreen(status);
-    return;
-  }
-  if (g.mode == Mode::Reader) drawReaderBrowse(status);
-  else drawPunchScreen(status);
+static void drawHeader(const char *title) {
+  // Draw common top header.
+  display.setFont(u8g2_font_6x10_tf);
+  display.drawStr(0, 8, title);
+  display.drawHLine(0, 10, 128);
 }
 
-// ---------------- Settings menu (dynamic) ----------------
-int settingsItemCount() {
-  // base: mode, inv_data, inv_cmd, inv_flag, cmd_edge, led => 6
-  // + host toggle: start/stop emu (only if host configured) => +1
-  return usbHostConfigured ? 7 : 6;
+static void drawMainUi(void) {
+  // Main UI with upper Reader and lower Punch sections.
+  display.clearBuffer();
+  drawHeader("HP Paper Tape");
+
+  display.setFont(u8g2_font_6x10_tf);
+
+  if (mainCursor == 0) display.drawBox(0, 14, 128, 22);
+  display.setDrawColor(mainCursor == 0 ? 0 : 1);
+  display.drawStr(3, 24, "Reader");
+  display.drawStr(3, 34, config.selectedReader[0] ? config.selectedReader : "<no file>");
+  display.setDrawColor(1);
+
+  if (mainCursor == 1) display.drawBox(0, 40, 128, 22);
+  display.setDrawColor(mainCursor == 1 ? 0 : 1);
+  display.drawStr(3, 50, "Punch");
+  display.drawStr(3, 60, config.selectedPunch[0] ? config.selectedPunch : "<no file>");
+  display.setDrawColor(1);
+
+  display.sendBuffer();
 }
 
-String usbToggleItemText() {
-  if (!usbHostConfigured) return "";
-  if (sysState == SysState::USB_MSC_ACTIVE) return "Start emulation";
-  return "Stop emulation";
-}
+static void drawFileUi(void) {
+  // Draw file selection list for either Reader or Punch.
+  display.clearBuffer();
+  drawHeader(activeSection == SECTION_READER ? "Reader files" : "Punch files");
 
-void drawSettingsMenu() {
-  u8g2.clearBuffer();
-  u8g2.setFont(u8g2_font_6x12_tf);
+  uint8_t y = 22;
+  uint8_t rows = 4;
+  uint8_t count = selectedFileCount();
+  uint8_t extra = activeSection == SECTION_PUNCH ? 1 : 0;
+  uint8_t total = count + extra;
 
-  u8g2.drawStr(0, 12, "Settings (Sel=toggle)");
-  u8g2.drawHLine(0, 14, 128);
+  for (uint8_t row = 0; row < rows && row < total; row++) {
+    uint8_t item = row;
+    bool highlighted = item == fileCursor;
 
-  String edgeName = (g.cmdEdge == CmdEdge::Rising) ? "Rising" : "Falling";
+    if (highlighted) display.drawBox(0, y - 9, 128, 11);
+    display.setDrawColor(highlighted ? 0 : 1);
 
-  const int n = settingsItemCount();
-  String items[7];
-  int idx = 0;
-
-  if (usbHostConfigured) {
-    items[idx++] = usbToggleItemText();
-  }
-
-  items[idx++] = "Mode: " + modeName();
-  items[idx++] = String("Invert DATA: ") + (g.invData ? "Yes" : "No");
-  items[idx++] = String("Invert CMD: ")  + (g.invCmd  ? "Yes" : "No");
-  items[idx++] = String("Invert FLAG: ") + (g.invFlag ? "Yes" : "No");
-  items[idx++] = String("CMD edge: ") + edgeName;
-  items[idx++] = String("LED: ") + (g.ledEnable ? "On" : "Off");
-
-  for (int i = 0; i < n; i++) {
-    int y = 28 + i * 10;
-    if (i == menuIndex) {
-      u8g2.drawBox(0, y - 8, 128, 10);
-      u8g2.setDrawColor(0);
-      u8g2.drawStr(2, y, items[i].c_str());
-      u8g2.setDrawColor(1);
+    if (activeSection == SECTION_PUNCH && item == 0) {
+      display.drawStr(3, y, "+ New punch file");
     } else {
-      u8g2.drawStr(2, y, items[i].c_str());
+      uint8_t fileIndex = activeSection == SECTION_PUNCH ? item - 1 : item;
+      const char *name = fileNameAt(fileIndex);
+      display.drawStr(3, y, isSelectedFile(name) ? "*" : " ");
+      display.drawStr(11, y, name);
     }
+
+    display.setDrawColor(1);
+    y += 12;
   }
 
-  u8g2.sendBuffer();
+  display.sendBuffer();
 }
 
-// ---------------- Settings actions ----------------
-void startEmulationWhileHost() {
-  // Detach USB MSC completely (so SD filesystem is safe again)
-  stopUsb();
-  stopEmulationNow();
-
-  // Apply mode electrical config
-  applyModeToHardware();
-  attachCmdInterrupt();
-
-  // SD filesystem safe now
-  scanRootFiles();
-  capIndex = findNextFreeCapIndex();
-  makeCapName(capIndex);
-  punchCursor = 0;
-
-  sysState = SysState::EMU_FORCED_WHILE_HOST;
-  redrawMainScreen("Emulation started");
-}
-
-void stopEmulationAndEnableUsb() {
-  stopEmulationNow();
-
-  // Re-enable MSC (host can remount)
-  if (startUsbMsc()) {
-    sysState = SysState::USB_MSC_ACTIVE;
-    redrawMainScreen("USB disk active");
-  } else {
-    // fallback
-    sysState = SysState::EMU_RUNNING;
-    applyModeToHardware();
-    attachCmdInterrupt();
-    redrawMainScreen("USB start failed");
+static const char *configItemName(uint8_t index) {
+  // Return the label for one configuration list item.
+  switch (index) {
+    case 0: return "Reader cmd active high";
+    case 1: return "Reader ack active high";
+    case 2: return "Reader out active high";
+    case 3: return "Device 12V levels";
+    case 4: return "Punch cmd active high";
+    case 5: return "Punch ack active high";
+    case 6: return "Punch out active high";
+    case 7: return "Exit";
+    default: return "";
   }
 }
 
-void menuToggleCurrentItem() {
-  const int n = settingsItemCount();
-  if (menuIndex < 0) menuIndex = 0;
-  if (menuIndex >= n) menuIndex = n - 1;
+static bool configItemValue(uint8_t index) {
+  // Return the boolean value for one configuration item.
+  switch (index) {
+    case 0: return config.reader.commandActiveHigh;
+    case 1: return config.reader.ackPulseActiveHigh;
+    case 2: return config.reader.outOfTapeActiveHigh;
+    case 3: return config.use12V;
+    case 4: return config.punch.commandActiveHigh;
+    case 5: return config.punch.ackPulseActiveHigh;
+    case 6: return config.punch.outOfTapeActiveHigh;
+    default: return false;
+  }
+}
 
-  int offset = 0;
+static void toggleConfigItem(uint8_t index) {
+  // Toggle one configuration item or exit config mode.
+  switch (index) {
+    case 0: config.reader.commandActiveHigh = !config.reader.commandActiveHigh; break;
+    case 1: config.reader.ackPulseActiveHigh = !config.reader.ackPulseActiveHigh; break;
+    case 2: config.reader.outOfTapeActiveHigh = !config.reader.outOfTapeActiveHigh; break;
+    case 3: config.use12V = !config.use12V; break;
+    case 4: config.punch.commandActiveHigh = !config.punch.commandActiveHigh; break;
+    case 5: config.punch.ackPulseActiveHigh = !config.punch.ackPulseActiveHigh; break;
+    case 6: config.punch.outOfTapeActiveHigh = !config.punch.outOfTapeActiveHigh; break;
+    case 7: uiMode = UI_MAIN; break;
+  }
 
-  if (usbHostConfigured) {
-    if (menuIndex == 0) {
-      if (sysState == SysState::USB_MSC_ACTIVE) startEmulationWhileHost();
-      else stopEmulationAndEnableUsb();
-      drawSettingsMenu();
-      return;
+  saveConfig();
+  applyLevelSelect();
+  updateOutOfTapeSignal();
+}
+
+static void drawConfigUi(void) {
+  // Draw hardware configuration screen.
+  display.clearBuffer();
+  drawHeader("Configuration");
+
+  uint8_t first = 0;
+  if (configCursor > 3) first = configCursor - 3;
+
+  for (uint8_t row = 0; row < 5; row++) {
+    uint8_t item = first + row;
+    if (item > 7) break;
+
+    uint8_t y = 22 + row * 10;
+    bool highlighted = item == configCursor;
+
+    if (highlighted) display.drawBox(0, y - 8, 128, 10);
+    display.setDrawColor(highlighted ? 0 : 1);
+    display.drawStr(2, y, configItemName(item));
+
+    if (item < 7) {
+      display.drawStr(104, y, configItemValue(item) ? "ON" : "OFF");
     }
-    offset = 1;
+
+    display.setDrawColor(1);
   }
 
-  const int item = menuIndex - offset;
-
-  switch (item) {
-    case 0: g.mode = (g.mode == Mode::Reader) ? Mode::Punch : Mode::Reader; break;
-    case 1: g.invData = !g.invData; break;
-    case 2: g.invCmd  = !g.invCmd;  break;
-    case 3: g.invFlag = !g.invFlag; break;
-    case 4: g.cmdEdge = (g.cmdEdge == CmdEdge::Rising) ? CmdEdge::Falling : CmdEdge::Rising; break;
-    case 5: g.ledEnable = !g.ledEnable; break;
-    default: break;
-  }
-
-  // Only write config when not in MSC active (host mounted)
-  if (sdOk && sysState != SysState::USB_MSC_ACTIVE) {
-    saveConfigToSd();
-  }
-
-  // Apply immediately if not in MSC active
-  if (sysState != SysState::USB_MSC_ACTIVE) {
-    applyModeToHardware();
-    attachCmdInterrupt();
-  }
-
-  drawSettingsMenu();
+  display.sendBuffer();
 }
 
-void toggleMenuEnterExit() {
-  if (uiState == UiState::Main) {
-    uiState = UiState::SettingsMenu;
-    menuIndex = 0;
-    drawSettingsMenu();
-  } else {
-    uiState = UiState::Main;
-    redrawMainScreen("OK");
-  }
+static void drawUsbUi(void) {
+  // Draw USB stick mode screen.
+  display.clearBuffer();
+  drawHeader("USB stick mode");
+  display.drawStr(0, 26, sdPresent ? "SD exported over USB" : "SD card missing");
+  display.drawBox(0, 42, 128, 14);
+  display.setDrawColor(0);
+  display.drawStr(4, 52, "Exit USB stick mode");
+  display.setDrawColor(1);
+  display.sendBuffer();
 }
 
-// ---------------- USB host detection + auto-switch ----------------
-void usbPollAndAutoSwitch() {
-  uint32_t now = millis();
-  if (now - lastUsbPollMs < 50) return;
-  lastUsbPollMs = now;
-
-  if (!usbStarted) return;
-
-  bool configuredNow = (bool)USBComposite;
-
-  if (configuredNow && !usbHostConfigured) {
-    usbHostConfigured = true;
-
-    // If host enumerated, immediately stop emulation and go MSC mode
-    stopEmulationNow();
-    sysState = SysState::USB_MSC_ACTIVE;
-    redrawMainScreen("USB host detected");
-  }
-
-  if (!configuredNow && usbHostConfigured) {
-    usbHostConfigured = false;
-
-    // If we were in USB mode, return to emulation automatically
-    if (sysState == SysState::USB_MSC_ACTIVE) {
-      sysState = SysState::EMU_RUNNING;
-
-      applyModeToHardware();
-      attachCmdInterrupt();
-
-      // SD filesystem safe again
-      scanRootFiles();
-      capIndex = findNextFreeCapIndex();
-      makeCapName(capIndex);
-      punchCursor = 0;
-
-      redrawMainScreen("Host disconnected");
-    }
-  }
+static void redrawUi(void) {
+  // Redraw the display for the current UI mode.
+  if (uiMode == UI_MAIN) drawMainUi();
+  else if (uiMode == UI_SECTION_FILES) drawFileUi();
+  else if (uiMode == UI_CONFIG) drawConfigUi();
+  else if (uiMode == UI_USB_MSC) drawUsbUi();
 }
 
-// ---------------- SD insertion polling ----------------
-void handleSdInsertionRemoval() {
-  uint32_t now = millis();
-  if (now - lastSdPollMs < 100) return;
-  lastSdPollMs = now;
-
-  bool nowInserted = readSdInserted();
-  if (nowInserted == sdInserted) return;
-
-  sdInserted = nowInserted;
-
-  if (!sdInserted) {
-    // SD removed: stop everything safely
-    stopEmulationNow();
-
-    // Stop USB MSC (detach pull-up too)
-    stopUsb();
-
-    sdOk = false;
-    sysState = SysState::EMU_RUNNING;
-    redrawMainScreen("");
+static void handleUiEvent(uint8_t buttonPin, bool shortPress, bool longPress) {
+  // Dispatch button events according to the current UI mode.
+  if (longPress && buttonPin == PIN_BTN_SELECT) {
+    uiMode = UI_CONFIG;
+    configCursor = 0;
+    redrawUi();
     return;
   }
 
-  // SD inserted:
-  // Only safe to init SD and load config if we are NOT in MSC active mode.
-  // Since SD was removed, MSC is already stopped above. Good.
-  sdOk = sd.begin(PIN_SD_CS, SD_SCK_MHZ(18));
-  if (!sdOk) {
-    redrawMainScreen("SD init failed");
+  if (longPress && buttonPin == PIN_BTN_UP) {
+    usbMscStart();
+    redrawUi();
     return;
   }
 
-  loadConfigFromSd();
+  if (!shortPress) return;
 
-  // Apply mode/hardware per config
-  applyModeToHardware();
-  attachCmdInterrupt();
+  if (uiMode == UI_USB_MSC) {
+    if (buttonPin == PIN_BTN_SELECT) {
+      usbMscStop();
+    }
+    redrawUi();
+    return;
+  }
 
-  scanRootFiles();
-  capIndex = findNextFreeCapIndex();
-  makeCapName(capIndex);
-  punchCursor = 0;
+  if (uiMode == UI_MAIN) {
+    if (buttonPin == PIN_BTN_UP || buttonPin == PIN_BTN_DOWN) {
+      mainCursor = mainCursor == 0 ? 1 : 0;
+      activeSection = mainCursor == 0 ? SECTION_READER : SECTION_PUNCH;
+      applyLevelSelect();
+    } else if (buttonPin == PIN_BTN_SELECT) {
+      uiMode = UI_SECTION_FILES;
+      fileCursor = 0;
+    }
+  } else if (uiMode == UI_SECTION_FILES) {
+    uint8_t count = selectedFileCount();
+    uint8_t total = count + (activeSection == SECTION_PUNCH ? 1 : 0);
 
-  // Start MSC again (it will only enumerate if host is present)
-  startUsbMsc();
+    if (buttonPin == PIN_BTN_UP && total > 0) {
+      fileCursor = fileCursor == 0 ? total - 1 : fileCursor - 1;
+    } else if (buttonPin == PIN_BTN_DOWN && total > 0) {
+      fileCursor = (fileCursor + 1) % total;
+    } else if (buttonPin == PIN_BTN_SELECT) {
+      if (activeSection == SECTION_PUNCH && fileCursor == 0) {
+        createNewPunchFile();
+      } else {
+        uint8_t fileIndex = activeSection == SECTION_PUNCH ? fileCursor - 1 : fileCursor;
+        if (fileIndex < count) selectFile(fileNameAt(fileIndex));
+      }
+      uiMode = UI_MAIN;
+    }
+  } else if (uiMode == UI_CONFIG) {
+    if (buttonPin == PIN_BTN_UP) {
+      configCursor = configCursor == 0 ? 7 : configCursor - 1;
+    } else if (buttonPin == PIN_BTN_DOWN) {
+      configCursor = (configCursor + 1) % 8;
+    } else if (buttonPin == PIN_BTN_SELECT) {
+      toggleConfigItem(configCursor);
+    }
+  }
 
-  redrawMainScreen("SD inserted");
+  redrawUi();
 }
 
-// ---------------- Setup ----------------
-void setup() {
-  delay(50);
+static void serviceButtons(void) {
+  // Poll all three buttons and generate UI actions.
+  bool shortPress;
+  bool longPress;
 
+  if (pollButtonEvent(0, shortPress, longPress)) handleUiEvent(PIN_BTN_UP, shortPress, longPress);
+  if (pollButtonEvent(1, shortPress, longPress)) handleUiEvent(PIN_BTN_DOWN, shortPress, longPress);
+  if (pollButtonEvent(2, shortPress, longPress)) handleUiEvent(PIN_BTN_SELECT, shortPress, longPress);
+}
+
+// -----------------------------------------------------------------------------
+// Initialization and main loop
+// -----------------------------------------------------------------------------
+
+static void disableJtagKeepSwd(void) {
+  // Free PA15, PB3 and PB4 while keeping SWD on PA13/PA14.
+  // This register access works on the STM32F1 Maple/libmaple core.
+  afio_cfg_debug_ports(AFIO_DEBUG_SW_ONLY);
+}
+
+void setup(void) {
+  // Disable JTAG before configuring PA15/PB3/PB4 as GPIO.
   disableJtagKeepSwd();
 
-  // LED
-  pinMode(PIN_LED, OUTPUT);
-  digitalWrite(PIN_LED, HIGH); // OFF for PC13 active-low
-  ledState = false;
-
-  // USB pull-up enable pin
-  pinMode(PIN_USB_PULLUP_EN, OUTPUT);
-  // Default detach until we explicitly start MSC
-  usbDetachPullup();
-
-  // SD detect pin
-  pinMode(PIN_SD_DETECT, INPUT_PULLUP);
-
-  // Buttons
   pinMode(PIN_BTN_UP, INPUT_PULLUP);
   pinMode(PIN_BTN_DOWN, INPUT_PULLUP);
   pinMode(PIN_BTN_SELECT, INPUT_PULLUP);
 
-  // Buffer enables
-  pinMode(PIN_OE_HCT_OUT, OUTPUT);
-  pinMode(PIN_OE_LVC_IN, OUTPUT);
+  pinMode(PIN_SD_DETECT, INPUT_PULLUP);
+  pinMode(PIN_USB_VBUS, INPUT);
 
-  // Handshake pins
-  pinMode(PIN_HP_CMD_IN, INPUT);
-  pinMode(PIN_HP_FLAG_OUT, OUTPUT);
-  setFlag(false);
+  pinMode(PIN_USB_PULLUP, OUTPUT);
+  digitalWrite(PIN_USB_PULLUP, LOW);
 
-  // OLED
-  Wire.begin();
-  u8g2.begin();
+  pinMode(PIN_ACTIVITY_LED, OUTPUT);
+  digitalWrite(PIN_ACTIVITY_LED, LOW);
 
-  // Determine SD state at boot
-  sdInserted = readSdInserted();
+  pinMode(PIN_BUS_DIR, OUTPUT);
+  digitalWrite(PIN_BUS_DIR, LOW);
 
-  if (!sdInserted) {
-    sdOk = false;
-    // Keep USB detached
-    stopUsb();
-    // Put bus safe
-    stopEmulationNow();
-    drawNoSdScreen();
-    return;
+  pinMode(PIN_LEVEL_SELECT, OUTPUT);
+  digitalWrite(PIN_LEVEL_SELECT, LOW);
+
+  pinMode(PIN_OUT_OF_TAPE, OUTPUT);
+  pinMode(PIN_READER_ACK, OUTPUT);
+  pinMode(PIN_PUNCH_ACK, OUTPUT);
+
+  pinMode(PIN_READER_CMD, INPUT);
+  pinMode(PIN_PUNCH_CMD, INPUT);
+
+  setDataBusInput();
+  setDefaultConfig();
+
+  // Initialize I2C display.
+  display.begin();
+  display.setFont(u8g2_font_6x10_tf);
+
+  sdPresent = checkSdPresent();
+  if (sdPresent) {
+    SPI.begin();
+    sdPresent = SD.begin(PIN_SD_CS);
   }
 
-  // Init SD
-  sdOk = sd.begin(PIN_SD_CS, SD_SCK_MHZ(18));
-  if (sdOk) {
-    loadConfigFromSd();
-    scanRootFiles();
-    capIndex = findNextFreeCapIndex();
-    makeCapName(capIndex);
-  }
+  loadConfig();
+  scanFiles();
+  openSelectedFiles();
+  applyLevelSelect();
+  updateOutOfTapeSignal();
+  prepareReaderBusIdle();
 
-  applyModeToHardware();
-  attachCmdInterrupt();
-
-  // Start MSC (only if SD OK)
-  if (sdOk) {
-    startUsbMsc();
-  }
-
-  sysState = SysState::EMU_RUNNING;
-  redrawMainScreen(sdOk ? "Ready" : "SD init FAILED");
+  emulatorEnabled = sdPresent;
+  redrawUi();
 }
 
-// ---------------- Loop ----------------
-void loop() {
-  // Handle SD insert/remove
-  handleSdInsertionRemoval();
+void loop(void) {
+  // Stop SD-using functions immediately if the card is removed.
+  bool nowSdPresent = checkSdPresent();
+  if (nowSdPresent != sdPresent) {
+    sdPresent = nowSdPresent;
 
-  // If no SD inserted, nothing else to do
-  if (!sdInserted) {
-    ledUpdatePattern();
-    return;
-  }
-
-  // USB MSC service
-  if (usbStarted) {
-    MassStorage.loop();
-  }
-
-  // Detect host enumeration and auto-switch
-  usbPollAndAutoSwitch();
-
-  // LED pattern
-  ledUpdatePattern();
-
-  // Long-press SELECT (>4s) toggles settings menu
-  uint32_t now = millis();
-  bool selDown = btnPressed(PIN_BTN_SELECT);
-
-  if (selDown && !selWasDown) {
-    selDownAt = now;
-  } else if (selDown && selWasDown) {
-    if (now - selDownAt >= 4000) {
-      toggleMenuEnterExit();
-      selDownAt = now + 999999UL;
-    }
-  }
-  selWasDown = selDown;
-
-  // UI tick
-  if (now - lastUiTickMs >= DEBOUNCE_MS) {
-    lastUiTickMs = now;
-
-    if (uiState == UiState::SettingsMenu) {
-      int n = settingsItemCount();
-
-      if (btnPressed(PIN_BTN_UP)) {
-        menuIndex = (menuIndex - 1 + n) % n;
-        drawSettingsMenu();
-      } else if (btnPressed(PIN_BTN_DOWN)) {
-        menuIndex = (menuIndex + 1) % n;
-        drawSettingsMenu();
-      } else if (btnPressed(PIN_BTN_SELECT)) {
-        menuToggleCurrentItem();
-      }
+    if (!sdPresent) {
+      closeTapeFiles();
+      emulatorEnabled = false;
+      if (usbMscEnabled) usbMscStop();
     } else {
-      // In USB MSC mode, user interacts only via Settings -> Start emulation
-      if (sysState == SysState::USB_MSC_ACTIVE) {
-        // no-op
-      } else {
-        // Normal emulation UI (requires SD filesystem; USB is detached in EMU_FORCED_WHILE_HOST)
-        if (g.mode == Mode::Reader) {
-          if (!armed) {
-            if (btnPressed(PIN_BTN_UP) && fileCount > 0) {
-              selectedIndex = (selectedIndex - 1 + fileCount) % fileCount;
-              redrawMainScreen("Browse");
-            } else if (btnPressed(PIN_BTN_DOWN) && fileCount > 0) {
-              selectedIndex = (selectedIndex + 1) % fileCount;
-              redrawMainScreen("Browse");
-            } else if (btnPressed(PIN_BTN_SELECT)) {
-              if (!sdOk || fileCount == 0) {
-                redrawMainScreen("No files");
-              } else {
-                if (ioFile.isOpen()) ioFile.close();
-                String path = "/" + files[selectedIndex];
-
-                if (ioFile.open(path.c_str(), O_RDONLY)) {
-                  armed = true;
-                  redrawMainScreen("ARMED");
-                } else {
-                  redrawMainScreen("Open failed");
-                }
-              }
-            }
-          } else {
-            if (btnPressed(PIN_BTN_SELECT)) {
-              armed = false;
-              if (ioFile.isOpen()) ioFile.close();
-              redrawMainScreen("ABORTED");
-            }
-          }
-        } else {
-          // Punch UI
-          if (!armed) {
-            if (btnPressed(PIN_BTN_UP) || btnPressed(PIN_BTN_DOWN)) {
-              punchCursor = 1 - punchCursor;
-              redrawMainScreen("Sel=arm");
-            } else if (btnPressed(PIN_BTN_SELECT)) {
-              capIndex = findNextFreeCapIndex();
-              makeCapName(capIndex);
-
-              if (startPunchSessionIfNeeded()) {
-                armed = true;
-                redrawMainScreen("ARMED");
-              } else {
-                redrawMainScreen("Open CAP failed");
-              }
-            }
-          } else {
-            if (btnPressed(PIN_BTN_UP) || btnPressed(PIN_BTN_DOWN)) {
-              punchCursor = 1 - punchCursor;
-              redrawMainScreen("Capturing");
-            } else if (btnPressed(PIN_BTN_SELECT)) {
-              if (punchCursor == 1) {
-                if (rotateToNewCapFile()) {
-                  redrawMainScreen("New file");
-                } else {
-                  redrawMainScreen("New file FAIL");
-                }
-              } else {
-                armed = false;
-                if (ioFile.isOpen()) {
-                  ioFile.sync();
-                  ioFile.close();
-                }
-                capIndex = findNextFreeCapIndex();
-                makeCapName(capIndex);
-                redrawMainScreen("STOPPED");
-              }
-            }
-          }
-        }
-      }
+      SD.begin(PIN_SD_CS);
+      loadConfig();
+      scanFiles();
+      openSelectedFiles();
+      emulatorEnabled = !usbMscEnabled;
     }
+
+    redrawUi();
   }
 
-  // Transfer engine (only when emulation allowed)
-  if ((sysState == SysState::EMU_RUNNING || sysState == SysState::EMU_FORCED_WHILE_HOST) && armed && cmdSeen) {
-    cmdSeen = false;
+  serviceButtons();
+  serviceActivityLed();
 
-    bool cmdActive = (digitalRead(PIN_HP_CMD_IN) == HIGH);
-    if (g.invCmd) cmdActive = !cmdActive;
-    if (!cmdActive) return;
-
-    ledPulseShort();
-
-    if (g.mode == Mode::Reader) {
-      int c = ioFile.read();
-      if (c < 0) {
-        armed = false;
-        ioFile.close();
-        redrawMainScreen("DONE");
-        return;
-      }
-      writeDataBus((uint8_t)c);
-      pulseFlag();
-    } else {
-      uint8_t b = readDataBus();
-      ioFile.write(&b, 1);
-      punchBytesSinceSync++;
-
-      if ((punchBytesSinceSync & 0x1FF) == 0) {
-        ioFile.sync();
-      }
-
-      pulseFlag();
-    }
+  if (!usbMscEnabled) {
+    serviceTapeEmulator();
   }
 }
