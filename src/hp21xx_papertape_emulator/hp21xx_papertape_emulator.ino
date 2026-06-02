@@ -13,11 +13,25 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <SPI.h>
-#include <SD.h>
+//#include <SD.h>
+#include <SdFat.h>
 #include <USBComposite.h>
 #include <USBMassStorage.h>
 #include <U8g2lib.h>
 
+#define DEBUG 1
+
+#if DEBUG
+  #define DBG_BEGIN() Serial1.begin(115200)
+  #define DBG_PRINT(x) Serial1.print(x)
+  #define DBG_PRINTLN(x) Serial1.println(x)
+#else
+  #define DBG_BEGIN()
+  #define DBG_PRINT(x)
+  #define DBG_PRINTLN(x)
+#endif
+
+SdFat SD;
 // -----------------------------------------------------------------------------
 // Pin mapping from requirements
 // -----------------------------------------------------------------------------
@@ -67,6 +81,10 @@ Sd2Card rawCard;
 USBMassStorage MassStorage;
 static uint32_t usbMscSectorCount = 0;
 static const uint16_t USB_PRODUCT_ID = 0x29;
+
+bool readerWaitingForRelease = false;
+bool punchWaitingForRelease = false;
+
 
 static bool usbMscReadBlocks(uint8_t *readbuff, uint32_t startSector, uint16_t numSectors) {
   // Read raw sectors from the SD card for the USB host.
@@ -408,8 +426,12 @@ static void scanDirectory(const char *path, char files[][MAX_NAME_LEN], uint8_t 
     if (!entry) break;
 
     if (!entry.isDirectory()) {
-      strncpy(files[count], entry.name(), MAX_NAME_LEN - 1);
+      // VictorPV/SdFat uses getName() instead of name().
+      entry.getName(files[count], MAX_NAME_LEN);
+
+      // Make extra sure the string is terminated.
       files[count][MAX_NAME_LEN - 1] = '\0';
+
       count++;
     }
 
@@ -568,20 +590,33 @@ static void prepareReaderBusIdle(void) {
 }
 
 static void serviceReader(void) {
-  // Process one reader handshake if the host command is active.
-  bool cmdLevel = digitalRead(PIN_READER_CMD) == HIGH;
-  if (!isActive(cmdLevel, config.reader.commandActiveHigh)) return;
-  if (!readerFile) return;
+  bool cmdActive = isActive(digitalRead(PIN_READER_CMD) == HIGH,
+                            config.reader.commandActiveHigh);
 
-  // Disable the external host-to-device buffer, then drive data to the host.
+  DBG_PRINT("A");
+  if (readerWaitingForRelease) {
+    DBG_PRINT("B");
+    if (!cmdActive) {
+      DBG_PRINT("C");
+      readerWaitingForRelease = false;
+      prepareReaderBusIdle();
+    }
+    return;
+  }
+  DBG_PRINT("D");
+  if (!cmdActive || !readerFile) return;
+  DBG_PRINT("E");
   digitalWrite(PIN_BUS_DIR, HIGH);
   setDataBusOutput();
 
   int b = readerFile.read();
+  DBG_PRINT("=");
+  DBG_PRINT(b);
+  DBG_PRINT("*");
   if (b < 0) {
-    // End of file: signal out of tape/paper if configured as such.
-    writeConfiguredLevel(PIN_OUT_OF_TAPE, true, config.reader.outOfTapeActiveHigh);
-    prepareReaderBusIdle();
+    writeConfiguredLevel(PIN_OUT_OF_TAPE, true,
+                         config.reader.outOfTapeActiveHigh);
+    readerWaitingForRelease = true;
     return;
   }
 
@@ -589,21 +624,22 @@ static void serviceReader(void) {
   pulseAck(PIN_READER_ACK, config.reader.ackPulseActiveHigh);
   blinkActivity();
 
-  // Wait until host releases command to prevent repeated reads from one command level.
-  while (isActive(digitalRead(PIN_READER_CMD) == HIGH, config.reader.commandActiveHigh)) {
-    serviceActivityLed();
-  }
-
-  prepareReaderBusIdle();
+  readerWaitingForRelease = true;
 }
 
 static void servicePunch(void) {
-  // Process one punch handshake if the host command is active.
-  bool cmdLevel = digitalRead(PIN_PUNCH_CMD) == HIGH;
-  if (!isActive(cmdLevel, config.punch.commandActiveHigh)) return;
-  if (!punchFile) return;
+  bool cmdActive = isActive(digitalRead(PIN_PUNCH_CMD) == HIGH,
+                            config.punch.commandActiveHigh);
 
-  // Active-low PB8 enables the external host-to-device buffer for punch input.
+  if (punchWaitingForRelease) {
+    if (!cmdActive) {
+      punchWaitingForRelease = false;
+    }
+    return;
+  }
+
+  if (!cmdActive || !punchFile) return;
+
   digitalWrite(PIN_BUS_DIR, LOW);
   setDataBusInput();
 
@@ -614,10 +650,7 @@ static void servicePunch(void) {
   pulseAck(PIN_PUNCH_ACK, config.punch.ackPulseActiveHigh);
   blinkActivity();
 
-  // Wait until host releases command to prevent duplicate punch bytes.
-  while (isActive(digitalRead(PIN_PUNCH_CMD) == HIGH, config.punch.commandActiveHigh)) {
-    serviceActivityLed();
-  }
+  punchWaitingForRelease = true;
 }
 
 static void serviceTapeEmulator(void) {
@@ -731,19 +764,49 @@ static void drawMainUi(void) {
   display.sendBuffer();
 }
 
+static void drawTruncatedStr(uint8_t x, uint8_t y, const char *text, uint8_t maxChars) {
+  // Draw a string that fits in the available screen width.
+  // If it is too long, keep the start of the filename and add '~'.
+  char buf[32];
+  uint8_t len = strlen(text);
+
+  if (len <= maxChars) {
+    display.drawStr(x, y, text);
+    return;
+  }
+
+  if (maxChars >= sizeof(buf)) {
+    maxChars = sizeof(buf) - 1;
+  }
+
+  strncpy(buf, text, maxChars);
+  buf[maxChars - 1] = '~';
+  buf[maxChars] = ' ';
+  display.drawStr(x, y, buf);
+}
+
 static void drawFileUi(void) {
   // Draw file selection list for either Reader or Punch.
+  // The cursor stays visible; when moving past the fourth visible row,
+  // the list scrolls upward like the configuration menu.
   display.clearBuffer();
   drawHeader(activeSection == SECTION_READER ? "Reader files" : "Punch files");
 
-  uint8_t y = 22;
   uint8_t rows = 4;
   uint8_t count = selectedFileCount();
   uint8_t extra = activeSection == SECTION_PUNCH ? 1 : 0;
   uint8_t total = count + extra;
+  uint8_t first = 0;
 
-  for (uint8_t row = 0; row < rows && row < total; row++) {
-    uint8_t item = row;
+  if (fileCursor >= rows) {
+    first = fileCursor - rows + 1;
+  }
+
+  for (uint8_t row = 0; row < rows; row++) {
+    uint8_t item = first + row;
+    if (item >= total) break;
+
+    uint8_t y = 22 + row * 12;
     bool highlighted = item == fileCursor;
 
     if (highlighted) display.drawBox(0, y - 9, 128, 11);
@@ -755,42 +818,42 @@ static void drawFileUi(void) {
       uint8_t fileIndex = activeSection == SECTION_PUNCH ? item - 1 : item;
       const char *name = fileNameAt(fileIndex);
       display.drawStr(3, y, isSelectedFile(name) ? "*" : " ");
-      display.drawStr(11, y, name);
+      drawTruncatedStr(11, y, name, 19);
     }
 
     display.setDrawColor(1);
-    y += 12;
   }
 
   display.sendBuffer();
 }
 
 static const char *configItemName(uint8_t index) {
-  // Return the label for one configuration list item.
+  // Return the short label for one configuration list item.
   switch (index) {
-    case 0: return "Reader cmd active high";
-    case 1: return "Reader ack active high";
-    case 2: return "Reader out active high";
-    case 3: return "Device 12V levels";
-    case 4: return "Punch cmd active high";
-    case 5: return "Punch ack active high";
-    case 6: return "Punch out active high";
-    case 7: return "Exit";
+    case 0: return "RDR CMD ACTIVE";
+    case 1: return "RDR FLAG ACTIVE";
+    case 2: return "RDR DATA ACTIVE";
+    case 3: return "PUN CMD ACTIVE";
+    case 4: return "PUN FLAG ACTIVE";
+    case 5: return "PUN DATA ACTIVE";
+    case 6: return "SIGNAL LEVEL";
+    case 7: return "EXIT";
     default: return "";
   }
 }
 
-static bool configItemValue(uint8_t index) {
-  // Return the boolean value for one configuration item.
+static const char *configItemValueText(uint8_t index) {
+  // Return the visible value text for one configuration item.
+  // Signal polarity items show HIGH/LOW, and signal level shows +5V/+12V.
   switch (index) {
-    case 0: return config.reader.commandActiveHigh;
-    case 1: return config.reader.ackPulseActiveHigh;
-    case 2: return config.reader.outOfTapeActiveHigh;
-    case 3: return config.use12V;
-    case 4: return config.punch.commandActiveHigh;
-    case 5: return config.punch.ackPulseActiveHigh;
-    case 6: return config.punch.outOfTapeActiveHigh;
-    default: return false;
+    case 0: return config.reader.commandActiveHigh ? "HIGH" : "LOW";
+    case 1: return config.reader.ackPulseActiveHigh ? "HIGH" : "LOW";
+    case 2: return config.reader.outOfTapeActiveHigh ? "HIGH" : "LOW";
+    case 3: return config.punch.commandActiveHigh ? "HIGH" : "LOW";
+    case 4: return config.punch.ackPulseActiveHigh ? "HIGH" : "LOW";
+    case 5: return config.punch.outOfTapeActiveHigh ? "HIGH" : "LOW";
+    case 6: return config.use12V ? "+12V" : "+5V";
+    default: return "";
   }
 }
 
@@ -800,11 +863,16 @@ static void toggleConfigItem(uint8_t index) {
     case 0: config.reader.commandActiveHigh = !config.reader.commandActiveHigh; break;
     case 1: config.reader.ackPulseActiveHigh = !config.reader.ackPulseActiveHigh; break;
     case 2: config.reader.outOfTapeActiveHigh = !config.reader.outOfTapeActiveHigh; break;
-    case 3: config.use12V = !config.use12V; break;
-    case 4: config.punch.commandActiveHigh = !config.punch.commandActiveHigh; break;
-    case 5: config.punch.ackPulseActiveHigh = !config.punch.ackPulseActiveHigh; break;
-    case 6: config.punch.outOfTapeActiveHigh = !config.punch.outOfTapeActiveHigh; break;
-    case 7: uiMode = UI_MAIN; break;
+    case 3: config.punch.commandActiveHigh = !config.punch.commandActiveHigh; break;
+    case 4: config.punch.ackPulseActiveHigh = !config.punch.ackPulseActiveHigh; break;
+    case 5: config.punch.outOfTapeActiveHigh = !config.punch.outOfTapeActiveHigh; break;
+    case 6: config.use12V = !config.use12V; break;
+    case 7: {
+      uiMode = UI_MAIN;
+      writeConfiguredLevel(PIN_READER_ACK, false, config.reader.ackPulseActiveHigh);
+      writeConfiguredLevel(PIN_PUNCH_ACK, false, config.punch.ackPulseActiveHigh);       
+    }
+    break;
   }
 
   saveConfig();
@@ -832,7 +900,7 @@ static void drawConfigUi(void) {
     display.drawStr(2, y, configItemName(item));
 
     if (item < 7) {
-      display.drawStr(104, y, configItemValue(item) ? "ON" : "OFF");
+      display.drawStr(98, y, configItemValueText(item));
     }
 
     display.setDrawColor(1);
@@ -900,9 +968,11 @@ static void handleUiEvent(uint8_t buttonPin, bool shortPress, bool longPress) {
     uint8_t total = count + (activeSection == SECTION_PUNCH ? 1 : 0);
 
     if (buttonPin == PIN_BTN_UP && total > 0) {
-      fileCursor = fileCursor == 0 ? total - 1 : fileCursor - 1;
+      // Clamp at the first item instead of wrapping.
+      if (fileCursor > 0) fileCursor--;
     } else if (buttonPin == PIN_BTN_DOWN && total > 0) {
-      fileCursor = (fileCursor + 1) % total;
+      // Clamp at the last item instead of letting the cursor disappear.
+      if (fileCursor + 1 < total) fileCursor++;
     } else if (buttonPin == PIN_BTN_SELECT) {
       if (activeSection == SECTION_PUNCH && fileCursor == 0) {
         createNewPunchFile();
@@ -969,6 +1039,7 @@ void setup(void) {
   digitalWrite(PIN_LEVEL_SELECT, LOW);
 
   pinMode(PIN_OUT_OF_TAPE, OUTPUT);
+ 
   pinMode(PIN_READER_ACK, OUTPUT);
   pinMode(PIN_PUNCH_ACK, OUTPUT);
 
@@ -989,6 +1060,8 @@ void setup(void) {
   }
 
   loadConfig();
+  writeConfiguredLevel(PIN_READER_ACK, false, config.reader.ackPulseActiveHigh);
+  writeConfiguredLevel(PIN_PUNCH_ACK, false, config.punch.ackPulseActiveHigh);
   scanFiles();
   openSelectedFiles();
   applyLevelSelect();
@@ -997,6 +1070,8 @@ void setup(void) {
 
   emulatorEnabled = sdPresent;
   redrawUi();
+  DBG_BEGIN();
+  DBG_PRINTLN("Paper tape emulator booting");
 }
 
 void loop(void) {
