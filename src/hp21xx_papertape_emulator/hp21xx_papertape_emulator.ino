@@ -487,6 +487,37 @@ static void openSelectedFiles(void) {
   }
 }
 
+static bool reopenReaderFromBeginning(void) {
+  // Re-open the selected reader tape from byte 0.
+  // This is used as a "rewind tape" action from a long DOWN press.
+  if (readerFile) {
+    readerFile.close();
+  }
+
+  readerWaitingForRelease = false;
+  updateOutOfTapeSignal();
+  prepareReaderBusIdle();
+
+  if (!sdPresent || config.selectedReader[0] == '\0') {
+    DBG_PRINTLN("Reader rewind failed: no SD card or no reader file selected");
+    return false;
+  }
+
+  char path[80];
+  buildPath(path, sizeof(path), TAPE_DIR, config.selectedReader);
+
+  readerFile = SD.open(path, FILE_READ);
+  if (!readerFile) {
+    DBG_PRINT("Reader rewind failed: ");
+    DBG_PRINTLN(path);
+    return false;
+  }
+
+  DBG_PRINT("Reader rewound: ");
+  DBG_PRINTLN(path);
+  return true;
+}
+
 static bool createNewPunchFile(void) {
   // Create PUNCHnnn.BIN using the first available sequence number.
   if (!sdPresent) return false;
@@ -610,21 +641,21 @@ static void serviceReader(void) {
   setDataBusOutput();
 
   int b = readerFile.read();
+
+  if (b < 0) {
+    DBG_PRINT("F");
+    // if run out we return 0xff as if there is no tape at all!
+    b=0xff;
+  }
   DBG_PRINT("=");
   DBG_PRINT(b);
   DBG_PRINT("*");
-  if (b < 0) {
-    writeConfiguredLevel(PIN_OUT_OF_TAPE, true,
-                         config.reader.outOfTapeActiveHigh);
-    readerWaitingForRelease = true;
-    return;
-  }
-
   writeDataBus((uint8_t)b);
   pulseAck(PIN_READER_ACK, config.reader.ackPulseActiveHigh);
   blinkActivity();
 
   readerWaitingForRelease = true;
+  DBG_PRINT("G");
 }
 
 static void servicePunch(void) {
@@ -940,6 +971,15 @@ static void handleUiEvent(uint8_t buttonPin, bool shortPress, bool longPress) {
 
   if (longPress && buttonPin == PIN_BTN_UP) {
     usbMscStart();
+    redrawUi();
+    return;
+  }
+
+  if (longPress && buttonPin == PIN_BTN_DOWN) {
+    // Long DOWN acts as reader tape rewind.
+    // It re-opens the selected reader file from the beginning without
+    // blocking the UI or changing the selected file.
+    reopenReaderFromBeginning();
     redrawUi();
     return;
   }
