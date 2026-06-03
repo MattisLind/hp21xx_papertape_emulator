@@ -87,19 +87,38 @@ bool punchWaitingForRelease = false;
 
 
 static bool usbMscReadBlocks(uint8_t *readbuff, uint32_t startSector, uint16_t numSectors) {
-  // Read raw sectors from the SD card for the USB host.
+  // Read raw 512-byte sectors from the SD card for the USB host.
   for (uint16_t i = 0; i < numSectors; i++) {
-    // Sd2Card reads one 512-byte sector at a time.
-    if (!rawCard.readBlock(startSector + i, readbuff + (i * 512UL))) {
+
+    // USB MSC always asks in 512-byte sector numbers.
+    uint32_t lba = startSector + i;
+
+    // Old SDSC cards use byte addressing in Sd2Card.
+    // SDHC/SDXC cards use block addressing.
+    if (usbCardType != SD_CARD_TYPE_SDHC) {
+      lba *= 512UL;
+    }
+
+    // Copy this sector into the correct position in the USB buffer.
+    if (!rawCard.readBlock(lba, readbuff + (i * 512UL))) {
       return false;
     }
   }
+
   return true;
 }
 
 static bool usbMscWriteBlocks(const uint8_t *writebuff, uint32_t startSector, uint16_t numSectors) {
   // Write raw sectors from the USB host to the SD card.
   for (uint16_t i = 0; i < numSectors; i++) {
+        // USB MSC always asks in 512-byte sector numbers.
+    uint32_t lba = startSector + i;
+
+    // Old SDSC cards use byte addressing in Sd2Card.
+    // SDHC/SDXC cards use block addressing.
+    if (usbCardType != SD_CARD_TYPE_SDHC) {
+      lba *= 512UL;
+    }
     // Sd2Card writes one 512-byte sector at a time.
     if (!rawCard.writeBlock(startSector + i, writebuff + (i * 512UL))) {
       return false;
@@ -133,8 +152,7 @@ static const char *TAPE_DIR    = "/tapes";  // Shared directory for both reader 
 struct InterfaceSettings {
   bool commandActiveHigh;
   bool ackPulseActiveHigh;
-  bool outOfTapeActiveHigh;
-  bool use12V;
+  bool dataActiveHigh;
 };
 
 struct AppConfig {
@@ -210,12 +228,12 @@ static const unsigned long LONG_PRESS_MS = 4000;
 
 static bool isActive(bool signalLevel, bool activeHigh) {
   // Compare the physical input level with the configured active polarity.
-  return activeHigh ? signalLevel : !signalLevel;
+  return activeHigh ? !signalLevel : signalLevel;
 }
 
 static void writeConfiguredLevel(uint8_t pin, bool active, bool activeHigh) {
   // Convert a logical active/inactive state into the configured physical level.
-  digitalWrite(pin, active == activeHigh ? HIGH : LOW);
+  digitalWrite(pin, active == activeHigh ? LOW : HIGH);
 }
 
 static void setDataBusInput(void) {
@@ -232,22 +250,25 @@ static void setDataBusOutput(void) {
   }
 }
 
-static void writeDataBus(uint8_t value) {
+static void writeDataBus(uint8_t value, bool activeHigh) {
   // Write one byte to D0..D7, least significant bit first.
   for (uint8_t i = 0; i < 8; i++) {
-    digitalWrite(DATA_PINS[i], (value & (1U << i)) ? HIGH : LOW);
+    bool tmp = (value & (1U << i));
+    digitalWrite(DATA_PINS[i], tmp == activeHigh ? HIGH : LOW);
   }
 }
 
-static uint8_t readDataBus(void) {
+static uint8_t readDataBus(bool activeHigh) {
   // Read one byte from D0..D7, least significant bit first.
   uint8_t value = 0;
+  uint8_t complementor = activeHigh?0x00:0xff;
   for (uint8_t i = 0; i < 8; i++) {
     if (digitalRead(DATA_PINS[i]) == HIGH) {
       value |= (1U << i);
     }
   }
-  return value;
+  
+  return value^complementor;
 }
 
 static void pulseAck(uint8_t pin, bool activeHigh) {
@@ -280,7 +301,7 @@ static void applyLevelSelect(void) {
 static void updateOutOfTapeSignal(void) {
   // Normally signal paper/tape available. This assumes the pin indicates out-of-tape,
   // so inactive means paper is available.
-  writeConfiguredLevel(PIN_OUT_OF_TAPE, false, config.reader.outOfTapeActiveHigh);
+  writeConfiguredLevel(PIN_OUT_OF_TAPE, false, config.punch.dataActiveHigh);
 }
 
 // -----------------------------------------------------------------------------
@@ -296,12 +317,12 @@ static void setDefaultConfig(void) {
   // Conservative defaults. These can be changed from the configuration menu.
   config.reader.commandActiveHigh = false;
   config.reader.ackPulseActiveHigh = false;
-  config.reader.outOfTapeActiveHigh = true;
+  config.reader.dataActiveHigh = true;
   config.reader.use12V = false;
 
   config.punch.commandActiveHigh = false;
   config.punch.ackPulseActiveHigh = false;
-  config.punch.outOfTapeActiveHigh = true;
+  config.punch.dataActiveHigh = true;
   config.punch.use12V = false;
   config.use12V = false;
 
@@ -327,13 +348,11 @@ static void applyConfigKeyValue(const char *key, const char *value) {
   // Apply one key=value pair from the configuration file.
   if (strcmp(key, "reader.commandActiveHigh") == 0) config.reader.commandActiveHigh = parseBoolValue(value);
   else if (strcmp(key, "reader.ackPulseActiveHigh") == 0) config.reader.ackPulseActiveHigh = parseBoolValue(value);
-  else if (strcmp(key, "reader.outOfTapeActiveHigh") == 0) config.reader.outOfTapeActiveHigh = parseBoolValue(value);
+  else if (strcmp(key, "reader.dataActiveHigh") == 0) config.reader.dataActiveHigh = parseBoolValue(value);
   else if (strcmp(key, "reader.use12V") == 0) config.use12V = parseBoolValue(value);  // Backward compatibility with old config files
-  else if (strcmp(key, "device.use12V") == 0) config.use12V = parseBoolValue(value);
   else if (strcmp(key, "punch.commandActiveHigh") == 0) config.punch.commandActiveHigh = parseBoolValue(value);
   else if (strcmp(key, "punch.ackPulseActiveHigh") == 0) config.punch.ackPulseActiveHigh = parseBoolValue(value);
-  else if (strcmp(key, "punch.outOfTapeActiveHigh") == 0) config.punch.outOfTapeActiveHigh = parseBoolValue(value);
-  else if (strcmp(key, "punch.use12V") == 0) config.use12V = parseBoolValue(value);  // Backward compatibility with old config files
+  else if (strcmp(key, "punch.dataActiveHigh") == 0) config.punch.dataActiveHigh = parseBoolValue(value);
   else if (strcmp(key, "selectedReader") == 0) strncpy(config.selectedReader, value, MAX_NAME_LEN - 1);
   else if (strcmp(key, "selectedPunch") == 0) strncpy(config.selectedPunch, value, MAX_NAME_LEN - 1);
 
@@ -394,12 +413,12 @@ static void saveConfig(void) {
 
   f.print("reader.commandActiveHigh="); f.println(config.reader.commandActiveHigh ? "1" : "0");
   f.print("reader.ackPulseActiveHigh="); f.println(config.reader.ackPulseActiveHigh ? "1" : "0");
-  f.print("reader.outOfTapeActiveHigh="); f.println(config.reader.outOfTapeActiveHigh ? "1" : "0");
+  f.print("reader.dataActiveHigh="); f.println(config.reader.dataActiveHigh ? "1" : "0");
   f.print("device.use12V="); f.println(config.use12V ? "1" : "0");
 
   f.print("punch.commandActiveHigh="); f.println(config.punch.commandActiveHigh ? "1" : "0");
   f.print("punch.ackPulseActiveHigh="); f.println(config.punch.ackPulseActiveHigh ? "1" : "0");
-  f.print("punch.outOfTapeActiveHigh="); f.println(config.punch.outOfTapeActiveHigh ? "1" : "0");
+  f.print("punch.dataActiveHigh="); f.println(config.punch.dataActiveHigh ? "1" : "0");
 
   f.print("selectedReader="); f.println(config.selectedReader);
   f.print("selectedPunch="); f.println(config.selectedPunch);
@@ -495,7 +514,7 @@ static bool reopenReaderFromBeginning(void) {
   }
 
   readerWaitingForRelease = false;
-  updateOutOfTapeSignal();
+
   prepareReaderBusIdle();
 
   if (!sdPresent || config.selectedReader[0] == '\0') {
@@ -549,6 +568,7 @@ static bool createNewPunchFile(void) {
 // -----------------------------------------------------------------------------
 // USB MSC adapter hooks
 // -----------------------------------------------------------------------------
+static uint8_t usbCardType = 0;
 
 static bool usbMscStart(void) {
   // Enter USB mass-storage mode. The SD card must no longer be used by the
@@ -569,7 +589,7 @@ static bool usbMscStart(void) {
   if (usbMscSectorCount == 0) {
     return false;
   }
-
+  usbCardType = rawCard.type();
   // Build a simple USB MSC device. Avoid adding USB serial here because the
   // STM32F1 USB endpoint/buffer space is limited and MSC alone is enough.
   USBComposite.clear();
@@ -650,7 +670,7 @@ static void serviceReader(void) {
   DBG_PRINT("=");
   DBG_PRINT(b);
   DBG_PRINT("*");
-  writeDataBus((uint8_t)b);
+  writeDataBus((uint8_t)b, config.reader.dataActiveHigh);
   pulseAck(PIN_READER_ACK, config.reader.ackPulseActiveHigh);
   blinkActivity();
 
@@ -674,7 +694,7 @@ static void servicePunch(void) {
   digitalWrite(PIN_BUS_DIR, LOW);
   setDataBusInput();
 
-  uint8_t b = readDataBus();
+  uint8_t b = readDataBus(config.punch.dataActiveHigh);
   punchFile.write(b);
   punchFile.flush();
 
@@ -879,10 +899,10 @@ static const char *configItemValueText(uint8_t index) {
   switch (index) {
     case 0: return config.reader.commandActiveHigh ? "HIGH" : "LOW";
     case 1: return config.reader.ackPulseActiveHigh ? "HIGH" : "LOW";
-    case 2: return config.reader.outOfTapeActiveHigh ? "HIGH" : "LOW";
+    case 2: return config.reader.dataActiveHigh ? "HIGH" : "LOW";
     case 3: return config.punch.commandActiveHigh ? "HIGH" : "LOW";
     case 4: return config.punch.ackPulseActiveHigh ? "HIGH" : "LOW";
-    case 5: return config.punch.outOfTapeActiveHigh ? "HIGH" : "LOW";
+    case 5: return config.punch.dataActiveHigh ? "HIGH" : "LOW";
     case 6: return config.use12V ? "+12V" : "+5V";
     default: return "";
   }
@@ -893,10 +913,10 @@ static void toggleConfigItem(uint8_t index) {
   switch (index) {
     case 0: config.reader.commandActiveHigh = !config.reader.commandActiveHigh; break;
     case 1: config.reader.ackPulseActiveHigh = !config.reader.ackPulseActiveHigh; break;
-    case 2: config.reader.outOfTapeActiveHigh = !config.reader.outOfTapeActiveHigh; break;
+    case 2: config.reader.dataActiveHigh = !config.reader.dataActiveHigh; break;
     case 3: config.punch.commandActiveHigh = !config.punch.commandActiveHigh; break;
     case 4: config.punch.ackPulseActiveHigh = !config.punch.ackPulseActiveHigh; break;
-    case 5: config.punch.outOfTapeActiveHigh = !config.punch.outOfTapeActiveHigh; break;
+    case 5: config.punch.dataActiveHigh = !config.punch.dataActiveHigh; break;
     case 6: config.use12V = !config.use12V; break;
     case 7: {
       uiMode = UI_MAIN;
@@ -1140,5 +1160,7 @@ void loop(void) {
 
   if (!usbMscEnabled) {
     serviceTapeEmulator();
+  } else {
+    MassStorage.loop();
   }
 }
