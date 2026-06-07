@@ -19,7 +19,7 @@
 #include <USBMassStorage.h>
 #include <U8g2lib.h>
 
-#define DEBUG 1
+#define DEBUG 0
 
 #if DEBUG
   #define DBG_BEGIN() Serial1.begin(115200)
@@ -32,6 +32,7 @@
 #endif
 
 SdFat SD;
+static uint8_t usbCardType = 0;
 // -----------------------------------------------------------------------------
 // Pin mapping from requirements
 // -----------------------------------------------------------------------------
@@ -147,7 +148,7 @@ static const char *CONFIG_FILE = "/ptape.cfg";
 static const char *TAPE_DIR    = "/tapes";  // Shared directory for both reader input and punched output
 
 #define MAX_FILES 32
-#define MAX_NAME_LEN 32
+#define MAX_NAME_LEN 64
 
 struct InterfaceSettings {
   bool commandActiveHigh;
@@ -274,7 +275,7 @@ static uint8_t readDataBus(bool activeHigh) {
 static void pulseAck(uint8_t pin, bool activeHigh) {
   // Generate an approximately 1 microsecond acknowledgement pulse.
   writeConfiguredLevel(pin, true, activeHigh);
-  delayMicroseconds(1);
+  delayMicroseconds(5);
   writeConfiguredLevel(pin, false, activeHigh);
 }
 
@@ -282,7 +283,7 @@ static void blinkActivity(void) {
   // PC13 is often wired as active-low LED on Blue Pill style boards.
   // If your hardware is active-high, invert these two writes.
   digitalWrite(PIN_ACTIVITY_LED, HIGH);
-  activityLedOffAtMs = millis() + 20;
+  activityLedOffAtMs = millis() + 1;
 }
 
 static void serviceActivityLed(void) {
@@ -318,12 +319,10 @@ static void setDefaultConfig(void) {
   config.reader.commandActiveHigh = false;
   config.reader.ackPulseActiveHigh = false;
   config.reader.dataActiveHigh = true;
-  config.reader.use12V = false;
 
   config.punch.commandActiveHigh = false;
   config.punch.ackPulseActiveHigh = false;
   config.punch.dataActiveHigh = true;
-  config.punch.use12V = false;
   config.use12V = false;
 
   config.selectedReader[0] = ' ';
@@ -349,7 +348,7 @@ static void applyConfigKeyValue(const char *key, const char *value) {
   if (strcmp(key, "reader.commandActiveHigh") == 0) config.reader.commandActiveHigh = parseBoolValue(value);
   else if (strcmp(key, "reader.ackPulseActiveHigh") == 0) config.reader.ackPulseActiveHigh = parseBoolValue(value);
   else if (strcmp(key, "reader.dataActiveHigh") == 0) config.reader.dataActiveHigh = parseBoolValue(value);
-  else if (strcmp(key, "reader.use12V") == 0) config.use12V = parseBoolValue(value);  // Backward compatibility with old config files
+  else if (strcmp(key, "use12V") == 0) config.use12V = parseBoolValue(value);  // Backward compatibility with old config files
   else if (strcmp(key, "punch.commandActiveHigh") == 0) config.punch.commandActiveHigh = parseBoolValue(value);
   else if (strcmp(key, "punch.ackPulseActiveHigh") == 0) config.punch.ackPulseActiveHigh = parseBoolValue(value);
   else if (strcmp(key, "punch.dataActiveHigh") == 0) config.punch.dataActiveHigh = parseBoolValue(value);
@@ -568,7 +567,7 @@ static bool createNewPunchFile(void) {
 // -----------------------------------------------------------------------------
 // USB MSC adapter hooks
 // -----------------------------------------------------------------------------
-static uint8_t usbCardType = 0;
+
 
 static bool usbMscStart(void) {
   // Enter USB mass-storage mode. The SD card must no longer be used by the
@@ -643,9 +642,10 @@ static void prepareReaderBusIdle(void) {
 static void serviceReader(void) {
   bool cmdActive = isActive(digitalRead(PIN_READER_CMD) == HIGH,
                             config.reader.commandActiveHigh);
-
+  
   DBG_PRINT("A");
-  if (readerWaitingForRelease) {
+  DBG_PRINT(cmdActive);
+  /*if (readerWaitingForRelease) {
     DBG_PRINT("B");
     if (!cmdActive) {
       DBG_PRINT("C");
@@ -653,9 +653,11 @@ static void serviceReader(void) {
       prepareReaderBusIdle();
     }
     return;
-  }
+  }*/
   DBG_PRINT("D");
-  if (!cmdActive || !readerFile) return;
+  if (!cmdActive) return;
+  DBG_PRINT("H");
+  if (!readerFile) return;
   DBG_PRINT("E");
   digitalWrite(PIN_BUS_DIR, HIGH);
   setDataBusOutput();
@@ -1163,4 +1165,5 @@ void loop(void) {
   } else {
     MassStorage.loop();
   }
+  //delayMicroseconds(10000);
 }
