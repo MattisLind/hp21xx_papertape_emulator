@@ -83,8 +83,6 @@ USBMassStorage MassStorage;
 static uint32_t usbMscSectorCount = 0;
 static const uint16_t USB_PRODUCT_ID = 0x29;
 
-bool readerWaitingForRelease = false;
-bool punchWaitingForRelease = false;
 
 
 static bool usbMscReadBlocks(uint8_t *readbuff, uint32_t startSector, uint16_t numSectors) {
@@ -684,17 +682,10 @@ static void servicePunch(void) {
   bool cmdActive = isActive(digitalRead(PIN_PUNCH_CMD) == HIGH,
                             config.punch.commandActiveHigh);
 
-  if (punchWaitingForRelease) {
-    if (!cmdActive) {
-      punchWaitingForRelease = false;
-    }
-    return;
-  }
 
   if (!cmdActive || !punchFile) return;
-
-  digitalWrite(PIN_BUS_DIR, LOW);
   setDataBusInput();
+  digitalWrite(PIN_BUS_DIR, LOW);
 
   uint8_t b = readDataBus(config.punch.dataActiveHigh);
   punchFile.write(b);
@@ -702,8 +693,6 @@ static void servicePunch(void) {
 
   pulseAck(PIN_PUNCH_ACK, config.punch.ackPulseActiveHigh);
   blinkActivity();
-
-  punchWaitingForRelease = true;
 }
 
 static void serviceTapeEmulator(void) {
