@@ -86,3 +86,12 @@ I modifed my 12566 boards to supply 5V on pin 20 since it is unused also on the 
 | 12 | IN7 | J | BIT 7 | J | Bit 7 |
 | 13 | PAPER_LOW | 6 | BIT 5 | 6 | Low Tape|
 
+## Documentation
+
+Here are some links to relevant HP document for the 12597 and 12566 boards:
+
+* [12566B Micro circuit interface manual](https://bitsavers.org/pdf/hp/21xx/interfaces/12566.pdf)
+* [12597A-002 Reader interface manual](https://www.bitsavers.org/pdf/hp/21xx/interfaces/12597A-002.pdf)
+* [12597A-005 Punch interface manual](https://www.bitsavers.org/pdf/hp/21xx/interfaces/12597A-005.pdf)
+
+
