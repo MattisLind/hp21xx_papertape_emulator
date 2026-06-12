@@ -52,37 +52,37 @@ A good idea is to modify the 12566 and 12597 boards to supply 5V to the emulator
 I modifed my 12566 boards to supply 5V on pin 20 since it is unused also on the 12597 boards this pin is unused.
 
 ### Reader
-|Pin on 26 pin connector | Designator on the 26 pin connector | Pin on 48 pin connector for the 12566 board | Pin on the 48 pin connector for the 12597 board | HP designator |
-|----|-----|-----|----|----|
-| 14 | NC  | NA  | NA |    |
-| 15 | INCR | 22 |    | Command |
-| 16 | OUTFR | 23 |  | Flag |
-| 17 | OUT7 | 8  | 8 | 
-| 18 | OUT6 | 7  | 7 |
-| 19 | OUT5 | 6  | 6 |
-| 20 | OUT4 | 5  | 5 |
-| 21 | OUT3 | 4  | 4 |
-| 22 | OUT2 | 3  | 3 |
-| 23 | OUT1 | 2  | 2 |
-| 24 | OUT0 | 1  | 1 |
-| 25 | GND  | 24 | 24 | Ground |
-| 26 | +5V  | 20 | 20 | None - modfiction |
+|Pin on 26 pin connector | Designator on the 26 pin connector | Pin on 48 pin connector for the 12566 board |HP designator on 12566 board | Pin on the 48 pin connector for the 12597 board | HP designator on 12597 board |
+|----|-----|-----|----|----|----|
+| 14 | NC  | NA  | NA |    |    |
+| 15 | INCR | 22 |  DEVICE COMMAND  | AA  | Read |
+| 16 | OUTFR | 23 | DEVICE FLAG | 23 | Feed Hole |
+| 17 | OUT7 | 8  | Bit 7 | 8 | Bit 7 | 
+| 18 | OUT6 | 7  | Bit 6 | 7 | Bit 6 |
+| 19 | OUT5 | 6  | Bit 5 | 6 | Bit 5 | 
+| 20 | OUT4 | 5  | Bit 4 | 5 | Bit 4 |
+| 21 | OUT3 | 4  | Bit 3 | 4 | Bit 3 |
+| 22 | OUT2 | 3  | Bit 2 | 3 | Bit 2 |
+| 23 | OUT1 | 2  | Bit 1 | 2 | Bit 1 |
+| 24 | OUT0 | 1  | Bit 0 | 1 | Bit 0 |
+| 25 | GND  | 24 | Ground | 24 | Ground |
+| 26 | +5V  | 20 | | 20 |  |
 
 ### Punch
 
-|Pin on 26 pin connector | Designator on the 26 pin connector | Pin on 48 pin connector for the 12566 board | Pin on the 48 pin connector for the 12597 board | HP designator |
-|----|-----|-----|----|----|
-| 1  | +5V | 20  | 20 | None - modifiction |
-| 2  | GND | 24  | 24 |
-| 3  | INCP | 22  |    | Command |
-| 4  | OUTFP| 23 | Flag | |
-| 5  | IN0  | A  | A  | |
-| 6  | IN1  | B  | B  | |
-| 7  | IN2  | C  | C  | |
-| 8  | IN3  | D  | D  | |
-| 9  | IN4  | E  | E  | |
-| 10  | IN5  | F  | F  | |
-| 11 | IN6  | H  | H  | |
-| 12 | IN7 | J | J | |
-| 13 | PAPER_LOW | 6 | 6 | |
+|Pin on 26 pin connector | Designator on the 26 pin connector | Pin on 48 pin connector for the 12566 board | HP designator on 12566 board |Pin on the 48 pin connector for the 12597 board | HP designator on 12597 board| 
+|----|-----|-----|----|----|----|
+| 1  | +5V | 20  | | 20 |  |
+| 2  | GND | 24  | GROUND | 24 | Ground |
+| 3  | INCP | 22  | COMMAND   | AA | Punch |
+| 4  | OUTFP| 23 | FLAG | 23 | Flag |
+| 5  | IN0  | A  | BIT 0 | A  | Bit 0 |
+| 6  | IN1  | B  | BIT 1 | B  | Bit 1 |
+| 7  | IN2  | C  | BIT 2 | C  | Bit 2|
+| 8  | IN3  | D  | BIT 3 | D  | Bit 3 |
+| 9  | IN4  | E  | BIT 4 | E  | Bit 4 |
+| 10  | IN5  | F  | BIT 5 | F | Bit 5 |
+| 11 | IN6  | H  | BIT 6 | H  | Bit 6 |
+| 12 | IN7 | J | BIT 7 | J | Bit 7 |
+| 13 | PAPER_LOW | 6 | BIT 5 | 6 | Low Tape|
 
