@@ -74,8 +74,8 @@ I modifed my 12566 boards to supply 5V on pin 20 since it is unused also on the 
 |----|-----|-----|----|----|----|
 | 1  | +5V | 20  | | 20 |  |
 | 2  | GND | 24  | GROUND | 24 | Ground |
-| 3  | INCP | 22  | COMMAND   | AA | Punch |
-| 4  | OUTFP| 23 | FLAG | 23 | Flag |
+| 3  | INCP | 22  | DEVICE COMMAND   | AA | Punch |
+| 4  | OUTFP| 23 | DEVICE FLAG | 23 | Flag |
 | 5  | IN0  | A  | BIT 0 | A  | Bit 0 |
 | 6  | IN1  | B  | BIT 1 | B  | Bit 1 |
 | 7  | IN2  | C  | BIT 2 | C  | Bit 2|
