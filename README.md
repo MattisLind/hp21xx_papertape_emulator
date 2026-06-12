@@ -4,6 +4,15 @@ The idea to this project come from this page: [newton.freehostia.com/hp](https:/
 
 So I thought I should make my own, but then I thought, why involve a PC. I could store the files I wished to download on a small SD-card and have a small display and a couple of buttons to interact with to select what file I wanted to download into the machine! And then there was this idea, why not make it work as a punch as well so that I can take the output from the HP computer and store it on a file that subsequently can be uploaded. Useful if one would try compiling some small program on it.
 
+## Progress
+
+Now I am able to both read files into the computer and punch from the computer. Here is a quick video showing when a Chess program is loaded into my HP 2100S.
+
+[![Watch the video](./Running%20Chess%20on%20HP%202100S.png)](https://www.youtube.com/shorts/xUi1qgBoRDE)
+
+Loading of the 72 k abolute binary files takes place when the red LED light up for a few seconds. It fills up the entire 32k Word memory space of the HP 2100.
+
+
 ![picture of the gadget](./PaperTapeEmulator.JPG)
 
 This is how the finished board came to look like. Three buttons, Up, Down and Select, and small 128x64 OLED panel to configure and control it. A Micro SD card for file storage and USB-C connector that can be used to power the device unless powered over the 26 pin ribbin connector. The green LED indicate power and the red LED indicate activity.
