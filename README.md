@@ -39,7 +39,7 @@ For all the surface mount components the BOM is among the production files in th
 * Green 5 mm LED
 * 4 pin header 2.54 mm for SWD and serial debugging port. 2 pcs.
 
-## Connectors 
+## Connecting it to the HP machine 
 
 The connector for the HP computer is a 48 pin 0.156 inch (3.96 mm) connector. EDAC and Sullins manufacture these.
 
@@ -52,5 +52,37 @@ A good idea is to modify the 12566 and 12597 boards to supply 5V to the emulator
 I modifed my 12566 boards to supply 5V on pin 20 since it is unused also on the 12597 boards this pin is unused.
 
 ### Reader
+|Pin on 26 pin connector | Designator on the 26 pin connector | Pin on 48 pin connector for the 12566 board | Pin on the 48 pin connector for the 12597 board | HP designator |
+|----|-----|-----|----|----|
+| 14 | NC  | NA  | NA |    |
+| 15 | INCR | 22 |    | Command |
+| 16 | OUTFR | 23 |  | Flag |
+| 17 | OUT7 | 8  | 8 | 
+| 18 | OUT6 | 7  | 7 |
+| 19 | OUT5 | 6  | 6 |
+| 20 | OUT4 | 5  | 5 |
+| 21 | OUT3 | 4  | 4 |
+| 22 | OUT2 | 3  | 3 |
+| 23 | OUT1 | 2  | 2 |
+| 24 | OUT0 | 1  | 1 |
+| 25 | GND  | 24 | 24 | Ground |
+| 26 | +5V  | 20 | 20 | None - modfiction |
 
 ### Punch
+
+|Pin on 26 pin connector | Designator on the 26 pin connector | Pin on 48 pin connector for the 12566 board | Pin on the 48 pin connector for the 12597 board | HP designator |
+|----|-----|-----|----|----|
+| 1  | +5V | 20  | 20 | None - modifiction |
+| 2  | GND | 24  | 24 |
+| 3  | INCP | 22  |    | Command |
+| 4  | OUTFP| 23 | Flag | |
+| 5  | IN0  | A  | A  | |
+| 6  | IN1  | B  | B  | |
+| 7  | IN2  | C  | C  | |
+| 8  | IN3  | D  | D  | |
+| 9  | IN4  | E  | E  | |
+| 10  | IN5  | F  | F  | |
+| 11 | IN6  | H  | H  | |
+| 12 | IN7 | J | J | |
+| 13 | PAPER_LOW | 6 | 6 | |
+
