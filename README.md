@@ -89,14 +89,16 @@ I modifed my 12566 boards to supply 5V on pin 20 since it is unused also on the 
 
 ## Firmware
 
-The firmware is built using the Arduiono framework. I have been using the Maple based core adapted by Roger Clark: [Arduino_STM32](https://github.com/rogerclarkmelbourne/arduino_stm32). Follow the instructins and install this in your Arduino Environment.
+The firmware is built using the Arduino framework. I have been using the Maple based core adapted by Roger Clark: [Arduino_STM32](https://github.com/rogerclarkmelbourne/arduino_stm32). Follow the instructins and install this in your Arduino Environment.
 In addition to that I have replaced the standard SDfat V2 library with a SDfat library that works with this core, [SDFat library by VictorPV](https://github.com/victorpv/SdFat), but still support long file names.
 
 Then it is important to select this core under tools. Also select the correct target, STM32F103C8.
 
 Uploading takes place over SWD so a STM32 SWD dongle is required. Unfortunately there are no jumpers available on the board to allow download over the serial port. It can be patched. The BOOT0 pin is pulled down with a 10k resistor to ground but can be tied to +3.3V to achieve a high input. BOOT1/PB2 is currently in use as an output, PUSEL. It should be possible to jumper it via a 1k resistor to ground. Jumpering BOOT0 and BOOT1 like this would then allow to enter serial boot mode after reset. There is also no reset button so either a power cycle is required or attach an external button to the RESET input of the processor. Future version might add jumpers and reset button.
 
-I have not tries serial boot mode myself so I cannot tell how to work with it. I always use the STM32 SWD dongle.
+Software to upload code via serial port is for example [stm32flash](https://github.com/FYSETC/stm32flash)
+
+I have not tried serial boot mode myself so I cannot tell how to work with it. I always use the STM32 SWD dongle.
 
 ## Documentation
 
