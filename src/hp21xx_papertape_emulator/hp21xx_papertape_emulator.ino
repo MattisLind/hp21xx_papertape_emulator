@@ -510,7 +510,7 @@ static bool reopenReaderFromBeginning(void) {
     readerFile.close();
   }
 
-  readerWaitingForRelease = false;
+
 
   prepareReaderBusIdle();
 
@@ -674,7 +674,6 @@ static void serviceReader(void) {
   pulseAck(PIN_READER_ACK, config.reader.ackPulseActiveHigh);
   blinkActivity();
 
-  readerWaitingForRelease = true;
   DBG_PRINT("G");
 }
 
@@ -689,8 +688,8 @@ static void servicePunch(void) {
 
   uint8_t b = readDataBus(config.punch.dataActiveHigh);
   punchFile.write(b);
-  punchFile.flush();
-
+  //punchFile.flush();
+  //delayMicroseconds(5);
   pulseAck(PIN_PUNCH_ACK, config.punch.ackPulseActiveHigh);
   blinkActivity();
 }
