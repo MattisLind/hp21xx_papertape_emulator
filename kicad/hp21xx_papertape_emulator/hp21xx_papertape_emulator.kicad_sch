@@ -3916,6 +3916,156 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Jumper:Jumper_2_Small_Open"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "JP"
+				(at 0 2.794 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Jumper_2_Small_Open"
+				(at 0 -2.286 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Jumper, 2-pole, small symbol, open"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Jumper SPST"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Jumper* TestPoint*2Pads* TestPoint*Bridge*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Jumper_2_Small_Open_0_0"
+				(circle
+					(center -1.016 0)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 1.016 0)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Small_Open_0_1"
+				(arc
+					(start -0.762 1.0196)
+					(mid 0 1.2729)
+					(end 0.762 1.0196)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Small_Open_1_1"
+				(pin passive line
+					(at -2.54 0 0)
+					(length 1.27)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 0 180)
+					(length 1.27)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "MCU_ST_STM32F1:STM32F103C8Tx"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -8128,6 +8278,12 @@
 		(uuid "93d4975d-c7ed-4f3e-8c2a-1976bd40463e")
 	)
 	(junction
+		(at 34.29 20.32)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9707ca05-8641-440c-9840-ce59895d45e6")
+	)
+	(junction
 		(at 383.54 41.91)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -8192,6 +8348,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b198635d-6e9b-40e1-a869-895f2a2e2ff0")
+	)
+	(junction
+		(at 49.53 35.56)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b49848ce-7f26-434b-b49b-d208d835517d")
 	)
 	(junction
 		(at 199.39 62.23)
@@ -8525,7 +8687,7 @@
 	)
 	(wire
 		(pts
-			(xy 34.29 19.05) (xy 34.29 21.59)
+			(xy 34.29 19.05) (xy 34.29 20.32)
 		)
 		(stroke
 			(width 0)
@@ -9645,7 +9807,7 @@
 	)
 	(wire
 		(pts
-			(xy 36.83 35.56) (xy 74.93 35.56)
+			(xy 36.83 35.56) (xy 49.53 35.56)
 		)
 		(stroke
 			(width 0)
@@ -9662,6 +9824,16 @@
 			(type default)
 		)
 		(uuid "3f6cce81-eedf-4f83-aa95-a24b5c51d6b4")
+	)
+	(wire
+		(pts
+			(xy 34.29 20.32) (xy 34.29 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3fbc8465-fec2-4219-9a80-eb2a97ac8064")
 	)
 	(wire
 		(pts
@@ -11605,6 +11777,16 @@
 	)
 	(wire
 		(pts
+			(xy 49.53 27.94) (xy 49.53 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "917f39e6-6c42-4b6d-bf03-7ca5b113cec1")
+	)
+	(wire
+		(pts
 			(xy 243.84 17.78) (xy 250.19 17.78)
 		)
 		(stroke
@@ -11922,6 +12104,16 @@
 			(type default)
 		)
 		(uuid "ab3e269c-d388-4343-8cc8-7fba97433974")
+	)
+	(wire
+		(pts
+			(xy 49.53 20.32) (xy 49.53 22.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "abe4ef80-8ec5-49d0-83f4-5b332a525d62")
 	)
 	(wire
 		(pts
@@ -13645,6 +13837,16 @@
 	)
 	(wire
 		(pts
+			(xy 34.29 20.32) (xy 49.53 20.32)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fb2f68df-f263-46de-a23b-7985b2037d7b")
+	)
+	(wire
+		(pts
 			(xy 119.38 250.19) (xy 121.92 250.19)
 		)
 		(stroke
@@ -13752,6 +13954,16 @@
 			(type default)
 		)
 		(uuid "fee2f4d0-10b0-4bcc-bbf1-083acd2fbe44")
+	)
+	(wire
+		(pts
+			(xy 49.53 35.56) (xy 74.93 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fee4631f-822b-4ebf-b9ed-aacc31d3bae7")
 	)
 	(wire
 		(pts
@@ -37156,6 +37368,76 @@
 			(project ""
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "U4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Jumper:Jumper_2_Small_Open")
+		(at 49.53 25.4 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ca9f3b23-862a-4015-b573-4483d62e4f6d")
+		(property "Reference" "JP1"
+			(at 50.8 24.1299 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Serial boot when bridged"
+			(at 50.8 26.6699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+			(at 49.53 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 49.53 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Jumper, 2-pole, small symbol, open"
+			(at 49.53 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "5e8e025f-5537-4f13-b54a-cfd50ae5d864")
+		)
+		(pin "1"
+			(uuid "aa3ac768-e664-4f05-9608-b37a729a900e")
+		)
+		(instances
+			(project ""
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "JP1")
 					(unit 1)
 				)
 			)
