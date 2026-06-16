@@ -96,6 +96,8 @@ Then it is important to select this core under tools. Also select the correct ta
 
 Uploading takes place over SWD so a STM32 SWD dongle is required. Unfortunately there are no jumpers available on the board to allow download over the serial port. It can be patched. The BOOT0 pin is pulled down with a 10k resistor to ground but can be tied to +3.3V to achieve a high input. BOOT1/PB2 is currently in use as an output, PUSEL, which alread has a pull down to ground already. Jumpering BOOT0 like this would then allow to enter serial boot mode after reset. There is also no reset button so either a power cycle is required or attach an external button to the RESET input of the processor. Future version might add a BOOT0 jumper.
 
+A new layout has been comitted to the repo that adds a jumper that allow setting BOOT0 high. Along with BOOT1 pulled low this will then let the MCU enter serial download mode.
+
 Software to upload code via serial port is for example [stm32flash](https://github.com/FYSETC/stm32flash)
 
 I have not tried serial boot mode myself so I cannot tell how to work with it. I always use the STM32 SWD dongle.
