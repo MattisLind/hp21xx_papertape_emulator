@@ -1,11 +1,10 @@
 /*
   HP Paper Tape Reader/Punch Emulator
-  Target: STM32F103C8 using Roger Clark / Maple STM32 Arduino core
+  Target: STM32F103C8 using official STM32duino Arduino_Core_STM32 + TinyUSB
 
   Notes:
   - This is a first complete firmware structure based on the supplied requirements.
-  - USB MSC support is isolated behind usbMscStart()/usbMscStop() because the exact
-    API depends on the chosen USB MSC library for the Roger Clark core.
+  - USB MSC uses TinyUSB/Adafruit TinyUSB style callbacks.
   - All timing-critical paper tape handshakes avoid Serial printing and GUI updates.
   - JTAG is disabled in setup() so PA15, PB3 and PB4 can be used as GPIO.
 */
@@ -15,8 +14,7 @@
 #include <SPI.h>
 //#include <SD.h>
 #include <SdFat.h>
-#include <USBComposite.h>
-#include <USBMassStorage.h>
+#include <Adafruit_TinyUSB.h>
 #include <U8g2lib.h>
 
 #define DEBUG 0
@@ -32,7 +30,11 @@
 #endif
 
 SdFat SD;
-static uint8_t usbCardType = 0;
+
+// Forward declarations used by the TinyUSB callbacks.
+static bool checkSdPresent(void);
+static bool beginSdFilesystem(void);
+static void blinkActivity(void);
 // -----------------------------------------------------------------------------
 // Pin mapping from requirements
 // -----------------------------------------------------------------------------
@@ -74,61 +76,49 @@ static const uint8_t DATA_PINS[8] = {
 // USB MSC
 // -----------------------------------------------------------------------------
 
-// USBComposite MSC exposes the SD card as raw 512-byte sectors.
-// Use the classic Sd2Card class bundled with Arduino SD.h for raw block access.
-// This avoids mixing SD.h with the external SdFat 2.x library, which clashes with
-// the older Roger Clark / Maple core.
-Sd2Card rawCard;
-USBMassStorage MassStorage;
+// TinyUSB MSC exposes the SD card as raw 512-byte sectors.  While MSC is active,
+// the firmware must not use FAT/SdFat file APIs.  Only raw sector access in the
+// callbacks is allowed.
+Adafruit_USBD_MSC usb_msc;
+
 static uint32_t usbMscSectorCount = 0;
-static const uint16_t USB_PRODUCT_ID = 0x29;
+static bool usbMscConfigured = false;
+static volatile uint32_t usbMscReadCount = 0;
+static volatile uint32_t usbMscWriteCount = 0;
 
+static int32_t usbMscReadCallback(uint32_t lba, void *buffer, uint32_t bufsize) {
+  // Read raw sectors requested by the host.
+  // TinyUSB uses 512-byte logical blocks for MSC.
+  uint32_t numSectors = bufsize / 512UL;
 
+  blinkActivity();
+  usbMscReadCount++;
 
-static bool usbMscReadBlocks(uint8_t *readbuff, uint32_t startSector, uint16_t numSectors) {
-  // Read raw 512-byte sectors from the SD card for the USB host.
-  for (uint16_t i = 0; i < numSectors; i++) {
-
-    // USB MSC always asks in 512-byte sector numbers.
-    uint32_t lba = startSector + i;
-
-    // Old SDSC cards use byte addressing in Sd2Card.
-    // SDHC/SDXC cards use block addressing.
-    if (usbCardType != SD_CARD_TYPE_SDHC) {
-      lba *= 512UL;
-    }
-
-    // Copy this sector into the correct position in the USB buffer.
-    if (!rawCard.readBlock(lba, readbuff + (i * 512UL))) {
-      return false;
-    }
+  if (!SD.card()->readSectors(lba, (uint8_t *)buffer, numSectors)) {
+    return -1;
   }
 
-  return true;
+  return (int32_t)bufsize;
 }
 
-static bool usbMscWriteBlocks(const uint8_t *writebuff, uint32_t startSector, uint16_t numSectors) {
-  // Write raw sectors from the USB host to the SD card.
-  for (uint16_t i = 0; i < numSectors; i++) {
-        // USB MSC always asks in 512-byte sector numbers.
-    uint32_t lba = startSector + i;
+static int32_t usbMscWriteCallback(uint32_t lba, uint8_t *buffer, uint32_t bufsize) {
+  // Write raw sectors requested by the host.
+  // Do not touch FAT here; the host owns the filesystem in MSC mode.
+  uint32_t numSectors = bufsize / 512UL;
 
-    // Old SDSC cards use byte addressing in Sd2Card.
-    // SDHC/SDXC cards use block addressing.
-    if (usbCardType != SD_CARD_TYPE_SDHC) {
-      lba *= 512UL;
-    }
-    // Sd2Card writes one 512-byte sector at a time.
-    if (!rawCard.writeBlock(startSector + i, writebuff + (i * 512UL))) {
-      return false;
-    }
+  blinkActivity();
+  usbMscWriteCount++;
+
+  if (!SD.card()->writeSectors(lba, buffer, numSectors)) {
+    return -1;
   }
-  return true;
+
+  return (int32_t)bufsize;
 }
 
-static bool usbMscStatus(void) {
-  // Report whether the SD card is still present.
-  return checkSdPresent();
+static void usbMscFlushCallback(void) {
+  // Flush pending SD-card writes after host write commands.
+  SD.card()->syncDevice();
 }
 
 // -----------------------------------------------------------------------------
@@ -191,8 +181,8 @@ char punchFiles[MAX_FILES][MAX_NAME_LEN];
 uint8_t readerFileCount = 0;
 uint8_t punchFileCount = 0;
 
-File readerFile;
-File punchFile;
+File32 readerFile;
+File32 punchFile;
 bool sdPresent = false;
 bool emulatorEnabled = false;
 bool usbMscEnabled = false;
@@ -312,6 +302,18 @@ static bool checkSdPresent(void) {
   return digitalRead(PIN_SD_DETECT) == LOW;
 }
 
+static bool beginSdFilesystem(void) {
+  // Configure SPI pins for Arduino_Core_STM32 before starting SdFat.
+  SPI.setSCLK(PA5);
+  SPI.setMISO(PA6);
+  SPI.setMOSI(PA7);
+  SPI.begin();
+
+  // Initialize the SD card and FAT filesystem using the selected chip select.
+  return SD.begin(SdSpiConfig(PIN_SD_CS, DEDICATED_SPI, SD_SCK_MHZ(18), &SPI));
+}
+
+
 static void setDefaultConfig(void) {
   // Conservative defaults. These can be changed from the configuration menu.
   config.reader.commandActiveHigh = false;
@@ -365,7 +367,7 @@ static void loadConfig(void) {
     return;
   }
 
-  File f = SD.open(CONFIG_FILE, FILE_READ);
+  File32 f = SD.open(CONFIG_FILE, FILE_READ);
   if (!f) return;
 
   char line[96];
@@ -405,7 +407,7 @@ static void saveConfig(void) {
   if (!sdPresent) return;
 
   SD.remove(CONFIG_FILE);
-  File f = SD.open(CONFIG_FILE, FILE_WRITE);
+  File32 f = SD.open(CONFIG_FILE, FILE_WRITE);
   if (!f) return;
 
   f.print("reader.commandActiveHigh="); f.println(config.reader.commandActiveHigh ? "1" : "0");
@@ -434,11 +436,11 @@ static void scanDirectory(const char *path, char files[][MAX_NAME_LEN], uint8_t 
   // Read up to MAX_FILES regular file names from one directory.
   count = 0;
 
-  File dir = SD.open(path);
+  File32 dir = SD.open(path);
   if (!dir) return;
 
   while (count < MAX_FILES) {
-    File entry = dir.openNextFile();
+    File32 entry = dir.openNextFile();
     if (!entry) break;
 
     if (!entry.isDirectory()) {
@@ -546,7 +548,7 @@ static bool createNewPunchFile(void) {
     buildPath(path, sizeof(path), TAPE_DIR, name);
 
     if (!SD.exists(path)) {
-      File f = SD.open(path, FILE_WRITE);
+      File32 f = SD.open(path, FILE_WRITE);
       if (!f) return false;
       f.close();
 
@@ -576,32 +578,37 @@ static bool usbMscStart(void) {
   closeTapeFiles();
   emulatorEnabled = false;
 
-  // Initialize raw SD access for USB MSC sector reads/writes.
-  // Sd2Card uses the classic SD library speed constants.
-  if (!rawCard.init(SPI_FULL_SPEED, PIN_SD_CS)) {
-    return false;
-  }
+  // Make sure all local filesystem writes are committed before MSC starts.
+  SD.card()->syncDevice();
 
-  usbMscSectorCount = rawCard.cardSize();
+  usbMscSectorCount = SD.card()->sectorCount();
   if (usbMscSectorCount == 0) {
     return false;
   }
-  usbCardType = rawCard.type();
-  // Build a simple USB MSC device. Avoid adding USB serial here because the
-  // STM32F1 USB endpoint/buffer space is limited and MSC alone is enough.
-  USBComposite.clear();
-  USBComposite.setProductId(USB_PRODUCT_ID);
-  MassStorage.clearDrives();
-  MassStorage.setDriveData(0, usbMscSectorCount, usbMscReadBlocks, usbMscWriteBlocks, usbMscStatus);
-  MassStorage.registerComponent();
+
+  // Configure the MSC device once. Later mode switches only toggle unit-ready
+  // and the external USB connect circuit on PA3.
+  if (!usbMscConfigured) {
+    usb_msc.setID("HP21XX", "PaperTapeSD", "1.0");
+    usb_msc.setReadWriteCallback(usbMscReadCallback, usbMscWriteCallback, usbMscFlushCallback);
+    usb_msc.setCapacity(usbMscSectorCount, 512);
+    usb_msc.setUnitReady(false);
+    usb_msc.begin();
+    usbMscConfigured = true;
+  } else {
+    // Re-apply capacity in case the card changed while USB was disabled.
+    usb_msc.setCapacity(usbMscSectorCount, 512);
+  }
+
+  usbMscReadCount = 0;
+  usbMscWriteCount = 0;
 
   // Pull up PA3 to enable the external USB connect circuit described in the spec.
   digitalWrite(PIN_USB_PULLUP, HIGH);
+  delay(100);
 
-  if (!USBComposite.begin()) {
-    digitalWrite(PIN_USB_PULLUP, LOW);
-    return false;
-  }
+  // Now allow the host to access the medium.
+  usb_msc.setUnitReady(true);
 
   usbMscEnabled = true;
   uiMode = UI_USB_MSC;
@@ -610,8 +617,13 @@ static bool usbMscStart(void) {
 
 static void usbMscStop(void) {
   // Stop USB MSC and return control of the SD card to the emulator.
-  MassStorage.end();
+  // The user should eject/unmount on the host before doing this.
+  usb_msc.setUnitReady(false);
+  delay(300);
+
+  // Physically disconnect USB from the host.
   digitalWrite(PIN_USB_PULLUP, LOW);
+  delay(300);
 
   usbMscEnabled = false;
   usbMscSectorCount = 0;
@@ -619,7 +631,7 @@ static void usbMscStop(void) {
 
   // Re-mount the filesystem view after the host has released the card.
   if (sdPresent) {
-    SD.begin(PIN_SD_CS);
+    beginSdFilesystem();
   }
 
   scanFiles();
@@ -792,39 +804,19 @@ static void drawMainUi(void) {
 
   if (mainCursor == 0) display.drawBox(0, 14, 128, 22);
   display.setDrawColor(mainCursor == 0 ? 0 : 1);
-  display.drawStr(3, 24, "Reader");
-  display.drawStr(3, 34, config.selectedReader[0] ? config.selectedReader : "<no file>");
+  display.drawStr(0, 24, "Reader");
+  display.drawStr(0, 34, config.selectedReader[0] ? config.selectedReader : "<no file>");
   display.setDrawColor(1);
 
   if (mainCursor == 1) display.drawBox(0, 40, 128, 22);
   display.setDrawColor(mainCursor == 1 ? 0 : 1);
-  display.drawStr(3, 50, "Punch");
-  display.drawStr(3, 60, config.selectedPunch[0] ? config.selectedPunch : "<no file>");
+  display.drawStr(0, 50, "Punch");
+  display.drawStr(0, 60, config.selectedPunch[0] ? config.selectedPunch : "<no file>");
   display.setDrawColor(1);
 
   display.sendBuffer();
 }
 
-static void drawTruncatedStr(uint8_t x, uint8_t y, const char *text, uint8_t maxChars) {
-  // Draw a string that fits in the available screen width.
-  // If it is too long, keep the start of the filename and add '~'.
-  char buf[32];
-  uint8_t len = strlen(text);
-
-  if (len <= maxChars) {
-    display.drawStr(x, y, text);
-    return;
-  }
-
-  if (maxChars >= sizeof(buf)) {
-    maxChars = sizeof(buf) - 1;
-  }
-
-  strncpy(buf, text, maxChars);
-  buf[maxChars - 1] = '~';
-  buf[maxChars] = ' ';
-  display.drawStr(x, y, buf);
-}
 
 static void drawFileUi(void) {
   // Draw file selection list for either Reader or Punch.
@@ -854,12 +846,26 @@ static void drawFileUi(void) {
     display.setDrawColor(highlighted ? 0 : 1);
 
     if (activeSection == SECTION_PUNCH && item == 0) {
-      display.drawStr(3, y, "+ New punch file");
+      display.drawStr(0, y, "+ New punch file");
     } else {
       uint8_t fileIndex = activeSection == SECTION_PUNCH ? item - 1 : item;
       const char *name = fileNameAt(fileIndex);
-      display.drawStr(3, y, isSelectedFile(name) ? "*" : " ");
-      drawTruncatedStr(11, y, name, 19);
+      bool selectedName = isSelectedFile(name);
+
+      // Draw the filename from the left edge.  The previously selected file is
+      // marked by underlining the filename instead of consuming two columns
+      // with a leading '* ' marker.
+      display.drawStr(0, y, name);
+
+      if (selectedName) {
+        uint8_t underlineChars = strlen(name);
+        if (underlineChars > 22) underlineChars = 22;
+
+        // With the 6x10 font each character is approximately 6 pixels wide.
+        // Draw using the current draw color so the underline also works when
+        // the cursor row is highlighted/inverted.
+        display.drawHLine(0, y + 1, underlineChars * 6);
+      }
     }
 
     display.setDrawColor(1);
@@ -938,7 +944,7 @@ static void drawConfigUi(void) {
 
     if (highlighted) display.drawBox(0, y - 8, 128, 10);
     display.setDrawColor(highlighted ? 0 : 1);
-    display.drawStr(2, y, configItemName(item));
+    display.drawStr(0, y, configItemName(item));
 
     if (item < 7) {
       display.drawStr(98, y, configItemValueText(item));
@@ -954,10 +960,12 @@ static void drawUsbUi(void) {
   // Draw USB stick mode screen.
   display.clearBuffer();
   drawHeader("USB stick mode");
-  display.drawStr(0, 26, sdPresent ? "SD exported over USB" : "SD card missing");
-  display.drawBox(0, 42, 128, 14);
+  display.drawStr(0, 22, sdPresent ? "SD exported over USB" : "SD card missing");
+
+  // The LED already shows block activity, so keep this screen simple.
+  display.drawBox(0, 34, 128, 14);
   display.setDrawColor(0);
-  display.drawStr(4, 52, "Exit USB stick mode");
+  display.drawStr(4, 44, "Exit USB stick mode");
   display.setDrawColor(1);
   display.sendBuffer();
 }
@@ -969,6 +977,15 @@ static void redrawUi(void) {
   else if (uiMode == UI_CONFIG) drawConfigUi();
   else if (uiMode == UI_USB_MSC) drawUsbUi();
 }
+
+
+void showMessage(const char *msg) {
+  display.clearBuffer();
+  display.setCursor(0, 12);
+  display.print(msg);
+  display.sendBuffer();
+}
+
 
 static void handleUiEvent(uint8_t buttonPin, bool shortPress, bool longPress) {
   // Dispatch button events according to the current UI mode.
@@ -987,9 +1004,11 @@ static void handleUiEvent(uint8_t buttonPin, bool shortPress, bool longPress) {
 
   if (longPress && buttonPin == PIN_BTN_DOWN) {
     // Long DOWN acts as reader tape rewind.
-    // It re-opens the selected reader file from the beginning without
-    // blocking the UI or changing the selected file.
+    // It re-opens the selected reader file from the beginning and shows a
+    // short confirmation so the user can see that the rewind happened.
+    showMessage("Rewinding file");
     reopenReaderFromBeginning();
+    delay(2000);
     redrawUi();
     return;
   }
@@ -1061,8 +1080,11 @@ static void serviceButtons(void) {
 
 static void disableJtagKeepSwd(void) {
   // Free PA15, PB3 and PB4 while keeping SWD on PA13/PA14.
-  // This register access works on the STM32F1 Maple/libmaple core.
-  afio_cfg_debug_ports(AFIO_DEBUG_SW_ONLY);
+  // Arduino_Core_STM32 uses STM32 HAL macros instead of Maple/libmaple calls.
+#if defined(STM32F1xx)
+  __HAL_RCC_AFIO_CLK_ENABLE();
+  __HAL_AFIO_REMAP_SWJ_NOJTAG();
+#endif
 }
 
 void setup(void) {
@@ -1099,14 +1121,18 @@ void setup(void) {
   setDataBusInput();
   setDefaultConfig();
 
+  // Configure I2C display pins for Arduino_Core_STM32.
+  Wire.setSCL(PB6);
+  Wire.setSDA(PB7);
+  Wire.begin();
+
   // Initialize I2C display.
   display.begin();
   display.setFont(u8g2_font_6x10_tf);
 
   sdPresent = checkSdPresent();
   if (sdPresent) {
-    SPI.begin();
-    sdPresent = SD.begin(PIN_SD_CS);
+    sdPresent = beginSdFilesystem();
   }
 
   loadConfig();
@@ -1135,7 +1161,7 @@ void loop(void) {
       emulatorEnabled = false;
       if (usbMscEnabled) usbMscStop();
     } else {
-      SD.begin(PIN_SD_CS);
+      beginSdFilesystem();
       loadConfig();
       scanFiles();
       openSelectedFiles();
@@ -1151,7 +1177,10 @@ void loop(void) {
   if (!usbMscEnabled) {
     serviceTapeEmulator();
   } else {
-    MassStorage.loop();
+    // Some STM32 TinyUSB ports auto-poll internally. If your installed port
+    // requires manual polling, uncomment the matching line below.
+    // TinyUSBDevice.task();
+    // tud_task();
   }
   //delayMicroseconds(10000);
 }
