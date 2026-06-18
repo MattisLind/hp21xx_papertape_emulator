@@ -23,7 +23,7 @@ Since there are only three buttons the UI also have special actions when pressin
 
 If you long press on the Down button when in the main menu the currently selected file will be rewound to the beginning so that it can be read again.
 
-If you long press on the Up button the USB MSC mode will be stated and all emulation is stopped. This will allow you to browse the contents from a host computer if the emulator is connected over USB-C.
+If you long press on the Up button the USB MSC mode will be stated and all emulation is stopped. This will allow you to browse the contents from a host computer if the emulator is connected over USB-C. This feature is now active. The STM32F103 have a very small memory and it will take a while for the MCU to transfer big amounts to the host. Unfortunately it seems like at least Windows 10 wants to read about 16000 blocks from the disk when it is mounted. This takes quite some time and will ead to that the drive is not showing up active in the computer. Probably because the file system is 8Gb. I think that by making the partition smaller it will read less from the disk when moounting it. A 32 Meg partition will easily hold all the paper tapes you ever will use on a HP21xx machine.
 
 ## BOM
 
@@ -89,10 +89,16 @@ I modifed my 12566 boards to supply 5V on pin 20 since it is unused also on the 
 
 ## Firmware
 
-The firmware is built using the Arduino framework. I have been using the Maple based core adapted by Roger Clark: [Arduino_STM32](https://github.com/rogerclarkmelbourne/arduino_stm32). Follow the instructins and install this in your Arduino Environment.
+The firmware is built using the Arduino framework. <strike>I have been using the Maple based core adapted by Roger Clark: [Arduino_STM32](https://github.com/rogerclarkmelbourne/arduino_stm32). Follow the instructins and install this in your Arduino Environment.
 In addition to that I have replaced the standard SDfat V2 library with a SDfat library that works with this core, [SDFat library by VictorPV](https://github.com/victorpv/SdFat), but still support long file names.
 
-Then it is important to select this core under tools. Also select the correct target, STM32F103C8.
+Then it is important to select this core under tools. Also select the correct target, STM32F103C8.</strike>
+
+I now converted into using the standard core for STM32 on Arduino. The TinyUSB library has to be installed. In addition to that I downloaded and installed [TinyUSB-Arduino-STM32](https://github.com/code-fiasco/TinyUSB-Arduino-STM32?utm_source=chatgpt.com) for STM32 support. Please follow instructions in the repo.
+
+![config](./Arduino-config.png)
+
+The picture above indicate the config needed. STM32F103 Bluepill. Please adapt dependning on download method. In the binaries folder there is a new binary that can be used directly.
 
 Uploading takes place over SWD so a STM32 SWD dongle is required. Unfortunately there are no jumpers available on the board to allow download over the serial port. It can be patched. The BOOT0 pin is pulled down with a 10k resistor to ground but can be tied to +3.3V to achieve a high input. BOOT1/PB2 is currently in use as an output, PUSEL, which alread has a pull down to ground already. Jumpering BOOT0 like this would then allow to enter serial boot mode after reset. There is also no reset button so either a power cycle is required or attach an external button to the RESET input of the processor. Future version might add a BOOT0 jumper.
 
