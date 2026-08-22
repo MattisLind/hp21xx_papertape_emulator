@@ -70,20 +70,22 @@ I modifed my 12566 boards to supply 5V on pin 20 since it is unused also on the 
 
 ### Punch
 
+Please note that the table below has been updated since I found errors in the table. If you built this cable already, please double. heck the cable!
+
 |Pin on 26 pin connector | Designator on the 26 pin connector | Pin on 48 pin connector for the 12566 board | HP designator on 12566 board |Pin on the 48 pin connector for the 12597 board | HP designator on 12597 board| 
 |----|-----|-----|----|----|----|
 | 1  | +5V | 20  | | 20 |  |
 | 2  | GND | 24  | GROUND | 24 | Ground |
-| 3  | INCP | 22  | DEVICE COMMAND   | AA | Punch |
-| 4  | OUTFP| 23 | DEVICE FLAG | 23 | Flag |
-| 5  | IN0  | A  | BIT 0 | A  | Bit 0 |
-| 6  | IN1  | B  | BIT 1 | B  | Bit 1 |
-| 7  | IN2  | C  | BIT 2 | C  | Bit 2|
-| 8  | IN3  | D  | BIT 3 | D  | Bit 3 |
-| 9  | IN4  | E  | BIT 4 | E  | Bit 4 |
-| 10  | IN5  | F  | BIT 5 | F | Bit 5 |
-| 11 | IN6  | H  | BIT 6 | H  | Bit 6 |
-| 12 | IN7 | J | BIT 7 | J | Bit 7 |
+| 3  | IN0  | A  | BIT 0 | A  | Bit 0 |
+| 4  | IN1  | B  | BIT 1 | B  | Bit 1 |
+| 5  | IN2  | C  | BIT 2 | C  | Bit 2|
+| 6  | IN3  | D  | BIT 3 | D  | Bit 3 |
+| 7  | IN4  | E  | BIT 4 | E  | Bit 4 |
+| 8  | IN5  | F  | BIT 5 | F | Bit 5 |
+| 9 | IN6  | H  | BIT 6 | H  | Bit 6 |
+| 10 | IN7 | J | BIT 7 | J | Bit 7 |
+| 11  | OUTFP| 23 | DEVICE FLAG | 23 | Flag |
+| 12  | INCP | 22  | DEVICE COMMAND   | AA | Punch |
 | 13 | PAPER_LOW | 6 | BIT 5 | 6 | Low Tape|
 
 
