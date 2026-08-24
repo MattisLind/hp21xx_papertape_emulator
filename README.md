@@ -70,7 +70,7 @@ I modifed my 12566 boards to supply 5V on pin 20 since it is unused also on the 
 
 ### Punch
 
-Please note that the table below has been updated since I found errors in the table. If you built this cable already, please double. heck the cable!
+Please note that the table below has been updated since I found errors in the table. If you built this cable already, please doublecheck the cable!
 
 |Pin on 26 pin connector | Designator on the 26 pin connector | Pin on 48 pin connector for the 12566 board | HP designator on 12566 board |Pin on the 48 pin connector for the 12597 board | HP designator on 12597 board| 
 |----|-----|-----|----|----|----|
