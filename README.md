@@ -110,6 +110,14 @@ Software to upload code via serial port is for example [stm32flash](https://gith
 
 I have not tried serial boot mode myself so I cannot tell how to work with it. I always use the STM32 SWD dongle.
 
+## Enclosure
+
+I was thinking I should do an enclosure for this little thing, but my skills in FreeCAD wasn't very good. Later I started to use Codex quite a bit and found that it was actually able to do it. Half an hour with Codex and there were a couple of STL-files for an enclosure! A friend test printed them for me and they were a good fit. 
+
+![enclosure](box/cad/Box.JPG)
+
+All the files can be found in the box/cad directory.
+
 ## Documentation
 
 Here are some links to relevant HP document for the 12597 and 12566 boards:
