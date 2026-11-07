@@ -209,7 +209,7 @@ ButtonState buttons[3] = {
 };
 
 static const unsigned long DEBOUNCE_MS = 30;
-static const unsigned long LONG_PRESS_MS = 4000;
+static const unsigned long LONG_PRESS_MS = 2000;
 
 // -----------------------------------------------------------------------------
 // Low-level helpers
@@ -348,7 +348,7 @@ static void applyConfigKeyValue(const char *key, const char *value) {
   if (strcmp(key, "reader.commandActiveHigh") == 0) config.reader.commandActiveHigh = parseBoolValue(value);
   else if (strcmp(key, "reader.ackPulseActiveHigh") == 0) config.reader.ackPulseActiveHigh = parseBoolValue(value);
   else if (strcmp(key, "reader.dataActiveHigh") == 0) config.reader.dataActiveHigh = parseBoolValue(value);
-  else if (strcmp(key, "use12V") == 0) config.use12V = parseBoolValue(value);  // Backward compatibility with old config files
+  else if (strcmp(key, "device.use12V") == 0) config.use12V = parseBoolValue(value);
   else if (strcmp(key, "punch.commandActiveHigh") == 0) config.punch.commandActiveHigh = parseBoolValue(value);
   else if (strcmp(key, "punch.ackPulseActiveHigh") == 0) config.punch.ackPulseActiveHigh = parseBoolValue(value);
   else if (strcmp(key, "punch.dataActiveHigh") == 0) config.punch.dataActiveHigh = parseBoolValue(value);
@@ -792,6 +792,7 @@ static void drawHeader(const char *title) {
   // Draw common top header.
   display.setFont(u8g2_font_6x10_tf);
   display.drawStr(0, 8, title);
+  display.drawStr(104, 8, "V1.1");
   display.drawHLine(0, 10, 128);
 }
 

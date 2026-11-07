@@ -19,7 +19,7 @@ This is how the finished board came to look like. Three buttons, Up, Down and Se
 
 The UI is rather simple. Simply navigating up and down and press the select button. The main menu have two menu items, one to select the reader file and one select the punch file. Pressing select will get you to a file selct menu where the currently selected file is shown and where you can navigate to the file you want to select. Pressing select also exits back to the main menu. On the punch menu there are also an option to create a new file with a sequence number. If an existing file is selected it will append to that file.
 
-Since there are only three buttons the UI also have special actions when pressing a button more than 4 seconds. A long press on the select menu brings up the configuration menu. In here you can set if signals are active high or active low. For 12566A and 12566B there are two board revsions which get you to choose from active high (POS TRUE) or active low (GND TRUE) data. The active high or low for hand shake signals are configurable on both these cards. The 12566C has all parameters configurable. You should check yoour board so that it matches the config you set in this menu. There is also an option to configure 12V signals or 5V signals. 5V is used for 12566 boards while 12V is used for 12597 boards. You cannot mix a 12566 board and a 12566 board and connect them simultaneously to the paper tape emulator. There are also certain variants of the 12597 board that have -12V signals. This type of board is not supported. Unless you convert the board to +12V.
+Since there are only three buttons the UI also have special actions when pressing a button for 2 seconds. A long press on the select menu brings up the configuration menu. In here you can set if signals are active high or active low. For 12566A and 12566B there are two board revsions which get you to choose from active high (POS TRUE) or active low (GND TRUE) data. The active high or low for hand shake signals are configurable on both these cards. The 12566C has all parameters configurable. You should check yoour board so that it matches the config you set in this menu. There is also an option to configure 12V signals or 5V signals. 5V is used for 12566 boards while 12V is used for 12597 boards. You cannot mix a 12566 board and a 12566 board and connect them simultaneously to the paper tape emulator. There are also certain variants of the 12597 board that have -12V signals. This type of board is not supported. Unless you convert the board to +12V.
 
 If you long press on the Down button when in the main menu the currently selected file will be rewound to the beginning so that it can be read again.
 
@@ -102,6 +102,51 @@ I now converted into using the standard core for STM32 on Arduino. The TinyUSB l
 
 The picture above indicate the config needed. STM32F103 Bluepill. Please adapt dependning on download method. In the binaries folder there is a new binary that can be used directly.
 
+### Building and programming with Docker and Make
+
+Install Docker and Make, then run:
+
+```sh
+make setup    # Build the tool image and download its pinned dependencies
+make          # Build firmware using the container
+make release  # Also copy V1.1 into binaries/
+make probe    # Identify the connected ST-Link target
+make program  # Back up existing flash, program, verify, and reset into firmware
+```
+
+Make selects `linux/amd64`, including on Apple Silicon, because STM32 core
+2.11.0's STM32Tools package has no Linux ARM64 release. Docker Desktop supplies
+the required emulation. The Dockerfile contains Arduino CLI 1.1.1, the STM32 compiler and core, all
+firmware libraries, OpenOCD, and GDB. Build outputs (`.bin`, `.hex`, `.elf`) are
+in `build/firmware/`. The release binary is
+`binaries/hp21xx_papertape_emulator.ino.v1.1.bin`.
+
+On Linux, programming uses `/dev/bus/usb` directly inside the container. On
+macOS, [Docker Desktop cannot directly pass USB devices to containers](https://docs.docker.com/desktop/troubleshoot-and-support/faqs/general/).
+Make automatically downloads a checksum-verified native OpenOCD USB bridge into
+`build/stlink/`, runs the programming client in Docker, and stops the bridge
+when finished. No Arduino or programming-tool installation is needed on the
+host. The Mac needs its standard `curl`, `tar`, and `shasum` utilities. The bridge
+briefly listens on TCP port 3333 while programming. `make bridge` runs it manually;
+`make program PROGRAM_HOST=host.docker.internal` uses an already-running bridge.
+An ST-Link attached to another machine can be used via `PROGRAM_HOST=hostname`.
+
+Existing 64 KiB flash contents are saved with a timestamp in `build/stlink/`
+before programming. GDB verifies the loaded sections before resetting the MCU.
+
+The build uses the screenshot's BluePill F103C8 settings: STM32 core 2.11.0,
+smallest (`-Os`) optimization, Newlib Nano, no debug, USB support None, generic
+Serial enabled, low/full USB speed, and OpenOCD STLink (SWD). SdFat uses
+`SDFAT_FILE_TYPE=1`, FAT12 support, UTF-8 filenames, and its block-device interface.
+USB is provided by the separate TinyUSB STM32 port.
+
+Dependencies are U8g2 2.36.19, Adafruit TinyUSB 3.7.7,
+[SdFat 2.3.1](https://github.com/greiman/SdFat/tree/cda057318bec196183d4cc92b01bc1dd64bbfb02)
+commit `cda057318bec196183d4cc92b01bc1dd64bbfb02`, and
+[TinyUSB-Arduino-STM32](https://github.com/code-fiasco/TinyUSB-Arduino-STM32)
+commit `d722701738f48234fd9fb6a4110e7885ef2393da`.
+
+
 Uploading takes place over SWD so a STM32 SWD dongle is required. Unfortunately there are no jumpers available on the board to allow download over the serial port. It can be patched. The BOOT0 pin is pulled down with a 10k resistor to ground but can be tied to +3.3V to achieve a high input. BOOT1/PB2 is currently in use as an output, PUSEL, which alread has a pull down to ground already. Jumpering BOOT0 like this would then allow to enter serial boot mode after reset. There is also no reset button so either a power cycle is required or attach an external button to the RESET input of the processor. Future version might add a BOOT0 jumper.
 
 A new layout has been comitted to the repo that adds a jumper that allow setting BOOT0 high. Along with BOOT1 pulled low this will then let the MCU enter serial download mode.
@@ -109,6 +154,18 @@ A new layout has been comitted to the repo that adds a jumper that allow setting
 Software to upload code via serial port is for example [stm32flash](https://github.com/FYSETC/stm32flash)
 
 I have not tried serial boot mode myself so I cannot tell how to work with it. I always use the STM32 SWD dongle.
+
+## Software releases
+
+### V1.1
+
+V1.1 adds a menu-header version indicator and fixes loading `device.use12V`
+from `/ptape.cfg`, so the saved voltage setting is restored after power cycling.
+The V1.1 container build uses 58,744 bytes of flash and 10,496 bytes of static
+RAM; the release binary is 59,060 bytes. It was programmed into the 64 KiB
+STM32 target via ST-Link V2, and all loaded sections passed readback verification.
+Hardware testing confirmed the V1.1 menu indicator and that the 12 V selection
+is retained after a power cycle.
 
 ## Enclosure
 
