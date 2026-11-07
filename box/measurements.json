@@ -1,0 +1,136 @@
+{
+  "units": "mm",
+  "orientation": "Top view: ribbon connector at top, USB-C at bottom, microSD at left.",
+  "pcb": {
+    "width": 66.6,
+    "length": 77.5,
+    "thickness": 1.6,
+    "corner_hole_diameter": 2.5,
+    "corner_hole_edge_offset": 3.05,
+    "size_source": "User measurement of manufactured PCB",
+    "layout_outline_width": 66.5,
+    "layout_outline_length": 77.4,
+    "corner_hole_position_note": "Hole centres retain KiCad coordinates. The measured outline is assumed centred on the KiCad outline, giving 3.05 mm nominal inset from measured edges; this inset was not separately measured."
+  },
+  "measured_height_above_pcb_top": {
+    "display_front": 9.1,
+    "button_tip_released": 13.0,
+    "led_tip": 16.0,
+    "ribbon_connector": 9.0,
+    "usb_connector": 3.0,
+    "sd_card": 2.0
+  },
+  "display": {
+    "overall_dimensions_as_supplied": [
+      35.0,
+      32.0
+    ],
+    "illuminated_width": 28.5,
+    "illuminated_height": 15.3,
+    "upper_mounting_hole_to_viewing_area_top": 4.0,
+    "offset_datum_confirmed": true,
+    "horizontal_centring_confirmed": false,
+    "main_pcb_mounting_hole_spacing": [
+      30.4,
+      28.5
+    ],
+    "offset_datum": "Upper mounting-hole centre to illuminated area top edge, downward with ribbon connector at top."
+  },
+  "external_access_required": [
+    "USB-C",
+    "microSD insertion and removal",
+    "ribbon cable connection and removal"
+  ],
+  "draft_assumptions": {
+    "manufacturing": "Not explicitly specified; sketch shows corner posts for self-tapping screws.",
+    "form": "Main shell with front panel and side walls, separate screw-fastened bottom cover, per sketch.",
+    "floor_thickness": 2.0,
+    "clearance_below_pcb_underside": 2.5,
+    "front_panel_outer_surface_above_pcb_top": 12.0,
+    "front_panel_thickness": 2.0,
+    "pcb_edge_clearance_per_side": 0.3
+  },
+  "unconfirmed": [
+    "Display illuminated area horizontal centring between mounting holes.",
+    "Maximum protrusion beneath PCB, including display screw heads.",
+    "Actual ribbon connector body, mating plug and latch movement envelope.",
+    "USB-C plug overmould envelope and socket position above PCB.",
+    "Manufacturing method and screw size; post lengths depend on final panel and underside clearances."
+  ],
+  "photos": [
+    "IMG_7702.JPG",
+    "IMG_7703.JPG",
+    "IMG_7705.JPG",
+    "IMG_7706.JPG"
+  ],
+  "construction_sketch": "IMG_7707.JPG",
+  "construction": {
+    "source": "User sketch IMG_7707.JPG and subsequent explicit clarification of PCB clamping and screw path.",
+    "shell": "Main shell with front panel and side walls; removable bottom cover.",
+    "cover_fastening": "Four countersunk screws enter from rear/bottom cover, pass through clearance bores in the short bottom posts and the existing PCB mounting holes, and self-tap into pilot holes in the longer upper-shell posts.",
+    "connector_cutouts": "Upper-shell slots open at the joint with the bottom tray, at PCB top level (Z=0). Nominal sizes use latest user dimensions without additional clearance. The SD opening is enlarged by a rounded finger recess spanning both halves; USB-C and ribbon nominal cutouts are unchanged.",
+    "pcb_retention": "PCB clamped between coaxial pairs of posts at all four existing corner mounting holes. Longer posts extend from upper shell to PCB top; very short posts extend from bottom cover to PCB underside.",
+    "manufacturing_method": "Not explicitly specified.",
+    "lower_post_bore": "Clearance bore; screw threads engage the upper-shell post only.",
+    "upper_post_bore": "Pilot hole sized for the selected self-tapping screw and shell material.",
+    "post_contact": "Posts contact PCB locally around corner mounting holes; bottom-cover clearance must accommodate underside solder joints and display screw heads.",
+    "bottom_cover": "Tray with walls extending to PCB top level (Z=0), 2.5 mm clearance beneath PCB underside and short posts 2.5 mm long.",
+    "pcb_outline_registration": "Measured outline centred on the original KiCad outline; no scaling or displacement of mounting holes or components.",
+    "inside_corner_radius": 0.3,
+    "internal_cavity_dimensions": [
+      67.2,
+      78.1
+    ],
+    "outer_dimensions": [
+      71.2,
+      82.1,
+      18.1
+    ]
+  },
+  "connector_widths": {
+    "ribbon_connector": 53.0,
+    "usb_connector": 9.0,
+    "sd_card": 13.5
+  },
+  "nominal_connector_cutouts": {
+    "ribbon": [
+      53.0,
+      9.0
+    ],
+    "USB-C": [
+      9.0,
+      3.0
+    ],
+    "microSD": [
+      13.5,
+      2.0
+    ],
+    "note": "Widths by heights measured from PCB top; no added tolerance."
+  },
+  "sd_card_access": {
+    "card_protrusion_beyond_pcb_edge": 1.0,
+    "solution": "Shared rounded finger recess through the SD-side walls of both enclosure halves; retain existing PCB layout.",
+    "recess_width": 22.0,
+    "recess_height": 8.0,
+    "corner_radius": 3.0,
+    "centre_height_above_pcb_top": 1.0,
+    "bottom_height_relative_to_pcb_top": -3.0,
+    "top_height_relative_to_pcb_top": 5.0,
+    "floor_preserved": true,
+    "wall_thickness_elsewhere": 2.0,
+    "note": "13.5 x 2 remains the supplied SD envelope; the actual opening is enlarged by the finger recess. Physical card release travel remains to be checked."
+  },
+  "front_openings": {
+    "button_hole_diameter": 3.4,
+    "button_count": 3,
+    "led_hole_diameter": 5.3,
+    "led_count": 2,
+    "source": "User-specified opening diameters, 2026-11-07; supersedes the 4.8 mm button and 6.2 mm LED draft openings."
+  },
+  "planned_sd_card_revision": {
+    "connector": "Full-size pull-out SD card; user will redesign PCB first.",
+    "opening_height": 1.0,
+    "opening_width_and_position": "To follow revised PCB.",
+    "current_cad": "Retain existing microSD finger recess until PCB redesign."
+  }
+}

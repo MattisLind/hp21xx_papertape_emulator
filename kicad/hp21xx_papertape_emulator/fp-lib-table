@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "HP21xx_Connectors")(type "KiCad")(uri "${KIPRJMOD}/HP21xx_Connectors.pretty")(options "")(descr "Project SD card socket footprint"))
+)
