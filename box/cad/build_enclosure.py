@@ -70,13 +70,18 @@ rows = [
     ('UsbX',33.399,'KiCad USB-C centre'),
     ('UsbWidth',9.0,'User-specified USB-C cutout width; nominal, no added tolerance'),
     ('UsbTop',3.0,'User-specified USB-C cutout height above PCB top'),
-    ('SdY',20.1678,'KiCad socket/card centre along left side'),
-    ('SdWidth',13.5,'User-specified SD cutout width; nominal, no added tolerance'),
-    ('SdTop',2.0,'User-specified SD cutout height above PCB top'),
-    ('SdFingerWidth',22.0,'Rounded finger recess width along SD wall, shared by both halves'),
-    ('SdFingerHeight',8.0,'Rounded finger recess height; does not cut into bottom floor'),
-    ('SdFingerCenterZ',1.0,'Finger recess centred at card height; PCB top is zero'),
-    ('SdFingerRadius',3.0,'Finger recess corner radius'),
+    ('SdY',25.866,'Current J3 centre: KiCad Y=126.534; enclosure Y=152.4-Y'),
+    ('SdWidth',24.6,'SLA slot width; 24 mm SD card plus manufacturing clearance'),
+    ('SdHeight',2.6,'SLA slot height; standard SD card is nominally 2.1 mm thick'),
+    ('SdBottom',0.35,'PROVISIONAL slot bottom above PCB; card seat estimated at 0.6 mm'),
+    ('SdJointGap',0.2,'SLA clearance at each side of the tray lip within the upper-shell notch'),
+    ('SdCardWidth',24.0,'Standard full-size SD card reference width'),
+    ('SdCardThickness',2.1,'Standard full-size SD card reference thickness'),
+    ('SdCardBottom',0.6,'PROVISIONAL card underside above PCB from socket front drawing'),
+    ('SdMouthX',0.5804,'J3 mouth relative to original left PCB edge; footprint front at local Y=8.6'),
+    ('SdInsertedDepth',14.5,'PROVISIONAL seated insertion depth; confirm with actual socket/card'),
+    ('SdCardLength',32.0,'Standard full-size SD card reference length'),
+    ('SdSocketHeight',2.9,'Socket overall height from manufacturer drawing'),
     ('RibbonX',33.02,'Centre of KiCad ribbon-header courtyard'),
     ('RibbonWidth',53.0,'User-specified ribbon cutout width; nominal, no added tolerance'),
     ('RibbonTop',9.0,'Updated measured ribbon connector height above PCB top'),
@@ -156,7 +161,8 @@ for n,y in [('Up',D('ButtonUpY')),('Down',D('ButtonDownY')),('Select',D('ButtonS
     front_tools.append(cylinder('ButtonOpening'+n,D('ButtonX'),y,f'({panelinner})-0.1 mm',f'{D("ButtonHole")}/2',f'{PTH}+0.2 mm'))
 for n,x in [('Green',D('LedGreenX')),('Red',D('LedRedX'))]:
     front_tools.append(cylinder('LedOpening'+n,x,D('LedY'),f'({panelinner})-0.1 mm',f'{D("LedHole")}/2',f'{PTH}+0.2 mm'))
-for i,(dx,dy) in enumerate([(-15.2,0),(15.2,0),(-15.2,-28.5),(15.2,-28.5)]):
+# H1 (upper-left OLED mounting hole) was deleted for the full-size SD socket.
+for i,(dx,dy) in enumerate([(15.2,0),(-15.2,-28.5),(15.2,-28.5)]):
     front_tools.append(cylinder('DisplayScrewRelief'+str(i+1),
         f'{D("DisplayCenterX")}+({dx} mm)',f'{D("DisplayUpperHoleY")}+({dy} mm)',
         f'({panelinner})-0.1 mm',f'{D("DisplayScrewReliefDiameter")}/2',
@@ -167,28 +173,26 @@ shell=cut('FrontOpenings',shell,fuse('FrontCuttingTools',front_tools),'Display, 
 port_tools=[
     box('UsbAccess',f'{D("UsbX")}-{D("UsbWidth")}/2',f'({front})-0.1 mm',f'({seam})-0.1 mm',
         D('UsbWidth'),f'{T}+0.2 mm',f'{D("UsbTop")}-({seam})+0.1 mm'),
-    box('SdAccess',f'({left})-0.1 mm',f'{D("SdY")}-{D("SdWidth")}/2',f'({seam})-0.1 mm',
-        f'{T}+0.2 mm',D('SdWidth'),f'{D("SdTop")}-({seam})+0.1 mm'),
+    box('SdAccess',f'({left})-0.1 mm',f'{D("SdY")}-{D("SdWidth")}/2',-0.1,
+        f'{T}+0.2 mm',D('SdWidth'),f'{D("SdBottom")}+{D("SdHeight")}+0.1 mm'),
     box('RibbonAccess',f'{D("RibbonX")}-{D("RibbonWidth")}/2',f'({boardminy})+{L}+{G}-0.1 mm',f'({seam})-0.1 mm',
         D('RibbonWidth'),f'{T}+0.2 mm',f'{D("RibbonTop")}-({seam})+0.1 mm')]
-# A rounded rectangle in the YZ plane opens the full wall thickness around the card.
-# Keep it as one shared native cutter so adjustments propagate to both halves.
-finger=rounded_slab('SdFingerRecess',
-    f'{D("SdY")}-{D("SdFingerWidth")}/2',
-    f'{D("SdFingerCenterZ")}-{D("SdFingerHeight")}/2',
-    f'({left})-0.1 mm',D('SdFingerWidth'),D('SdFingerHeight'),f'{T}+0.2 mm',D('SdFingerRadius'))
-finger.Label='SD finger access — shared cutter for both halves'
-finger.Placement.Rotation=App.Rotation(App.Vector(1,1,1),120)  # local X,Y,Z -> global Y,Z,X
-upper=cut('UpperShell',shell,fuse('PortCuttingTools',port_tools+[finger]),'UPPER SHELL — finished part')
+upper=cut('UpperShell',shell,fuse('PortCuttingTools',port_tools),'UPPER SHELL — finished part')
 
 # Rear tray: floor and perimeter walls up to PCB top, plus short posts to PCB underside.
 coverblank=rounded_slab('CoverBlank',left,front,bottom,ow,ol,f'-({bottom})',R)
 covercavity=rounded_slab('CoverCavity',f'({boardminx})-{G}',f'({boardminy})-{G}',floorinner,
     f'{W}+2*{G}',f'{L}+2*{G}',f'-({floorinner})+0.1 mm',G)
 plate=cut('CoverTray',coverblank,covercavity,'Bottom tray — floor and walls to PCB top')
+# A low continuation of the tray wall forms the slot sill. This avoids a
+# fragile 0.35 mm strip spanning the opening on the separately printed lid.
+sd_sill=box('SdTraySill',left,
+    f'{D("SdY")}-{D("SdWidth")}/2+{D("SdJointGap")}',-0.1,
+    T,f'{D("SdWidth")}-2*{D("SdJointGap")}',f'{D("SdBottom")}+0.1 mm')
+plate=fuse('TrayWithSdSill',[plate,sd_sill],'Bottom tray with supported SD slot sill')
 lowerposts=[cylinder('LowerPost'+str(i+1),x,y,floorinner,f'{D("PostDiameter")}/2',UB) for i,(x,y) in enumerate(corners)]
 lower=fuse('CoverWithPosts',[plate]+lowerposts,'Bottom tray with short PCB clamping posts')
-covertools=[finger]
+covertools=[]
 for i,(x,y) in enumerate(corners):
     covertools.append(cylinder('Clearance'+str(i+1),x,y,f'({bottom})-0.01 mm',
                               f'{D("ScrewClearance")}/2',f'{CT}+{UB}+0.02 mm'))
@@ -219,16 +223,27 @@ for n,y in [('Up',D('ButtonUpY')),('Down',D('ButtonDownY')),('Select',D('ButtonS
 for n,x in [('Green',D('LedGreenX')),('Red',D('LedRedX'))]:
     o=cylinder('MeasuredLed'+n,x,D('LedY'),f'{D("LedTip")}-6 mm',2.5,6);refs.addObject(o)
 
+socket=box('SdSocketReference',D('SdMouthX'),f'{D("SdY")}-13.9 mm',0,
+    16.5,27.8,D('SdSocketHeight'))
+socket.Label='SD socket — simplified envelope at current J3 position';refs.addObject(socket)
+card=box('SdCardReference',f'{D("SdMouthX")}+{D("SdInsertedDepth")}-{D("SdCardLength")}',
+    f'{D("SdY")}-{D("SdCardWidth")}/2',D('SdCardBottom'),
+    D('SdCardLength'),D('SdCardWidth'),D('SdCardThickness'))
+card.Label='Full-size SD card — seated depth/height provisional';refs.addObject(card)
+
 doc.recompute()
 for o in all_geometry:
     o.Visibility=False
-for o in [upper,cover,pcb,module,screen]+[doc.getObject('Actuator'+n) for n in ['Up','Down','Select']]+[doc.getObject('MeasuredLed'+n) for n in ['Green','Red']]:
+for o in [upper,cover,pcb,module,screen,socket,card]+[doc.getObject('Actuator'+n) for n in ['Up','Down','Select']]+[doc.getObject('MeasuredLed'+n) for n in ['Green','Red']]:
     o.Visibility=True
 upper.ViewObject.ShapeColor=(0.30,0.40,0.52)
 cover.ViewObject.ShapeColor=(0.58,0.64,0.70)
 pcb.ViewObject.ShapeColor=(0.10,0.48,0.23)
 module.ViewObject.ShapeColor=(0.08,0.13,0.22)
 screen.ViewObject.ShapeColor=(0.08,0.70,0.95)
+socket.ViewObject.ShapeColor=(0.55,0.55,0.58)
+socket.ViewObject.Transparency=75
+card.ViewObject.ShapeColor=(0.12,0.20,0.36)
 doc.MeasuredLedGreen.ViewObject.ShapeColor=(0.05,0.85,0.12)
 doc.MeasuredLedRed.ViewObject.ShapeColor=(0.9,0.05,0.04)
 for n in ['Up','Down','Select']:doc.getObject('Actuator'+n).ViewObject.ShapeColor=(0.10,0.10,0.10)
@@ -238,7 +253,7 @@ for o in all_geometry:
     o.ViewObject.AngularDeflection=15
     o.ViewObject.DisplayMode='Flat Lines'
 upper.addProperty('App::PropertyString','FitStatus','Design notes')
-upper.FitStatus='Nominal connector cutouts per user dimensions. Printed fit, mating plug access, LED flanges and screw dimensions need physical verification.'
+upper.FitStatus='Full-size SD slot 24.6 x 2.6 for SLA; card seat height/depth provisional. Other openings unchanged. Physical fit and screw dimensions need verification.'
 cover.addProperty('App::PropertyString','ScrewPath','Design notes')
 cover.ScrewPath='Countersunk head -> cover -> short clearance post -> PCB 2.5 hole -> long upper post pilot.'
 sheet.addProperty('App::PropertyString','Editing','Help')
@@ -254,7 +269,7 @@ assert_valid(upper);assert_valid(cover)
 assert upper.Shape.common(cover.Shape).Volume < 1e-6,'Shell and cover overlap'
 assert upper.Shape.common(pcb.Shape).Volume < 1e-6,'Shell penetrates PCB'
 assert cover.Shape.common(pcb.Shape).Volume < 1e-6,'Cover penetrates PCB'
-assert abs(cover.Shape.BoundBox.ZMax)<1e-6,'Bottom walls must end at PCB top'
+assert abs(cover.Shape.BoundBox.ZMax-0.35)<1e-6,'SD sill must end at slot bottom'
 assert abs(upper.Shape.BoundBox.ZMin)<1e-6,'Upper shell must start at PCB top'
 assert abs(pcb.Shape.BoundBox.XLength-66.6)<1e-6,'Incorrect measured PCB width'
 assert abs(pcb.Shape.BoundBox.YLength-77.5)<1e-6,'Incorrect measured PCB length'
@@ -274,23 +289,31 @@ for tool,diameter in front_openings:
         outside=App.Vector(centre.x+dx*(diameter/2+0.05),centre.y+dy*(diameter/2+0.05),11)
         assert not upper.Shape.isInside(inside,1e-6,False),(tool.Name,'opening obstructed')
         assert upper.Shape.isInside(outside,1e-6,False),(tool.Name,'opening oversized')
-for tool,width,height in [(doc.UsbAccess,9.0,3.0),(doc.SdAccess,13.5,2.0),(doc.RibbonAccess,53.0,9.0)]:
+for tool,width,height in [(doc.UsbAccess,9.0,3.0),(doc.RibbonAccess,53.0,9.0)]:
     actual_width=tool.Width.Value if tool.Name=='SdAccess' else tool.Length.Value
     assert abs(actual_width-width)<1e-6,(tool.Name,'incorrect cutout width')
     assert abs(tool.Shape.BoundBox.ZMax-height)<1e-6,(tool.Name,'incorrect cutout top')
-# Verify material was removed from both halves and a nail can approach the PCB edge.
-assert abs(finger.Shape.BoundBox.YLength-22)<1e-6,'Incorrect finger recess width'
-assert abs(finger.Shape.BoundBox.ZLength-8)<1e-6,'Incorrect finger recess height'
-assert abs(finger.Shape.BoundBox.ZMin+3)<1e-6,'Incorrect lower recess edge'
-assert finger.Shape.common(shell.Shape).Volume>0,'Finger recess misses upper shell'
-assert finger.Shape.common(lower.Shape).Volume>0,'Finger recess misses bottom tray'
-assert finger.Shape.common(upper.Shape).Volume<1e-6,'Upper shell blocks recess'
-assert finger.Shape.common(cover.Shape).Volume<1e-6,'Bottom tray blocks recess'
-approach=Part.makeBox(4,8,1,App.Vector(-3.5,20.1678-4,0.5))
-assert approach.common(upper.Shape).Volume<1e-6,'Upper shell blocks nail approach'
-assert approach.common(cover.Shape).Volume<1e-6,'Bottom tray blocks nail approach'
-floor_probe=Part.makeBox(1,4,1,App.Vector(-2,20.1678-2,-5.5))
-assert abs(floor_probe.common(cover.Shape).Volume-floor_probe.Volume)<1e-6,'Finger recess cuts through floor'
+# Verify the small card-only aperture is aligned with current J3 and stays above the joint.
+slot=doc.SdAccess.Shape.BoundBox
+assert abs(slot.YLength-24.6)<1e-6
+assert abs(slot.ZMax-doc.SdTraySill.Shape.BoundBox.ZMax-2.6)<1e-6
+assert abs((slot.YMin+slot.YMax)/2-25.866)<1e-6
+assert abs(doc.SdTraySill.Shape.BoundBox.ZMax-0.35)<1e-6
+assert doc.SdAccess.Shape.common(upper.Shape).Volume<1e-6,'SD slot obstructed'
+assert card.Shape.common(upper.Shape).Volume<1e-6,'Shell obstructs seated card'
+assert card.Shape.common(cover.Shape).Volume<1e-6,'Tray obstructs seated card'
+# Larger sliding envelope includes maximum card thickness and lateral allowance.
+approach=Part.makeBox(24,24.2,2.25,App.Vector(-7,25.866-12.1,0.525))
+assert approach.common(upper.Shape).Volume<1e-6,'Upper shell obstructs card insertion'
+assert approach.common(cover.Shape).Volume<1e-6,'Tray obstructs card insertion'
+wallx=slot.XMin+0.5
+for yy,zz in [(25.866,0.175),(25.866,3.1),(13.4,1.5),(38.3,1.5)]:
+    assert (upper.Shape.isInside(App.Vector(wallx,yy,zz),1e-6,False) or
+            cover.Shape.isInside(App.Vector(wallx,yy,zz),1e-6,False)),'Missing material around SD slot'
+# The old finger recess is gone: the tray wall remains intact below the slot.
+assert cover.Shape.isInside(App.Vector(-1.3,25.866,-2),1e-6,False)
+assert len([o for o in front_tools if o.Name.startswith('DisplayScrewRelief')])==3
+assert upper.Shape.isInside(App.Vector(17.272,36.8098,10.2),1e-6,False),'Deleted H1 relief remains'
 for x,y in [(3,3),(63.5,3),(3,74.4),(63.5,74.4)]:
     assert upper.Shape.isInside(App.Vector(x+1.7,y,0.1),1e-6,False),'Missing upper clamping contact'
     assert cover.Shape.isInside(App.Vector(x+1.7,y,-1.7),1e-6,False),'Missing lower clamping contact'
@@ -304,12 +327,12 @@ sheet.set(panel_cell,'12.5 mm');doc.recompute()
 assert_valid(upper)
 assert abs(upper.Shape.BoundBox.ZLength-original_height-0.5)<1e-6,'Panel height did not propagate'
 sheet.set(panel_cell,'12 mm');doc.recompute();assert_valid(upper)
-finger_cell='B'+str(3+next(i for i,r in enumerate(rows) if r[0]=='SdFingerWidth'))
-before_finger_volumes=(upper.Shape.Volume,cover.Shape.Volume)
-sheet.set(finger_cell,'24 mm');doc.recompute()
+sd_cell='B'+str(3+next(i for i,r in enumerate(rows) if r[0]=='SdWidth'))
+before_sd_volume=upper.Shape.Volume
+sheet.set(sd_cell,'25 mm');doc.recompute()
 assert_valid(upper);assert_valid(cover)
-assert upper.Shape.Volume<before_finger_volumes[0] and cover.Shape.Volume<before_finger_volumes[1], 'Finger width must update both halves'
-sheet.set(finger_cell,'22 mm');doc.recompute();assert_valid(upper);assert_valid(cover)
+assert upper.Shape.Volume<before_sd_volume,'SD width must update aperture'
+sheet.set(sd_cell,'24.6 mm');doc.recompute();assert_valid(upper);assert_valid(cover)
 
 view=Gui.activeDocument().activeView()
 view.setAnimationEnabled(False) if hasattr(view,'setAnimationEnabled') else None
@@ -346,6 +369,8 @@ view.viewIsometric();view.fitAll();doc.recompute()
 
 # Portable solids, plus the native document. STL files are for fit checks, not released fabrication.
 Part.export([upper,cover],str(OUT/'hp21xx_enclosure.step'))
+step_path=OUT/'hp21xx_enclosure.step'
+step_path.write_text('\n'.join(line.rstrip() for line in step_path.read_text().splitlines())+'\n')
 for obj,name in [(upper,'upper_shell'),(cover,'bottom_cover')]:
     mesh=MeshPart.meshFromShape(Shape=obj.Shape,LinearDeflection=0.08,AngularDeflection=0.15,Relative=False)
     mesh.write(str(OUT/(name+'.stl')))
@@ -360,12 +385,28 @@ report={
     'pcb_edge_clearance_per_side_mm':0.3,
     'inner_size_mm':[67.2,78.1],
     'pcb_datum_note':'Measured outline centred on original KiCad outline; holes and components retain their KiCad coordinates.',
-    'nominal_port_cutouts_mm':{'USB-C':[9.0,3.0],'microSD':[13.5,2.0],'ribbon':[53.0,9.0]},
+    'nominal_port_cutouts_mm':{'USB-C':[9.0,3.0],'SD':[24.6,2.6],'ribbon':[53.0,9.0]},
     'front_opening_diameters_mm':{tool.Name:round(2*tool.Radius.Value,3) for tool,_ in front_openings},
-    'sd_finger_recess_mm':{'width':22.0,'height':8.0,'corner_radius':3.0,'z_min':-3.0,'z_max':5.0,'through_both_halves':True},
-    'checks':['single valid solid per half','no shell/cover volume overlap','no shell/PCB volume overlap','no cover/PCB volume overlap','measured PCB envelope and 0.3 mm clearance on each edge','bottom walls and upper shell meet at PCB top','nominal port widths and tops match user dimensions','four paired clamping contacts and open coaxial bores','spreadsheet panel-height change rebuilds shell correctly','shared rounded finger recess clears both halves','nail approach to PCB edge is unobstructed by either half','bottom floor remains intact beneath recess','spreadsheet finger-width change rebuilds both halves'],
-    'provisional':['physical connector fit and mating plug/latch access','LED flange clearance','screw pilot and head dimensions','display screw-head relief depth','OLED horizontal centring and approximate overall-envelope lower edge'],
+    'sd_slot_mm':{'width':24.6,'height':2.6,'center_y':25.866,'z_min':0.35,'z_max':2.95,'card_bottom_estimate':0.6,'supported_sill':True,'sill_end_clearance':0.2},
+    'mounting':{'corner_post_pairs':4,'display_screw_reliefs':3,'deleted_pcb_hole':'H1'},
+    'print_process':'JLCPCB SLA resin; use material-specific process review before ordering',
+    'checks':['single valid solid per half','no shell/cover volume overlap','no shell/PCB volume overlap','no cover/PCB volume overlap','measured PCB envelope and 0.3 mm clearance on each edge','joint at PCB top except supported SD sill at Z=0.35 with 0.2 mm end clearance','USB/ribbon nominal openings unchanged; SD slot uses documented SLA allowance','four paired clamping contacts and open coaxial bores; three OLED screw-head reliefs','spreadsheet panel-height change rebuilds shell correctly','full-size card insertion envelope clears both halves','slot centre follows current J3 position','old finger recess removed; material surrounds narrow slot','spreadsheet SD width change rebuilds aperture'],
+    'provisional':['SD card seat height and insertion stop; verify actual hardware','physical connector fit and mating plug/latch access','LED flange clearance','screw pilot and head dimensions','display screw-head relief depth','OLED horizontal centring and approximate overall-envelope lower edge'],
 }
+# Compare with the preserved pre-revision model, if available locally.
+baseline_path=OUT/'revisions'/'before_full_size_sd.FCStd'
+if baseline_path.exists():
+    baseline=App.openDocument(str(baseline_path))
+    old_sd=Part.makeBox(2.3,22.2,8.2,App.Vector(-2.5,20.1678-11.1,-3.1))
+    new_sd=Part.makeBox(2.3,24.8,3.2,App.Vector(-2.5,25.866-12.4,-0.1))
+    h1_relief=Part.makeCylinder(2.9,1.3,App.Vector(17.272,36.8098,9.8))
+    allowed=old_sd.fuse(new_sd).fuse(h1_relief)
+    for current,previous in [(upper,baseline.UpperShell),(cover,baseline.BottomCover)]:
+        difference=current.Shape.cut(previous.Shape).fuse(previous.Shape.cut(current.Shape))
+        assert difference.cut(allowed).Volume<1e-5,'Geometry changed outside SD/H1 areas'
+    App.closeDocument(baseline.Name)
+    report['checks'].append('baseline comparison: geometry changes confined to SD wall and deleted H1 relief')
+    App.setActiveDocument(doc.Name)
 (OUT/'validation.json').write_text(json.dumps(report,indent=2)+'\n')
 # Save the restored assembled state, without transient inspection objects.
 doc.save()

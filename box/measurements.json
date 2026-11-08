@@ -1,6 +1,6 @@
 {
   "units": "mm",
-  "orientation": "Top view: ribbon connector at top, USB-C at bottom, microSD at left.",
+  "orientation": "Top view: ribbon connector at top, USB-C at bottom, full-size SD at left.",
   "pcb": {
     "width": 66.6,
     "length": 77.5,
@@ -10,7 +10,8 @@
     "size_source": "User measurement of manufactured PCB",
     "layout_outline_width": 66.5,
     "layout_outline_length": 77.4,
-    "corner_hole_position_note": "Hole centres retain KiCad coordinates. The measured outline is assumed centred on the KiCad outline, giving 3.05 mm nominal inset from measured edges; this inset was not separately measured."
+    "corner_hole_position_note": "Hole centres retain KiCad coordinates. The measured outline is assumed centred on the KiCad outline, giving 3.05 mm nominal inset from measured edges; this inset was not separately measured.",
+    "deleted_hole": "H1: upper-left OLED mounting hole; all four corner mounting holes remain"
   },
   "measured_height_above_pcb_top": {
     "display_front": 9.1,
@@ -18,7 +19,7 @@
     "led_tip": 16.0,
     "ribbon_connector": 9.0,
     "usb_connector": 3.0,
-    "sd_card": 2.0
+    "original_microsd_card": 2.0
   },
   "display": {
     "overall_dimensions_as_supplied": [
@@ -34,15 +35,20 @@
       30.4,
       28.5
     ],
-    "offset_datum": "Upper mounting-hole centre to illuminated area top edge, downward with ribbon connector at top."
+    "offset_datum": "Upper mounting-hole centre to illuminated area top edge, downward with ribbon connector at top.",
+    "remaining_main_pcb_holes": [
+      "H3",
+      "H5",
+      "H7"
+    ]
   },
   "external_access_required": [
     "USB-C",
-    "microSD insertion and removal",
+    "full-size SD insertion and removal",
     "ribbon cable connection and removal"
   ],
   "draft_assumptions": {
-    "manufacturing": "Not explicitly specified; sketch shows corner posts for self-tapping screws.",
+    "manufacturing": "JLCPCB SLA resin, per user clarification.",
     "form": "Main shell with front panel and side walls, separate screw-fastened bottom cover, per sketch.",
     "floor_thickness": 2.0,
     "clearance_below_pcb_underside": 2.5,
@@ -55,7 +61,8 @@
     "Maximum protrusion beneath PCB, including display screw heads.",
     "Actual ribbon connector body, mating plug and latch movement envelope.",
     "USB-C plug overmould envelope and socket position above PCB.",
-    "Manufacturing method and screw size; post lengths depend on final panel and underside clearances."
+    "Full-size SD card seat height and seated insertion depth on actual socket.",
+    "Specific SLA resin and self-tapping screw fit."
   ],
   "photos": [
     "IMG_7702.JPG",
@@ -67,10 +74,10 @@
   "construction": {
     "source": "User sketch IMG_7707.JPG and subsequent explicit clarification of PCB clamping and screw path.",
     "shell": "Main shell with front panel and side walls; removable bottom cover.",
-    "cover_fastening": "Four countersunk screws enter from rear/bottom cover, pass through clearance bores in the short bottom posts and the existing PCB mounting holes, and self-tap into pilot holes in the longer upper-shell posts.",
-    "connector_cutouts": "Upper-shell slots open at the joint with the bottom tray, at PCB top level (Z=0). Nominal sizes use latest user dimensions without additional clearance. The SD opening is enlarged by a rounded finger recess spanning both halves; USB-C and ribbon nominal cutouts are unchanged.",
+    "cover_fastening": "Four original corner screws and coaxial post pairs retained. Deleted H1 is a display mounting hole, not a corner fastening hole.",
+    "connector_cutouts": "USB-C/ribbon keep original nominal sizes. Full-size SD uses a 24.6 x 2.6 slot, upper notch and supported tray sill, replacing the microSD finger recess.",
     "pcb_retention": "PCB clamped between coaxial pairs of posts at all four existing corner mounting holes. Longer posts extend from upper shell to PCB top; very short posts extend from bottom cover to PCB underside.",
-    "manufacturing_method": "Not explicitly specified.",
+    "manufacturing_method": "JLCPCB SLA resin; exact resin and screw remain to be selected.",
     "lower_post_bore": "Clearance bore; screw threads engage the upper-shell post only.",
     "upper_post_bore": "Pilot hole sized for the selected self-tapping screw and shell material.",
     "post_contact": "Posts contact PCB locally around corner mounting holes; bottom-cover clearance must accommodate underside solder joints and display screw heads.",
@@ -85,12 +92,13 @@
       71.2,
       82.1,
       18.1
-    ]
+    ],
+    "sd_sill": "Local tray wall extends 0.35 above the Z=0 joint under the SD slot; 0.2 mm clearance at each end."
   },
   "connector_widths": {
     "ribbon_connector": 53.0,
     "usb_connector": 9.0,
-    "sd_card": 13.5
+    "sd_card": 24.0
   },
   "nominal_connector_cutouts": {
     "ribbon": [
@@ -101,24 +109,39 @@
       9.0,
       3.0
     ],
-    "microSD": [
-      13.5,
-      2.0
-    ],
-    "note": "Widths by heights measured from PCB top; no added tolerance."
+    "note": "SD slot includes SLA clearance and is centred on the new J3. USB-C/ribbon retain original dimensions.",
+    "SD": [
+      24.6,
+      2.6
+    ]
   },
   "sd_card_access": {
-    "card_protrusion_beyond_pcb_edge": 1.0,
-    "solution": "Shared rounded finger recess through the SD-side walls of both enclosure halves; retain existing PCB layout.",
-    "recess_width": 22.0,
-    "recess_height": 8.0,
-    "corner_radius": 3.0,
-    "centre_height_above_pcb_top": 1.0,
-    "bottom_height_relative_to_pcb_top": -3.0,
-    "top_height_relative_to_pcb_top": 5.0,
-    "floor_preserved": true,
-    "wall_thickness_elsewhere": 2.0,
-    "note": "13.5 x 2 remains the supplied SD envelope; the actual opening is enlarged by the finger recess. Physical card release travel remains to be checked."
+    "connector": "SHOU HAN SD-CARD 11P, C7529393",
+    "card_width": 24.0,
+    "card_length": 32.0,
+    "card_thickness": 2.1,
+    "requested_slot": [
+      24.2,
+      2.2
+    ],
+    "selected_slot": [
+      24.6,
+      2.6
+    ],
+    "process": "JLCPCB SLA resin",
+    "centre_y": 25.866,
+    "bottom_above_pcb": 0.35,
+    "top_above_pcb": 2.95,
+    "estimated_card_bottom_above_pcb": 0.6,
+    "estimated_insertion_depth": 14.5,
+    "pcb_socket_pose": [
+      98.0804,
+      126.534,
+      -90
+    ],
+    "mouth_x_relative_to_pcb": 0.5804,
+    "solution": "Upper-shell notch and supported lower-tray sill; 0.2 mm sill end clearance. Original finger recess removed.",
+    "note": "Card seat height/insertion stop are provisional drawing-derived estimates. Confirm on assembled hardware. Card width/thickness and SLA dimensional variation make 24.2 x 2.2 too tight."
   },
   "front_openings": {
     "button_hole_diameter": 3.4,
@@ -127,10 +150,10 @@
     "led_count": 2,
     "source": "User-specified opening diameters, 2026-11-07; supersedes the 4.8 mm button and 6.2 mm LED draft openings."
   },
-  "planned_sd_card_revision": {
-    "connector": "Full-size pull-out SD card; user will redesign PCB first.",
-    "opening_height": 1.0,
-    "opening_width_and_position": "To follow revised PCB.",
-    "current_cad": "Retain existing microSD finger recess until PCB redesign."
+  "manufacturing": {
+    "method": "SLA",
+    "material": "JLCPCB resin; specific resin not selected",
+    "published_dimensional_tolerance_under_100_mm": 0.2,
+    "source": "https://jlc3dp.com/help/article/3d-printing-design-guideline"
   }
 }

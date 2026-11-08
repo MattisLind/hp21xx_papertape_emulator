@@ -1,6 +1,6 @@
 # Enclosure design inputs
 
-Orientation throughout: view from above, ribbon connector at the top, USB-C at the bottom, microSD at the left. All dimensions are millimetres. Machine-readable inputs are in `measurements.json`.
+Orientation throughout: view from above, ribbon connector at the top, USB-C at the bottom, full-size SD at the left. All dimensions are millimetres. Machine-readable inputs are in `measurements.json`.
 
 ## FreeCAD model now available
 
@@ -8,7 +8,7 @@ Open [`cad/hp21xx_enclosure.FCStd`](cad/hp21xx_enclosure.FCStd). The native mode
 
 ## Confirmed inputs
 
-The KiCad board outline is 66.5 × 77.4, thickness 1.6. Four corner mounting holes are diameter 2.5, with centres 3 from the adjacent board edges. The display mounting holes in the main PCB are spaced 30.4 horizontally × 28.5 vertically.
+The KiCad board outline is 66.5 × 77.4, thickness 1.6. Four corner mounting holes are diameter 2.5, with centres 3 from the adjacent board edges. The display mounting-hole grid is 30.4 horizontally × 28.5 vertically; H1 (upper-left) has been removed to clear the full-size SD socket, leaving H3/H5/H7. All four corner mounting holes remain.
 
 The manufactured PCB was subsequently measured as **66.6 × 77.5**. The CAD reference now uses that measured envelope, centred on the original KiCad outline; hole and component coordinates are preserved. Clearance is reduced to **0.3 per side**, for a **67.2 × 78.1** internal cavity. The inside corner radius is also 0.3 to avoid pinching the square PCB corners. The 0.05-per-edge extension is a centring assumption; physical hole offsets have not been remeasured.
 
@@ -25,7 +25,7 @@ User measurements from the top surface of the main PCB:
 
 Display module overall dimensions supplied: 35 × 32. Illuminated area: 28.5 wide × 15.3 high. Confirmed: the top edge of the illuminated area is 4 below the centre of the upper mounting hole, with the ribbon connector at the top.
 
-USB-C, microSD and ribbon cable must be accessible from outside the assembled enclosure. Programming headers may remain inside for the draft.
+USB-C, full-size SD and ribbon cable must be accessible from outside the assembled enclosure. Programming headers may remain inside for the draft.
 
 Photos show a right-angle ribbon header with moving ejector latches, display mounting screw heads beneath the main PCB, and LEDs on extended leads. Do not replace measured LED height with the standard KiCad LED model height.
 
@@ -33,7 +33,7 @@ Photos show a right-angle ribbon header with moving ejector latches, display mou
 
 Interpretation: main shell with the front panel and side walls in one piece, closed by a separate bottom cover. Four countersunk self-tapping screws pass through the bottom cover, its short posts and the PCB mounting holes, then thread into longer posts in the upper shell. This supersedes the earlier removable-top-lid suggestion.
 
-The bottom cover has perimeter walls rising to PCB top level (Z = 0). The ribbon connector, USB-C and microSD have cutouts opening at this joint in the upper shell: nominal width × height 53 × 9, 9 × 3 and 13.5 × 2 respectively. USB-C and ribbon retain these nominal cutouts; the SD opening is enlarged by a shared rounded 22 × 8 finger recess (radius 3), spanning Z = -3 to +5 through both halves. The 2-thick bottom floor is preserved. Seat the PCB in the lower tray before fitting the upper shell; check actual mating plug and latch access during a physical fit check.
+The bottom cover has perimeter walls rising to PCB top level (Z = 0). The ribbon connector and USB-C retain their original 53 × 9 and 9 × 3 cutouts. The new full-size SD card uses a 24.6 × 2.6 slot centred at Y = 25.866 and spanning Z = 0.35 to 2.95. A supported continuation of the lower-tray wall forms its bottom edge, with 0.2 clearance at each end. The large microSD finger recess has been removed. The 2-thick bottom floor is preserved. Seat the PCB in the lower tray before fitting the upper shell; check actual mating plug and latch access during a physical fit check.
 
 Confirmed by the user: each existing corner mounting hole sits between a coaxial pair of posts. The upper-shell post is longer and contacts the PCB top; the bottom-cover post is very short and contacts the PCB underside. Tightening the cover screws clamps the PCB between these posts.
 
@@ -50,17 +50,20 @@ With the 2-thick floor and user-specified 2.5 clearance beneath the PCB undersid
 ## Access provisions to include
 
 - Bottom wall: USB-C opening allowing the cable plug housing to approach the socket.
-- Left wall: microSD opening with a shared 22 × 8 rounded finger recess through both halves; centred 1 above PCB top to allow a fingernail to press the card edge. The card protrudes only 1 beyond the PCB.
+- Left wall: narrow full-size SD slot, 24.6 × 2.6, located from the new J3 position. Standard card thickness is 2.1; 24.2 × 2.2 would leave too little allowance for SLA dimensional variation. The seated card is expected to protrude sufficiently for removal without the former finger recess.
 - Top wall: ribbon connector access allowing the mating plug and ejector latches to operate. Photos establish arrangement, not exact clearances.
 - Front panel: display opening, three 3.4 mm diameter button openings and two 5.3 mm diameter LED openings.
 
 ## Remaining inputs
 
 - Confirm whether the illuminated area is horizontally centred between mounting holes.
-- Manufacturing method and screw size. PCB clamping and the shared screw path are now confirmed above.
+- Manufacturing process is JLCPCB SLA resin. Specific resin and screw size remain to be selected. PCB clamping and the shared screw path are confirmed above.
+- Full-size SD card seat height (currently estimated as 0.6 above PCB) and seated insertion depth. The deleted H1 screw-head recess has been removed from the lid.
 - Check that underside protrusions, including display screws, fit the specified 2.5 clearance.
 - Physical mating plug and latch access with the supplied nominal connector cutouts; adjust the spreadsheet if needed after a fit check.
 
 ## Existing 3D reference
 
 `../build/enclosure/pcb-reference.step` contains the PCB and available KiCad component models. It omits the OLED assembly, USB-C and ribbon connector models, attached cables, card and fasteners. See `../build/enclosure/README.md` for export details.
+
+The full-size SD revision preserves the overall 71.2 × 82.1 × 18.1 enclosure, all corner fasteners and the other front/connector openings. See the CAD README for the socket drawing, SLA tolerance rationale, provisional card height and validation details.
