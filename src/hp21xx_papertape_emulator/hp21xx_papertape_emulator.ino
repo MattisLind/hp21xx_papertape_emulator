@@ -268,16 +268,15 @@ static void pulseAck(uint8_t pin, bool activeHigh) {
 }
 
 static void blinkActivity(void) {
-  // PC13 is often wired as active-low LED on Blue Pill style boards.
-  // If your hardware is active-high, invert these two writes.
-  digitalWrite(PIN_ACTIVITY_LED, HIGH);
+  // Revised board: PC13 sinks current through D1/R3; LOW turns the LED on.
+  digitalWrite(PIN_ACTIVITY_LED, LOW);
   activityLedOffAtMs = millis() + 1;
 }
 
 static void serviceActivityLed(void) {
   // Turn the activity LED off after a short visible blink time.
   if (activityLedOffAtMs != 0 && millis() >= activityLedOffAtMs) {
-    digitalWrite(PIN_ACTIVITY_LED, LOW);
+    digitalWrite(PIN_ACTIVITY_LED, HIGH);
     activityLedOffAtMs = 0;
   }
 }
@@ -1102,8 +1101,9 @@ void setup(void) {
   pinMode(PIN_USB_PULLUP, OUTPUT);
   digitalWrite(PIN_USB_PULLUP, LOW);
 
+  // Preload the inactive level before enabling the output to avoid a flash.
+  digitalWrite(PIN_ACTIVITY_LED, HIGH);
   pinMode(PIN_ACTIVITY_LED, OUTPUT);
-  digitalWrite(PIN_ACTIVITY_LED, LOW);
 
   pinMode(PIN_BUS_DIR, OUTPUT);
   digitalWrite(PIN_BUS_DIR, LOW);

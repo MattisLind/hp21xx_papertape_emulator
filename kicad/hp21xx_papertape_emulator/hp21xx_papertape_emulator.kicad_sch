@@ -9710,6 +9710,16 @@
 	)
 	(wire
 		(pts
+			(xy 34.29 30.48) (xy 29.21 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "21936ded-b759-4068-96bc-3854c2e956c9")
+	)
+	(wire
+		(pts
 			(xy 281.94 127) (xy 281.94 128.27)
 		)
 		(stroke
@@ -10267,6 +10277,16 @@
 			(type default)
 		)
 		(uuid "3bc4304a-8c57-4df0-97c6-57a4e815fadd")
+	)
+	(wire
+		(pts
+			(xy 16.51 30.48) (xy 19.05 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3cff3889-5c41-40cd-b621-209e5f2a0fa6")
 	)
 	(wire
 		(pts
@@ -16585,7 +16605,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "1u"
 			(at 143.51 24.1362 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16607,7 +16627,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://jlcpcb.com/partdetail/53938-CL05A105KA5NQNC/C52923"
 			(at 140.97 22.86 0)
 			(hide yes)
 			(show_name no)
@@ -16618,7 +16638,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "STM32 local bypass; Samsung CL05A105KA5NQNC; 1uF 25V X5R +/-10%; JLCPCB Basic C52923"
 			(at 140.97 22.86 0)
 			(hide yes)
 			(show_name no)
@@ -16629,7 +16649,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1525"
+		(property "LCSC" "C52923"
 			(at 140.97 22.86 0)
 			(hide yes)
 			(show_name no)
@@ -17197,7 +17217,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "1u"
 			(at 119.38 24.1362 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17219,7 +17239,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://jlcpcb.com/partdetail/53938-CL05A105KA5NQNC/C52923"
 			(at 116.84 22.86 0)
 			(hide yes)
 			(show_name no)
@@ -17230,7 +17250,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "STM32 local bypass; Samsung CL05A105KA5NQNC; 1uF 25V X5R +/-10%; JLCPCB Basic C52923"
 			(at 116.84 22.86 0)
 			(hide yes)
 			(show_name no)
@@ -17241,7 +17261,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1525"
+		(property "LCSC" "C52923"
 			(at 116.84 22.86 0)
 			(hide yes)
 			(show_name no)
@@ -17710,7 +17730,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "20pF C0G +/-5% 50V; FH 0402CG200J500NT; JLCPCB Basic C1554; HSE load (see crystal-load-review.md)"
 			(at 25.4 53.34 0)
 			(hide yes)
 			(show_name no)
@@ -19718,83 +19738,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 44.45 60.96 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "17aedcbb-d284-4d26-9a5f-8b5d780e73c2")
-		(property "Reference" "#PWR013"
-			(at 44.45 67.31 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 40.64 62.23 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 44.45 60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 44.45 60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 44.45 60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "605a0a94-b507-47e5-87fe-73a6223013ce")
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "#PWR013")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Transistor_FET:Q_NMOS_GSD")
 		(at 344.17 46.99 0)
 		(unit 1)
@@ -20565,6 +20508,84 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 16.51 30.48 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1cde512f-78ea-4742-8cd0-1ee64b11c984")
+		(property "Reference" "#PWR0900"
+			(at 16.51 36.83 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 16.51 35.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 16.51 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 16.51 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 16.51 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "01fd6b67-0965-4a6f-8a2f-17cbcd536835")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "#PWR0900")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C_Small")
 		(at 151.13 22.86 0)
 		(unit 1)
@@ -20587,7 +20608,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "1u"
 			(at 153.67 24.1362 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20609,7 +20630,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://jlcpcb.com/partdetail/53938-CL05A105KA5NQNC/C52923"
 			(at 151.13 22.86 0)
 			(hide yes)
 			(show_name no)
@@ -20620,7 +20641,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "STM32 local bypass; Samsung CL05A105KA5NQNC; 1uF 25V X5R +/-10%; JLCPCB Basic C52923"
 			(at 151.13 22.86 0)
 			(hide yes)
 			(show_name no)
@@ -20631,7 +20652,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1525"
+		(property "LCSC" "C52923"
 			(at 151.13 22.86 0)
 			(hide yes)
 			(show_name no)
@@ -21595,7 +21616,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100k"
+		(property "Value" "2.2k"
 			(at 313.69 233.68 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -21617,7 +21638,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://jlcpcb.com/partdetail/0402WGF2201TCE/C25879"
 			(at 312.42 232.41 0)
 			(hide yes)
 			(show_name no)
@@ -21628,7 +21649,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "UNI-ROYAL 0402WGF2201TCE; 2.2k ohm +/-1% 62.5mW; JLCPCB Basic C25879; overrides JTAG reset pull-up"
 			(at 312.42 232.41 0)
 			(hide yes)
 			(show_name no)
@@ -21639,7 +21660,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25741"
+		(property "LCSC" "C25879"
 			(at 312.42 232.41 0)
 			(hide yes)
 			(show_name no)
@@ -22694,7 +22715,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100k"
+		(property "Value" "2.2k"
 			(at 283.21 140.97 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22716,7 +22737,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://jlcpcb.com/partdetail/0402WGF2201TCE/C25879"
 			(at 281.94 139.7 0)
 			(hide yes)
 			(show_name no)
@@ -22727,7 +22748,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "UNI-ROYAL 0402WGF2201TCE; 2.2k ohm +/-1% 62.5mW; JLCPCB Basic C25879; overrides JTAG reset pull-up"
 			(at 281.94 139.7 0)
 			(hide yes)
 			(show_name no)
@@ -22738,7 +22759,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25741"
+		(property "LCSC" "C25879"
 			(at 281.94 139.7 0)
 			(hide yes)
 			(show_name no)
@@ -23535,7 +23556,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://industrial.panasonic.com/ww/products/pt/small-and-high-power-chip-resistors/models/ERJPA2J221X"
 			(at 193.04 80.01 0)
 			(hide yes)
 			(show_name no)
@@ -23546,7 +23567,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "Panasonic ERJPA2J221X; 220 ohm +/-5%; 250mW; 0402; LCSC C427205"
 			(at 193.04 80.01 0)
 			(hide yes)
 			(show_name no)
@@ -23557,7 +23578,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25091"
+		(property "LCSC" "C427205"
 			(at 193.04 80.01 0)
 			(hide yes)
 			(show_name no)
@@ -24055,7 +24076,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://industrial.panasonic.com/ww/products/pt/small-and-high-power-chip-resistors/models/ERJPA2J221X"
 			(at 184.15 67.31 0)
 			(hide yes)
 			(show_name no)
@@ -24066,7 +24087,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "Panasonic ERJPA2J221X; 220 ohm +/-5%; 250mW; 0402; LCSC C427205"
 			(at 184.15 67.31 0)
 			(hide yes)
 			(show_name no)
@@ -24077,7 +24098,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25091"
+		(property "LCSC" "C427205"
 			(at 184.15 67.31 0)
 			(hide yes)
 			(show_name no)
@@ -24435,6 +24456,140 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "#PWR036")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 24.13 30.48 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "3eebaba0-59de-4fdc-824a-dbc999aaa488")
+		(property "Reference" "SW4"
+			(at 20.955 27.94 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "RESET"
+			(at 27.305 27.94 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Button_Switch_SMD:SW_SPST_TS-1088-xR020"
+			(at 24.13 25.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/datasheet/lcsc_datasheet_2504101957_XUNPU-TS-1088-AR02016_C720477.pdf"
+			(at 24.13 25.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "XUNPU TS-1088-AR02016; normally-open momentary reset; 3.9x3.0x2.0mm; JLCPCB Basic C720477"
+			(at 24.13 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 24.13 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 24.13 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 24.13 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Comment" ""
+			(at 24.13 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C720477"
+			(at -59.69 7.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1 1)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "4c1f37c8-2624-41d3-8634-4a5c077d0920")
+		)
+		(pin "1"
+			(uuid "e6c5276c-49af-49dd-ac23-15775e2ba93f")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "SW4")
 					(unit 1)
 				)
 			)
@@ -29189,7 +29344,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://industrial.panasonic.com/ww/products/pt/small-and-high-power-chip-resistors/models/ERJPA2J221X"
 			(at 184.15 62.23 0)
 			(hide yes)
 			(show_name no)
@@ -29200,7 +29355,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "Panasonic ERJPA2J221X; 220 ohm +/-5%; 250mW; 0402; LCSC C427205"
 			(at 184.15 62.23 0)
 			(hide yes)
 			(show_name no)
@@ -29211,7 +29366,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25091"
+		(property "LCSC" "C427205"
 			(at 184.15 62.23 0)
 			(hide yes)
 			(show_name no)
@@ -29646,7 +29801,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "510"
+		(property "Value" "1k"
 			(at 45.72 50.8 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -29690,7 +29845,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25123"
+		(property "LCSC" "C11702"
 			(at 44.45 49.53 0)
 			(hide yes)
 			(show_name no)
@@ -30997,6 +31152,84 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3.3V")
+		(at 44.45 60.96 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "790c339f-3979-4859-8ea1-abb4c525e1b3")
+		(property "Reference" "#PWR0950"
+			(at 44.45 64.77 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 49.53 62.23 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 44.45 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 44.45 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 44.45 60.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e2f19097-ec70-4627-b66d-84fb9fb99aad")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "#PWR0950")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_Small")
 		(at 184.15 77.47 90)
 		(unit 1)
@@ -31040,7 +31273,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://industrial.panasonic.com/ww/products/pt/small-and-high-power-chip-resistors/models/ERJPA2J221X"
 			(at 184.15 77.47 0)
 			(hide yes)
 			(show_name no)
@@ -31051,7 +31284,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "Panasonic ERJPA2J221X; 220 ohm +/-5%; 250mW; 0402; LCSC C427205"
 			(at 184.15 77.47 0)
 			(hide yes)
 			(show_name no)
@@ -31062,7 +31295,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25091"
+		(property "LCSC" "C427205"
 			(at 184.15 77.47 0)
 			(hide yes)
 			(show_name no)
@@ -31831,126 +32064,6 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "#PWR091")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 95.25 189.23 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim yes)
-		(in_bom no)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "8278018c-79f8-4e0b-bc29-d240cd9757af")
-		(property "Reference" "H1"
-			(at 92.71 190.5001 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "MountingHole"
-			(at 92.71 187.9601 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "MountingHole:MountingHole_2.2mm_M2"
-			(at 95.25 189.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 95.25 189.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Mounting Hole without connection"
-			(at 95.25 189.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 95.25 189.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 95.25 189.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 95.25 189.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Comment" ""
-			(at 95.25 189.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "hp21xx_papertape_emulator"
-				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
-					(reference "H1")
 					(unit 1)
 				)
 			)
@@ -32758,7 +32871,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://industrial.panasonic.com/ww/products/pt/small-and-high-power-chip-resistors/models/ERJPA2J221X"
 			(at 231.14 229.87 0)
 			(hide yes)
 			(show_name no)
@@ -32769,7 +32882,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "Panasonic ERJPA2J221X; 220 ohm +/-5%; 250mW; 0402; LCSC C427205"
 			(at 231.14 229.87 0)
 			(hide yes)
 			(show_name no)
@@ -32780,7 +32893,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25091"
+		(property "LCSC" "C427205"
 			(at 231.14 229.87 0)
 			(hide yes)
 			(show_name no)
@@ -33532,7 +33645,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://industrial.panasonic.com/ww/products/pt/small-and-high-power-chip-resistors/models/ERJPA2J221X"
 			(at 232.41 256.54 0)
 			(hide yes)
 			(show_name no)
@@ -33543,7 +33656,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "Panasonic ERJPA2J221X; 220 ohm +/-5%; 250mW; 0402; LCSC C427205"
 			(at 232.41 256.54 0)
 			(hide yes)
 			(show_name no)
@@ -33554,7 +33667,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25091"
+		(property "LCSC" "C427205"
 			(at 232.41 256.54 0)
 			(hide yes)
 			(show_name no)
@@ -33746,7 +33859,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://industrial.panasonic.com/ww/products/pt/small-and-high-power-chip-resistors/models/ERJPA2J221X"
 			(at 193.04 64.77 0)
 			(hide yes)
 			(show_name no)
@@ -33757,7 +33870,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "Panasonic ERJPA2J221X; 220 ohm +/-5%; 250mW; 0402; LCSC C427205"
 			(at 193.04 64.77 0)
 			(hide yes)
 			(show_name no)
@@ -33768,7 +33881,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25091"
+		(property "LCSC" "C427205"
 			(at 193.04 64.77 0)
 			(hide yes)
 			(show_name no)
@@ -34286,7 +34399,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "20pF C0G +/-5% 50V; FH 0402CG200J500NT; JLCPCB Basic C1554; HSE load (see crystal-load-review.md)"
 			(at 15.24 41.91 0)
 			(hide yes)
 			(show_name no)
@@ -35948,6 +36061,17 @@
 			)
 		)
 		(property "Description" "SD card receptacle"
+			(at 147.32 187.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C7529393"
 			(at 147.32 187.96 0)
 			(hide yes)
 			(show_name no)
@@ -39451,7 +39575,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "1u"
 			(at 130.81 24.1362 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -39473,7 +39597,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://jlcpcb.com/partdetail/53938-CL05A105KA5NQNC/C52923"
 			(at 128.27 22.86 0)
 			(hide yes)
 			(show_name no)
@@ -39484,7 +39608,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "STM32 local bypass; Samsung CL05A105KA5NQNC; 1uF 25V X5R +/-10%; JLCPCB Basic C52923"
 			(at 128.27 22.86 0)
 			(hide yes)
 			(show_name no)
@@ -39495,7 +39619,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1525"
+		(property "LCSC" "C52923"
 			(at 128.27 22.86 0)
 			(hide yes)
 			(show_name no)
@@ -41874,7 +41998,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "Serial boot when bridged"
+		(property "Value" "BOOT0"
 			(at 50.8 26.6699 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -45854,7 +45978,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://industrial.panasonic.com/ww/products/pt/small-and-high-power-chip-resistors/models/ERJPA2J221X"
 			(at 193.04 69.85 0)
 			(hide yes)
 			(show_name no)
@@ -45865,7 +45989,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "Panasonic ERJPA2J221X; 220 ohm +/-5%; 250mW; 0402; LCSC C427205"
 			(at 193.04 69.85 0)
 			(hide yes)
 			(show_name no)
@@ -45876,7 +46000,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25091"
+		(property "LCSC" "C427205"
 			(at 193.04 69.85 0)
 			(hide yes)
 			(show_name no)
@@ -46068,7 +46192,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://industrial.panasonic.com/ww/products/pt/small-and-high-power-chip-resistors/models/ERJPA2J221X"
 			(at 193.04 74.93 0)
 			(hide yes)
 			(show_name no)
@@ -46079,7 +46203,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "Panasonic ERJPA2J221X; 220 ohm +/-5%; 250mW; 0402; LCSC C427205"
 			(at 193.04 74.93 0)
 			(hide yes)
 			(show_name no)
@@ -46090,7 +46214,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25091"
+		(property "LCSC" "C427205"
 			(at 193.04 74.93 0)
 			(hide yes)
 			(show_name no)
@@ -47031,7 +47155,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://industrial.panasonic.com/ww/products/pt/small-and-high-power-chip-resistors/models/ERJPA2J221X"
 			(at 184.15 72.39 0)
 			(hide yes)
 			(show_name no)
@@ -47042,7 +47166,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "Panasonic ERJPA2J221X; 220 ohm +/-5%; 250mW; 0402; LCSC C427205"
 			(at 184.15 72.39 0)
 			(hide yes)
 			(show_name no)
@@ -47053,7 +47177,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25091"
+		(property "LCSC" "C427205"
 			(at 184.15 72.39 0)
 			(hide yes)
 			(show_name no)
@@ -48845,7 +48969,7 @@
 	)
 	(symbol
 		(lib_id "Device:LED_Small_Filled")
-		(at 44.45 57.15 90)
+		(at 44.45 57.15 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -48855,7 +48979,7 @@
 		(dnp no)
 		(uuid "fa7f90a6-887c-4a76-8eff-a8f6bab71b74")
 		(property "Reference" "D1"
-			(at 46.99 55.8164 90)
+			(at 48.26 55.88 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -48866,7 +48990,7 @@
 			)
 		)
 		(property "Value" "LED"
-			(at 45.72 53.34 90)
+			(at 48.26 58.42 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -49035,7 +49159,7 @@
 				)
 			)
 		)
-		(property "Description" "Two pin crystal"
+		(property "Description" "YXC X50328MSB2GI; 8MHz; CL=20pF; ESR=80 ohm max; JLCPCB Basic C115962"
 			(at 25.4 41.91 0)
 			(hide yes)
 			(show_name no)
