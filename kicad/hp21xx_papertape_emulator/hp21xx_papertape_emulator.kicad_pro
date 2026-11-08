@@ -746,7 +746,7 @@
       "include_excluded_from_bom": true,
       "name": "",
       "sort_asc": true,
-      "sort_field": "Reference"
+      "sort_field": "${EXCLUDE_FROM_BOM}"
     },
     "bus_aliases": {},
     "connection_grid_size": 50.0,
@@ -797,7 +797,7 @@
         "uuid": "dca39f23-b951-4c9b-9ea5-0122ff9447f1"
       }
     ],
-    "used_designators": "#PWR103,J4",
+    "used_designators": "C14-16,#PWR103-106,J4",
     "variants": []
   },
   "sheets": [

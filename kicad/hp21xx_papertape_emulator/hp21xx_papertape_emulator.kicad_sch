@@ -8551,6 +8551,12 @@
 		(uuid "1de24727-6664-4713-a6d9-b8ca88c30c12")
 	)
 	(junction
+		(at 151.13 19.05)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2119e158-1f01-44d5-b741-e1d57e66ae44")
+	)
+	(junction
 		(at 223.52 17.78)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -8797,6 +8803,12 @@
 		(uuid "8e868a52-1d54-4681-b4d2-df6c8da65d40")
 	)
 	(junction
+		(at 173.99 19.05)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "938f8e77-9013-4bd6-adf1-6a59c5242c08")
+	)
+	(junction
 		(at 250.19 132.08)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -9001,6 +9013,12 @@
 		(uuid "de1a2d40-b9c0-4de7-9135-a7e16563977a")
 	)
 	(junction
+		(at 162.56 19.05)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "df1b1be8-20c8-499d-949d-969561df2248")
+	)
+	(junction
 		(at 302.26 187.96)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -9107,6 +9125,16 @@
 			(type default)
 		)
 		(uuid "01786764-e8cb-4758-9daa-d7e678da3ff8")
+	)
+	(wire
+		(pts
+			(xy 151.13 19.05) (xy 162.56 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0188df6d-4958-4bf5-9125-ade063f0d429")
 	)
 	(wire
 		(pts
@@ -9317,6 +9345,16 @@
 			(type default)
 		)
 		(uuid "0d0a2001-e7bb-4aa7-8d28-c02b8c44b33a")
+	)
+	(wire
+		(pts
+			(xy 173.99 25.4) (xy 173.99 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0d95f47b-7ffe-4848-a32c-cda6c8aaade7")
 	)
 	(wire
 		(pts
@@ -10620,6 +10658,16 @@
 	)
 	(wire
 		(pts
+			(xy 184.15 20.32) (xy 184.15 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4ab85e6a-469e-41a7-a4c3-317577608796")
+	)
+	(wire
+		(pts
 			(xy 92.71 104.14) (xy 92.71 106.68)
 		)
 		(stroke
@@ -11120,6 +11168,16 @@
 	)
 	(wire
 		(pts
+			(xy 173.99 19.05) (xy 173.99 20.32)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6188138c-f4b0-4c2a-86b3-6a1bf6e8ae9a")
+	)
+	(wire
+		(pts
 			(xy 271.78 186.69) (xy 273.05 186.69)
 		)
 		(stroke
@@ -11347,6 +11405,16 @@
 			(type default)
 		)
 		(uuid "6971fe0e-9f34-45d4-9379-a81e0862ac6a")
+	)
+	(wire
+		(pts
+			(xy 162.56 19.05) (xy 173.99 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6aee56cd-932d-4781-8bef-a519678a2612")
 	)
 	(wire
 		(pts
@@ -12260,6 +12328,16 @@
 	)
 	(wire
 		(pts
+			(xy 162.56 25.4) (xy 162.56 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8f0d49e3-430e-4632-a689-827ec94650bb")
+	)
+	(wire
+		(pts
 			(xy 368.3 209.55) (xy 368.3 210.82)
 		)
 		(stroke
@@ -12267,6 +12345,16 @@
 			(type default)
 		)
 		(uuid "8fbec01b-0d58-4166-92cb-47fe7db704ba")
+	)
+	(wire
+		(pts
+			(xy 184.15 25.4) (xy 184.15 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "906166f4-21a6-4c39-902d-c07d50633e69")
 	)
 	(wire
 		(pts
@@ -13600,6 +13688,16 @@
 	)
 	(wire
 		(pts
+			(xy 162.56 19.05) (xy 162.56 20.32)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d8863635-272f-4252-a994-96f9e8fd4d99")
+	)
+	(wire
+		(pts
 			(xy 388.62 86.36) (xy 388.62 87.63)
 		)
 		(stroke
@@ -13697,6 +13795,16 @@
 			(type default)
 		)
 		(uuid "dcfd1f7f-ff95-42fa-b3cf-4c70e7a8ac76")
+	)
+	(wire
+		(pts
+			(xy 173.99 19.05) (xy 184.15 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd25fc08-4c94-4b37-b2bd-fe66bebc4528")
 	)
 	(wire
 		(pts
@@ -26929,6 +27037,143 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C_Small")
+		(at 162.56 22.86 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "54ad065f-3004-43a6-8d0a-930e9e04de51")
+		(property "Reference" "C14"
+			(at 165.1 21.5962 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1u"
+			(at 165.1 24.1362 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 162.56 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://jlcpcb.com/partdetail/53938-CL05A105KA5NQNC/C52923"
+			(at 162.56 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "STM32 local bypass; Samsung CL05A105KA5NQNC; 1uF 25V X5R +/-10%; JLCPCB Basic C52923"
+			(at 162.56 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C52923"
+			(at 162.56 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 162.56 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 162.56 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 162.56 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Comment" ""
+			(at 162.56 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "e7f1be25-a9c0-434a-adbc-9397f264ab78")
+		)
+		(pin "1"
+			(uuid "df673fa9-34cc-481c-8035-b533b0100ffc")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "C14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 278.13 214.63 0)
 		(unit 1)
@@ -32699,6 +32944,143 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "#PWR030")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 173.99 22.86 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8a0ca3b8-e012-4f35-b6a0-7cb6502bff3e")
+		(property "Reference" "C15"
+			(at 176.53 21.5962 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1u"
+			(at 176.53 24.1362 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 173.99 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://jlcpcb.com/partdetail/53938-CL05A105KA5NQNC/C52923"
+			(at 173.99 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "STM32 local bypass; Samsung CL05A105KA5NQNC; 1uF 25V X5R +/-10%; JLCPCB Basic C52923"
+			(at 173.99 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C52923"
+			(at 173.99 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 173.99 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 173.99 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 173.99 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Comment" ""
+			(at 173.99 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "ccf43041-f265-4d34-a659-f23d9d58d286")
+		)
+		(pin "1"
+			(uuid "e2afa7d2-c347-4352-b2d6-ed9aaa8c5f94")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "C15")
 					(unit 1)
 				)
 			)
@@ -39054,6 +39436,143 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C_Small")
+		(at 184.15 22.86 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bc343cfa-4596-46b0-b1d4-2f6f73ece6f4")
+		(property "Reference" "C16"
+			(at 186.69 21.5962 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1u"
+			(at 186.69 24.1362 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 184.15 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://jlcpcb.com/partdetail/53938-CL05A105KA5NQNC/C52923"
+			(at 184.15 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "STM32 local bypass; Samsung CL05A105KA5NQNC; 1uF 25V X5R +/-10%; JLCPCB Basic C52923"
+			(at 184.15 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C52923"
+			(at 184.15 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 184.15 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 184.15 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 184.15 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Comment" ""
+			(at 184.15 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "89008ea3-ad0f-4766-8886-803c63838ce7")
+		)
+		(pin "1"
+			(uuid "e74b4b94-4bb0-4987-9957-80f2c4d44ff3")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "C16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 383.54 53.34 0)
 		(unit 1)
@@ -41981,7 +42500,7 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
@@ -44281,6 +44800,83 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 184.15 26.67 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "d8343278-901f-4482-9ffb-44161bd92a3d")
+		(property "Reference" "#PWR0106"
+			(at 184.15 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 187.96 27.94 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 184.15 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 184.15 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 184.15 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "36e0d117-9782-472f-8d29-fcedaaf07a3d")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "#PWR0106")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_Small")
 		(at 217.17 31.75 0)
 		(unit 1)
@@ -46493,6 +47089,83 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "R85")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 162.56 26.67 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "e6117f34-40f2-4443-8cf7-d71e6470444f")
+		(property "Reference" "#PWR0104"
+			(at 162.56 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 166.37 27.94 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 162.56 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 162.56 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 162.56 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "201549f0-cbfd-4e37-80f6-775571bc5fdc")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "#PWR0104")
 					(unit 1)
 				)
 			)
@@ -48741,6 +49414,83 @@
 			(project "hp21xx_papertape_emulator"
 				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
 					(reference "#PWR085")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 173.99 26.67 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "f8ff832d-6391-4881-8f65-335396b4d106")
+		(property "Reference" "#PWR0105"
+			(at 173.99 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 177.8 27.94 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 173.99 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 173.99 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 173.99 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "424a5fde-07c0-43c8-9179-8f5000a280fd")
+		)
+		(instances
+			(project "hp21xx_papertape_emulator"
+				(path "/dca39f23-b951-4c9b-9ea5-0122ff9447f1"
+					(reference "#PWR0105")
 					(unit 1)
 				)
 			)
