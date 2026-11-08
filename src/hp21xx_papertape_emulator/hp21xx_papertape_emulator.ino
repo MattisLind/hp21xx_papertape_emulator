@@ -791,7 +791,7 @@ static void drawHeader(const char *title) {
   // Draw common top header.
   display.setFont(u8g2_font_6x10_tf);
   display.drawStr(0, 8, title);
-  display.drawStr(104, 8, "V1.1");
+  display.drawStr(104, 8, "V2.0");
   display.drawHLine(0, 10, 128);
 }
 

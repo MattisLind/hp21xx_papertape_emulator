@@ -2,7 +2,7 @@ DOCKER ?= docker
 IMAGE ?= hp21xx-firmware:1.1
 # STM32 core 2.11.0's STM32Tools package has no Linux ARM64 release.
 export DOCKER_DEFAULT_PLATFORM := linux/amd64
-VERSION := 1.1
+VERSION := 2.0
 FQBN := STMicroelectronics:stm32:GenF1:pnum=BLUEPILL_F103C8,opt=osstd,rtlib=nano,usb=none,xserial=generic,xusb=FS,dbg=none,upload_method=OpenOCDSTLink
 SDFAT_FLAGS := -DSDFAT_FILE_TYPE=1 -DFAT12_SUPPORT=1 -DUSE_UTF8_LONG_NAMES=1 -DUSE_BLOCK_DEVICE_INTERFACE=1
 RUN = $(DOCKER) run --rm --user "$$(id -u):$$(id -g)" -e HOME=/tmp -v "$(CURDIR):/workspace" -w /workspace $(IMAGE)

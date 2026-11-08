@@ -1,5 +1,13 @@
 # HP 21XX Paper Tape Emulator
 
+The latest hardware version is **V2.0** (V2). V2.0 uses a **full-size SD card** and requires the **V2 enclosure**, which is the latest enclosure revision in [`box/cad`](box/cad). Earlier boards use microSD cards and the earlier enclosure. **Firmware V2.0 requires the V2.0 board** because its activity LED circuit uses active-low drive.
+
+The current repository **HEAD is V2.0**. All V1.1 files, including firmware,
+release binaries, PCB design and enclosure, are preserved at the
+[`V1.1` Git tag](https://github.com/MattisLind/hp21xx_papertape_emulator/tree/V1.1).
+Browse that tag or check it out with `git switch --detach V1.1` to use the
+complete V1.1 revision.
+
 The idea to this project come from this page: [newton.freehostia.com/hp](https://newton.freehostia.com/hp/). A simple PIC processor connected to the ubiquitous HP 12566 Microcircuit boards that provide 16 bits of general input and output with a simple handshake. The software interface is identical to the one used for the paper tape reader and paper tape punch. The interface originally used for punch and reader, 12597A is a +12V level interface which made them a bit harder to interface. The 12566A board which used just standard +5V signals was easier to work with and I had plenty of them.
 
 So I thought I should make my own, but then I thought, why involve a PC. I could store the files I wished to download on a small SD-card and have a small display and a couple of buttons to interact with to select what file I wanted to download into the machine! And then there was this idea, why not make it work as a punch as well so that I can take the output from the HP computer and store it on a file that subsequently can be uploaded. Useful if one would try compiling some small program on it.
@@ -15,7 +23,7 @@ Loading of the 72 k abolute binary files takes place when the red LED light up f
 
 ![picture of the gadget](./PaperTapeEmulator.JPG)
 
-This is how the finished board came to look like. Three buttons, Up, Down and Select, and small 128x64 OLED panel to configure and control it. A Micro SD card for file storage and USB-C connector that can be used to power the device unless powered over the 26 pin ribbin connector. The green LED indicate power and the red LED indicate activity.
+The photo shows the earlier board with a microSD card; V2 uses a full-size SD card. There are three buttons, Up, Down and Select, and a small 128x64 OLED panel to configure and control it. The USB-C connector can be used to power the device unless powered over the 26 pin ribbon connector. The green LED indicates power and the red LED indicates activity.
 
 The UI is rather simple. Simply navigating up and down and press the select button. The main menu have two menu items, one to select the reader file and one select the punch file. Pressing select will get you to a file selct menu where the currently selected file is shown and where you can navigate to the file you want to select. Pressing select also exits back to the main menu. On the punch menu there are also an option to create a new file with a sequence number. If an existing file is selected it will append to that file.
 
@@ -109,7 +117,7 @@ Install Docker and Make, then run:
 ```sh
 make setup    # Build the tool image and download its pinned dependencies
 make          # Build firmware using the container
-make release  # Also copy V1.1 into binaries/
+make release  # Also copy V2.0 into binaries/
 make probe    # Identify the connected ST-Link target
 make program  # Back up existing flash, program, verify, and reset into firmware
 ```
@@ -119,7 +127,7 @@ Make selects `linux/amd64`, including on Apple Silicon, because STM32 core
 the required emulation. The Dockerfile contains Arduino CLI 1.1.1, the STM32 compiler and core, all
 firmware libraries, OpenOCD, and GDB. Build outputs (`.bin`, `.hex`, `.elf`) are
 in `build/firmware/`. The release binary is
-`binaries/hp21xx_papertape_emulator.ino.v1.1.bin`.
+[`binaries/hp21xx_papertape_emulator.ino.v2.0.bin`](binaries/hp21xx_papertape_emulator.ino.v2.0.bin).
 
 On Linux, programming uses `/dev/bus/usb` directly inside the container. On
 macOS, [Docker Desktop cannot directly pass USB devices to containers](https://docs.docker.com/desktop/troubleshoot-and-support/faqs/general/).
@@ -162,16 +170,27 @@ Software to upload code via serial port is for example [stm32flash](https://gith
 
 I have not tried serial boot mode myself so I cannot tell how to work with it. I always use the STM32 SWD dongle.
 
-The revised schematic connects D1 to 3.3 V so PC13 sinks its current through
-R3 (1 kΩ). Current source code uses active-low LED drive; on older boards
-with the original active-high LED circuit its indication will be inverted.
-The existing release binaries have not been rebuilt for this hardware
-revision. See the [schematic review](kicad/hp21xx_papertape_emulator/schematic-review.md)
+The V2.0 board connects D1 to 3.3 V so PC13 sinks its current through
+R3 (1 kΩ). Firmware V2.0 uses active-low LED drive: LOW turns the activity LED
+on and HIGH turns it off. It requires the V2.0 board; on older boards with
+the original active-high LED circuit its indication will be inverted. Use
+firmware V1.1 for those earlier boards. See the [schematic review](kicad/hp21xx_papertape_emulator/schematic-review.md)
 for component selections, decoupling placement and the JTAG reset pull-up
 analysis. R64/R76 now use 2.2 kΩ pull-downs to hold those MOSFET gates low
 during reset.
 
 ## Software releases
+
+### V2.0
+
+V2.0 requires the V2.0 board with its revised activity LED circuit and full-size
+SD socket. It includes active-low activity LED drive and displays `V2.0` in the
+menu header. The release binary is
+[`hp21xx_papertape_emulator.ino.v2.0.bin`](binaries/hp21xx_papertape_emulator.ino.v2.0.bin).
+V2.0 hardware also requires the latest V2 enclosure in [`box/cad`](box/cad).
+The container build uses 58,748 bytes of flash and 10,496 bytes of static RAM;
+the release binary is 59,064 bytes. This release has been built successfully
+but has not yet been tested on the V2.0 board.
 
 ### V1.1
 
@@ -189,7 +208,7 @@ I was thinking I should do an enclosure for this little thing, but my skills in 
 
 ![enclosure](box/cad/Box.JPG)
 
-All the files can be found in the box/cad directory.
+The latest files in [`box/cad`](box/cad) are the **V2 enclosure**, required for the V2 board with its full-size SD card. See the [enclosure documentation](box/cad/README.md) for details.
 
 ## Documentation
 
