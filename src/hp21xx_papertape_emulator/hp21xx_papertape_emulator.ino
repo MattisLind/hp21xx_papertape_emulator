@@ -1101,7 +1101,8 @@ void setup(void) {
   pinMode(PIN_USB_PULLUP, OUTPUT);
   digitalWrite(PIN_USB_PULLUP, LOW);
 
-  // Preload the inactive level before enabling the output to avoid a flash.
+  // Clock GPIOC before preloading the inactive level on PC13.
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   digitalWrite(PIN_ACTIVITY_LED, HIGH);
   pinMode(PIN_ACTIVITY_LED, OUTPUT);
 

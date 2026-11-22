@@ -154,22 +154,6 @@ commit `cda057318bec196183d4cc92b01bc1dd64bbfb02`, and
 [TinyUSB-Arduino-STM32](https://github.com/code-fiasco/TinyUSB-Arduino-STM32)
 commit `d722701738f48234fd9fb6a4110e7885ef2393da`.
 
-
-The latest schematic supports SWD programming and factory USART1 programming.
-JP1 bridges BOOT0 to 3.3 V; BOOT1/PB2 is held low through the existing PUSEL
-pull-down circuit during reset. Bridge JP1 and press the new SW4 reset button
-to enter the ROM serial bootloader. A full power cycle also works when no
-other connection keeps the board powered. Connect a 3.3 V logic USB–UART
-adapter's TX to J2 pin 3, RX to pin 2, and ground to pin 4. Leave J2 pin 1
-unconnected when the board is USB powered. Remove the BOOT0 bridge and reset
-after programming to run the application. Existing boards may require a
-BOOT0 wire and an external reset connection. The committed PCB still needs
-updating to match these schematic changes.
-
-Software to upload code via serial port is for example [stm32flash](https://github.com/FYSETC/stm32flash)
-
-I have not tried serial boot mode myself so I cannot tell how to work with it. I always use the STM32 SWD dongle.
-
 The V2.0 board connects D1 to 3.3 V so PC13 sinks its current through
 R3 (1 kΩ). Firmware V2.0 uses active-low LED drive: LOW turns the activity LED
 on and HIGH turns it off. It requires the V2.0 board; on older boards with
@@ -178,6 +162,46 @@ firmware V1.1 for those earlier boards. See the [schematic review](kicad/hp21xx_
 for component selections, decoupling placement and the JTAG reset pull-up
 analysis. R64/R76 now use 2.2 kΩ pull-downs to hold those MOSFET gates low
 during reset.
+
+### Serial programming the V2.0 board
+
+The STM32 factory bootloader programs the board through USART1 on J2.
+Use a USB–UART adapter such as an FT232 configured for **3.3 V logic on
+TX and RX**. **Do not use RS-232 or 5 V TTL signaling.** Power the board
+through USB-C and leave J2 pin 1 unconnected.
+
+| USB–UART adapter | V2.0 board |
+| --- | --- |
+| TX | J2 pin 3 (STM32 RX) |
+| RX | J2 pin 2 (STM32 TX) |
+| GND | J2 pin 4 (GND) |
+
+1. **Enter the bootloader.** Fit the BOOT0 jumper at JP1 and press and release
+   the SW4 reset button. The STM32 samples BOOT0 at reset. If you powered up
+   with JP1 already fitted, the board will already be in bootstrap mode and
+   you can skip the button press.
+2. **Write and verify the firmware.** From the repository root, run the
+   appropriate command below. Wait for `stm32flash` to report that writing
+   and verification reached 100%.
+3. **Start the firmware.** Remove the BOOT0 jumper and press and release SW4
+   again to boot from flash.
+
+On macOS, install the native tool with `brew install stm32flash`. Replace
+`PORT` with your adapter's device path, for example `/dev/cu.usbserial-A501W3K5`.
+
+```sh
+stm32flash -w binaries/hp21xx_papertape_emulator.ino.v2.0.bin -v PORT
+```
+
+On Linux, run `make setup` to build the Docker image with `stm32flash`.
+Replace both occurrences of `/dev/ttyUSB0` if your adapter uses a different
+device path.
+
+```sh
+docker run --rm --platform linux/amd64 --device /dev/ttyUSB0 \
+  -v "$PWD:/workspace:ro" hp21xx-firmware:1.1 \
+  stm32flash -w binaries/hp21xx_papertape_emulator.ino.v2.0.bin -v /dev/ttyUSB0
+```
 
 ## Software releases
 
