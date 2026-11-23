@@ -1,7 +1,7 @@
 # Build and programming scripts
 
-The three scripts below are source files required by the project's Docker and
-Make workflow. Track them in Git together with this README, the root Makefile,
+The scripts below support the project's Docker and Make workflow and host
+checks. Track them in Git together with this README, the root Makefile,
 Dockerfile, and `.dockerignore`.
 
 | File | Purpose | Used by |
@@ -9,6 +9,7 @@ Dockerfile, and `.dockerignore`.
 | [arduino_setup.py](arduino_setup.py) | Installs STM32 core 2.11.0 and the pinned firmware libraries, including the separate TinyUSB STM32 port. Writes an isolated Arduino CLI configuration and downloads its dependencies. | The Dockerfile, when `make setup` builds the image. |
 | [stlink.sh](stlink.sh) | Detects and programs the STM32 through ST-Link. On macOS, downloads a checksum-verified OpenOCD USB bridge into `build/stlink/` and connects the container's debugger to it. On Linux, accesses USB from the container directly. Also supports an existing bridge through `PROGRAM_HOST`. | `make probe`, `make program`, and `make bridge`. |
 | [program.gdb](program.gdb) | Connects to OpenOCD, halts and resets the target, saves its existing 64 KiB flash to a timestamped backup, loads the firmware ELF, verifies the loaded sections, and resets the target to run. A verification failure stops the script. | GDB inside the container, launched by `stlink.sh` for `make program`. |
+| [check_punch.py](check_punch.py) | Checks the sketch reader and punch data functions for every byte and both polarity settings. Needs Python 3 and a C++11 compiler (`CXX` can override it). | `python3 scripts/check_punch.py` from the repository root. |
 
 Use the Make targets from the repository root rather than invoking these scripts
 directly. See the root [README](../README.md#building-and-programming-with-docker-and-make)

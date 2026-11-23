@@ -243,7 +243,7 @@ static void writeDataBus(uint8_t value, bool activeHigh) {
   // Write one byte to D0..D7, least significant bit first.
   for (uint8_t i = 0; i < 8; i++) {
     bool tmp = (value & (1U << i));
-    digitalWrite(DATA_PINS[i], tmp == activeHigh ? HIGH : LOW);
+    digitalWrite(DATA_PINS[i], tmp == activeHigh ? LOW : HIGH);
   }
 }
 

@@ -205,6 +205,17 @@ docker run --rm --platform linux/amd64 --device /dev/ttyUSB0 \
 
 ## Software releases
 
+### Data polarity correction
+
+The matching V1.2 release for V1.x boards is maintained on branch
+`firmware/v1.2`, based on the `V1.1` tag. Main retains the V2.0 board target.
+
+Reader and punch data settings now match the configured logic sense. For
+GND TRUE interfaces use `reader.dataActiveHigh=0` and
+`punch.dataActiveHigh=0`. Active-high interfaces use `1` for each.
+Normal buffered SD writes and the original display are retained.
+
+
 ### V2.0
 
 V2.0 requires the V2.0 board with its revised activity LED circuit and full-size
@@ -212,8 +223,8 @@ SD socket. It includes active-low activity LED drive and displays `V2.0` in the
 menu header. The release binary is
 [`hp21xx_papertape_emulator.ino.v2.0.bin`](binaries/hp21xx_papertape_emulator.ino.v2.0.bin).
 V2.0 hardware also requires the latest V2 enclosure in [`box/cad`](box/cad).
-The container build uses 58,748 bytes of flash and 10,496 bytes of static RAM;
-the release binary is 59,064 bytes. This release has been built successfully
+The container build uses 58,768 bytes of flash and 10,496 bytes of static RAM;
+the release binary is 59,084 bytes. This release has been built successfully
 but has not yet been tested on the V2.0 board.
 
 ### V1.1
